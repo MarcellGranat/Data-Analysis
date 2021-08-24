@@ -1,0 +1,11 @@
+# Week 2 {#Chapter-3}
+
+```{css, echo=FALSE}
+p {
+text-align: justify;
+  }
+```
+
+## Lecture 2
+
+## Seminar 2

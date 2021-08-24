@@ -1,0 +1,11 @@
+# Week 1
+
+```{css, echo=FALSE}
+p {
+text-align: justify;
+  }
+```
+
+## Lecture 1
+
+## Seminar 1

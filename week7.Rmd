@@ -1,0 +1,11 @@
+# Week 7
+
+```{css, echo=FALSE}
+p {
+text-align: justify;
+  }
+```
+
+## Lecture 7
+
+## Seminar 7

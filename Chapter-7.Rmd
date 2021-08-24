@@ -1,9 +1,0 @@
-# Konklúzió {#Chapter-7}
-
-```{css, echo=FALSE}
-p {
-text-align: justify;
-  }
-```
-
-Tanulmányomban az egy főre eső GDP és munkanélküliség teljes termékenységi arányszámra gyakorolt hatását elemzem. A választott eszközök között szerepel az Engel-Granger kointegrációs teszt, amellyel megerősítettem a hipotézist, hogy szomszédos országok termékenységi rátájának alakulása általában nagyobb egyezőséget mutat, melynek magyarázata lehet a közös gazdasági környezet és kultúra. Második választott eszköz a vektor autoregresszív modellek készítése, melyekből levonható konklúzió, hogy a GDP/fő pozitívan, míg a munkanélküliségi ráta negatívan befolyásolja a termékenységi arányszámot, de kettő közül előbbi alakulása fontosabb. Harmadik eszközként panel modellt választottam a Magyarországi megyékre, mely tanulmányom fő hozzáadott értékét képviseli. Statisztikailag szignifikáns magyarázóváltozónak bizonyult GDP/fő, hatása egy évvel később érvényesül, továbbá határhatása csökkenő, és 7 340 000 Ft-ig, amely fölött egyedül Budapest van, növeli a TTA értékét. Ez alapján elmondható, hogy a termékenységi ráta növelése szempontjából a szegényebb régiók egy főre eső bruttó kibocsátásának növelése javasolt.

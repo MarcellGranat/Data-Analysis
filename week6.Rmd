@@ -1,0 +1,11 @@
+# Week 6 {#Chapter-7}
+
+```{css, echo=FALSE}
+p {
+text-align: justify;
+  }
+```
+
+## Lecture 6
+
+## Seminar 6
