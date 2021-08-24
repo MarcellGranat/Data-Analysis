@@ -1,0 +1,51 @@
+---
+title: "A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel"
+author: "Granát Marcell"
+output: bookdown::gitbook
+site: bookdown::bookdown_site
+favicon: "logo.ico"
+---
+
+# Absztrakt {#index}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, comment = "", warning = F, message = F, cache = F)
+library(tidyverse)
+library(ggpubr)
+library(tseries)
+library(forecast)
+library(plm)
+library(sf)
+library(ggfortify)
+theme_set(theme_grey() + 
+            theme(legend.position = "bottom", 
+                  text = element_text(size = 12), 
+                  legend.box = "vertical", 
+                  legend.key = element_blank()))
+repmis::source_data("https://raw.githubusercontent.com/MarcellGranat/ujdemografiaiprogram/main/ujdemografiaiprogram.RData")
+```
+
+***
+
+Kézirat lezárásának dátuma: 2020. november 1.\
+A tanulmány a 2020-as az Új jövőkép MNB Tanulmányi Verseny *Új Demográfiai Program* szekciójába készült, melyben Kiváló pályamű díjat nyert.
+
+A kézirat tartalmához fűzödő tudományos diszkusszió támogatása érdekében egy párbeszéd ablak került megnyitásra az anyagokat tartalmazó GitHub repository oldalán: https://github.com/MarcellGranat/ujdemografiaiprogram/discussions
+
+***
+
+```{css, echo=FALSE}
+p {
+text-align: justify;
+}
+.author {
+  font-size: 20px;
+  text-align: center;
+  color: #4a4a4a
+} 
+.title {
+  text-align: center;
+}
+```
+
+Tanulmányomban az egy főre eső GDP és munkanélküliség teljes termékenységi arányszámra gyakorolt hatását elemzem. A választott eszközök között szerepel az Engel-Granger kointegrációs teszt, amellyel megerősítettem a hipotézist, hogy szomszédos országok termékenységi rátájának alakulása általában nagyobb egyezőséget mutat, melynek magyarázata lehet a közös gazdasági környezet és kultúra. Második választott eszköz a vektor autoregresszív modellek készítése, melyekből levonható konklúzió, hogy a GDP/fő pozitívan, míg a munkanélküliségi ráta negatívan befolyásolja a termékenységi arányszámot, de kettő közül előbbi alakulása fontosabb. Harmadik eszközként panel modellt választottam a Magyarországi megyékre, mely tanulmányom fő hozzáadott értékét képviseli. Statisztikailag szignifikáns magyarázóváltozónak bizonyult GDP/fő, hatása egy évvel később érvényesül, továbbá határhatása csökkenő, és 7 340 000 Ft-ig növekvő. Ez alapján elmondható, hogy a termékenységi ráta növelése szempontjából a szegényebb régiók egy főre eső bruttó kibocsátásának növelése javasolt.

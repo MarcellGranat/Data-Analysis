@@ -1,0 +1,31 @@
+# Irodalomjegyzék, függelék {#Chapter-8}
+
+```{css, echo=FALSE}
+p {
+text-align: justify;
+  }
+```
+
+## Irodalomjegyzék
+
+- Berde, É. & Németh, P., 2014. Az alacsony magyarországi termékenység új megközelítésben. Budapest: Statisztikai Szemle.
+- Bongaarts, J. & Feeney, G., 2006. The quantum and tempo of life-cycle events. Vienna Yearbook of Population Research.
+- Cigno, A., Casolaro, L. & Rosati, F. C., 2001. The Role of Social Security in Household Decisions: VAR Estimates of Saving and Fertility Behaviour in Germany.  Elérhető: https://ssrn.com/abstract=258953
+- Clegg, M., 2014. On the Persistence of Cointegration in Pairs Trading. 
+- Götmark, F. & Andersson, M., 2020. Human fertility in relation to education, economy, religion, contraception, and family planning programs. BioMed Central.
+- König, S., 2011. Higher order births in Germany and Hungary - Comparing fertility intentions in a national context. Elérhető: https://www.researchgate.net/publication/312165001_Higher_order_births_in_Germanyand_Hungary_-_Comparing_fertility_intentions_in_a_national_context
+- Központi Statisztikai Hivatal, 2018. Terhességmegszakítások. Központi Statisztikai Hivatal.
+- Kreiszné Hudák, E., 2019. Öregedő társadalmak gazdasági kihívásai. Itt: V. Barnabás, szerk. A jövő fenntartható közgazdaságtana. Budapest: Magyar Nemzeti Bank, p. 207.
+- Maddala, S. G., 2004. Bevezetés az ökonometriába. In: Budapest: Nemzeti Tankönyvkiadó Rt..
+- OECD, 2019. Society at a Glance 2019: OECD Social Indicators. Paris: OECD Publishing.
+- Spéder, Z., 2019. A hazai termékenységi magatartás nemzetközi összehasonlításban. Doktori értekezés.
+- Tárkányi , Á., 2008. A második demográfiai átmenet néhány főbb tényezője a fejlett világban és Magyarországon. Demográfia.
+- The Economist, 2019. China needs people to have more children. So why punish those who do?. London: The Economist Group Limited.
+
+## Függelék: felhasznált adatok forrása
+
+ -	https://data.oecd.org/pop/fertility-rates.htm
+ -	http://www.ksh.hu/docs/hun/xstadat/xstadat_hosszu/h_qpt001.html
+ -	http://www.ksh.hu/docs/hun/xstadat/xstadat_hosszu/mpal2_01_02_01a.html
+ -	http://www.ksh.hu/docs/hun/xstadat/xstadat_hosszu/h_wdsd001b.html
+ -	KSH- demográfiai évkönyvek 2006 -2019

@@ -1,0 +1,16 @@
+book_filename: "my-book.Rmd"
+language:
+  ui:
+    edit: "Jump to GitHub"
+  label:
+    fig: "Ábra "
+    tab: "Táblázat "
+edit: https://github.com/MarcellGranat/ujdemografiaiprogram/blob/main/%s
+output_dir: "docs"
+sharing:
+  github: yes
+  facebook: yes
+  twitter: yes
+  all: no
+rmd_files: ["index.Rmd", "Chapter-1.Rmd", "Chapter-2.Rmd", "Chapter-3.Rmd", "Chapter-4.Rmd", "Chapter-5.Rmd"
+, "Chapter-6.Rmd", "Chapter-7.Rmd", "Chapter-8.Rmd"]

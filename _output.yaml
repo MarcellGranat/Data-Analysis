@@ -1,0 +1,12 @@
+bookdown::gitbook:
+  number_sections: false
+  config:
+    toc:
+      collapse: section
+      before: |
+        <img src="logo.png" width="300" height="300">
+    sharing:
+      github: yes
+      facebook: yes
+      twitter: yes
+      all: no
