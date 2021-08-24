@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Magyarországi idősoros adatok elemzése vektor autoregresszív modellel | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel</title>
-  <meta name="description" content="Magyarországi idősoros adatok elemzése vektor autoregresszív modellel | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <title>Week 4 | Data Analysis</title>
+  <meta name="description" content="Week 4 | Data Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Magyarországi idősoros adatok elemzése vektor autoregresszív modellel | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel" />
+  <meta property="og:title" content="Week 4 | Data Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Magyarországi idősoros adatok elemzése vektor autoregresszív modellel | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel" />
+  <meta name="twitter:title" content="Week 4 | Data Analysis" />
   
   
   
 
-<meta name="author" content="Granát Marcell" />
+<meta name="author" content="Marcell Granát &amp; Zoltán Madari" />
 
 
 
@@ -32,6 +32,7 @@
   <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
 <link rel="prev" href="Chapter-4.html"/>
 <link rel="next" href="Chapter-6.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,68 +52,6 @@
 
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 </head>
 
@@ -129,35 +68,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="logo.png" width="300" height="300">
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Absztrakt</a></li>
-<li class="chapter" data-level="" data-path="Chapter-1.html"><a href="Chapter-1.html"><i class="fa fa-check"></i>Bevezetés</a></li>
-<li class="chapter" data-level="" data-path="Chapter-2.html"><a href="Chapter-2.html"><i class="fa fa-check"></i>A magyar születésszám az elmúlt 60 évben</a></li>
-<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html"><i class="fa fa-check"></i>Szakirodalom</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html"><i class="fa fa-check"></i>Kointegrációs teszt az OECD által közölt termékenységi arányszámokon</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#elméleti-megfontolás"><i class="fa fa-check"></i>Elméleti megfontolás</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#a-kointegráció-módszertanának-bemutatása"><i class="fa fa-check"></i>A kointegráció módszertanának bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#általános-modell-bemutatása"><i class="fa fa-check"></i>Általános modell bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#modellbecslés-és-hipotézisvizsgálat"><i class="fa fa-check"></i>Modellbecslés és hipotézisvizsgálat</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#eredmények-értelmezése-következtetések-levonása"><i class="fa fa-check"></i>Eredmények értelmezése, következtetések levonása</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i>Week 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-1.html"><a href="week-1.html#lecture-1"><i class="fa fa-check"></i>Lecture 1</a></li>
+<li class="chapter" data-level="" data-path="week-1.html"><a href="week-1.html#seminar-1"><i class="fa fa-check"></i>Seminar 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html"><i class="fa fa-check"></i>Magyarországi idősoros adatok elemzése vektor autoregresszív modellel</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#elméleti-megfontolás-1"><i class="fa fa-check"></i>Elméleti megfontolás</a></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#a-vektor-autoregresszív-modell-módszertanának-bemutatása"><i class="fa fa-check"></i>A vektor autoregresszív modell módszertanának bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#modellbecslés-hipotézisvizsgálat-eredmények-értelmezése"><i class="fa fa-check"></i>Modellbecslés, hipotézisvizsgálat, eredmények értelmezése</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#csak-egy-főre-jutó-gdp-t-és-tta-t-tartalmazó-modell"><i class="fa fa-check"></i>Csak egy főre jutó GDP-t és TTA-t tartalmazó modell</a></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#az-egy-főre-jutó-gdp-t-munkanélküliségi-rátát-és-tta-t-tartalmazó-modell"><i class="fa fa-check"></i>Az egy főre jutó GDP-t, munkanélküliségi rátát és TTA-t tartalmazó modell</a></li>
+<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html"><i class="fa fa-check"></i>Week 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html#lecture-2"><i class="fa fa-check"></i>Lecture 2</a></li>
+<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html#seminar-2"><i class="fa fa-check"></i>Seminar 2</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html"><i class="fa fa-check"></i>Week 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#lecture-3"><i class="fa fa-check"></i>Lecture 3</a></li>
+<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#seminar-3"><i class="fa fa-check"></i>Seminar 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html"><i class="fa fa-check"></i>Magyarországi panel adatok</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#elméleti-megfontolás-2"><i class="fa fa-check"></i>Elméleti megfontolás</a></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#módszertan-bemutatása"><i class="fa fa-check"></i>Módszertan bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#modellbecslés-és-hipotézisvizsgálat-1"><i class="fa fa-check"></i>Modellbecslés és hipotézisvizsgálat</a></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#eredmények-értelmezése-következtetések-levonása-1"><i class="fa fa-check"></i>Eredmények értelmezése, következtetések levonása</a></li>
+<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html"><i class="fa fa-check"></i>Week 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#lecture-4"><i class="fa fa-check"></i>Lecture 4</a></li>
+<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#seminar-4"><i class="fa fa-check"></i>Seminar 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html"><i class="fa fa-check"></i>Konklúzió</a></li>
-<li class="chapter" data-level="" data-path="Chapter-8.html"><a href="Chapter-8.html"><i class="fa fa-check"></i>Irodalomjegyzék, függelék</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-8.html"><a href="Chapter-8.html#irodalomjegyzék"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
-<li class="chapter" data-level="" data-path="Chapter-8.html"><a href="Chapter-8.html#függelék-felhasznált-adatok-forrása"><i class="fa fa-check"></i>Függelék: felhasznált adatok forrása</a></li>
+<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html"><i class="fa fa-check"></i>Week 5</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#lecture-5"><i class="fa fa-check"></i>Lecture 5</a></li>
+<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#seminar-5"><i class="fa fa-check"></i>Seminar 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html"><i class="fa fa-check"></i>Week 6</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html#lecture-6"><i class="fa fa-check"></i>Lecture 6</a></li>
+<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html#seminar-6"><i class="fa fa-check"></i>Seminar 6</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i>Week 7</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-7.html"><a href="week-7.html#lecture-7"><i class="fa fa-check"></i>Lecture 7</a></li>
+<li class="chapter" data-level="" data-path="week-7.html"><a href="week-7.html#seminar-7"><i class="fa fa-check"></i>Seminar 7</a></li>
 </ul></li>
 </ul>
 
@@ -168,7 +113,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis</a>
           </h1>
         </div>
 
@@ -177,201 +122,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="Chapter-5" class="section level1">
-<h1>Magyarországi idősoros adatok elemzése vektor autoregresszív modellel</h1>
+<h1>Week 4</h1>
 <style type="text/css">
 p {
-  text-align: justify;
-}
+text-align: justify;
+  }
 </style>
-<div id="elméleti-megfontolás-1" class="section level2">
-<h2>Elméleti megfontolás</h2>
-<p>A következőkben a magyar termékenységi ráta, az egy főre eső GDP és a munkanélküliségi ráta közötti kapcsolatot kívánom elemezni vektor autoregresszív modellel. Választásom azért esett erre az eszközre, mert (1) Granger-okság tesztelésével minden irányba ellenőrizhetőek a hatások, (2) varianciadekompozícióval az egyes változók relatív fontossága is meghatározható, továbbá impulzus válaszfüggvények segítségével nemcsak egy adott évre adható előrejelzés egy sokk következtében, de annak lecsengési üteme is kirajzolódik.</p>
+<div id="lecture-4" class="section level2">
+<h2>Lecture 4</h2>
 </div>
-<div id="a-vektor-autoregresszív-modell-módszertanának-bemutatása" class="section level2">
-<h2>A vektor autoregresszív modell módszertanának bemutatása</h2>
-<p>Az ebben a fejezetben alkalmazott modellek első lépése, hogy készíteni kell egy vektor autoregresszív modellt (VAR), amelyen oksági tesztet végzünk. A VAR-modellekben több idősor együttesen szerepel, és alapesetben valamennyien endogén változói a modellnek, tehát a mutatók egyes időpontokhoz tartozó értékei a modellben kerülnek meghatározásra és nem külsőleg kerülnek be. A modell elkészítéséhez a benne foglalt változók körén túl egy késleltetési paraméter (p) meghatározása szükséges, amely bevett módon valamely információs kritériumon alapszik. Ebben a tanulmányban én az Akaike-féle információs kritériumot alkalmazom. A modell tartalmilag egy olyan rendszer felépítését jelenti, ahol minden változó legutolsó p darab értékeinek sorozata hatással van saját magára és minden más változó tárgyévének meghatározására. Tehát a modellben minden változó t-edik évi értéke<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> úgy határozódik meg, hogy az összes változó p évet visszamenő értékének hatásainak eredőjét vesszük. Fontos azt megjegyezni, hogy egy változó értékére t-edik évben nem lehet hatással más változók t-edik évi értéke . A modell becslésnek azonban feltétele, hogy a bevont változók mind stacionerek legyenek, így előtte megfelelő számú differenciálással el kell érni.
-Az így felállított modelleken hajtottam végre a Granger-oksági teszteket. A teszt nem más, mint egy F-próba melynek nullhipotézise, hogy a vizsgált okozati változóra a modell becslése alapján felírt egyenletben oksági tényezőként tesztelt változó minden késleltetett értékéhez tartozó paraméter értéke nem különbözik statisztikailag szignifikánsan a nullától. Granger értelemben vett okság akkor áll fenn, ha ez a nullhipotézis elutasításra kerül, melynek interpretálása, hogy az eredményváltozóként tesztelt mutató jövőbeli értékére vonatkozóan csökken a bizonytalanság a magyarázó változó jelen, illetve múltbeli értékeinek ismeretében. Az elemzés eredményeinek megfelelően a helyen kezeléséhez szükséges hangsúlyozni, hogy a Granger-okság fennállása nem abban értelemben jelent kauzalitást, hogy a magyarázó változó valóban a kiváltó ok lenne a függő változó elváltozásában, csupán azt, hogy időben változása megelőzi azt, így előrejelzésében hasznosnak bizonyul. Ezzel azonban már meghaladja a korreláció interpretálhatóságát, miután az ok-okozati viszonyban betöltött szerepek identifikálhatóvá válnak.
-Az így elvégzett F-próbák csak késleltetett hatások eredményének megítélésére alkalmasak. Az egyidejű Granger-okság fennállásának tesztelése azon alapul, hogy a modellben endogén módon meghatározódó idősorok valós értéküktől vett eltéréseik mutatnak-e együttmozgást. Ebből következik, hogy míg az általános Granger-okság feltárja a kauzalitás irányát, addig az egyidejű Granger-okság szimmetrikus. Mindazonáltal fennállása esetén elméleti megfontolásból az okozat szerepét nem nyilvánítanám a TTA-ra, mivel a fogantatásnak időben biztosan korábban kellett megtörténnie.
-A VAR-modellekkel kapcsolatosan általánosan az a gyakorlati probléma, hogy rengeteg paramétert tartalmaznak. Az együtthatók számára vonatkozóan korlátozásokat nem tartalmazó modellek előrejelzés tekintetében is rosszul teljesítenek, de a bennük keletkező magas mértékű multikollinearitás az értelmezést is bonyolítja, míg alacsony késleltetés mellett a paraméterek becslése torzítottá válik (Maddala 2004). Így a vektor-autoregresszív modellek paramétereinek vizsgálata helyett az impulzus válaszfüggvényeket érdemes vizsgálat alá vetni. Az impulzus válaszfüggvény (IRF) azt mutatja be, hogy egy tárgyalt változónak a modellből származó reziduumainak szórásának egyenértékű sokk hatására miként reagál az egész rendszer, így a hatások iránya és lecsengése is megjelenítésre kerül.
-A modellből továbbá meghatározható az előrejelzés varianciadekompozíciója, amely megadja, hogy egy adott változó adott év múlvai érték varianciáját hány százalékban magyarázza, ily módon a változók között egy előrejelzés tekintetében relatív fontosság is felállítható.</p>
-</div>
-<div id="modellbecslés-hipotézisvizsgálat-eredmények-értelmezése" class="section level2">
-<h2>Modellbecslés, hipotézisvizsgálat, eredmények értelmezése</h2>
-<p>Felhasználva mind a munkanélküliségi rátát, mind az egy főre eső bruttó kibocsátást, azzal a problémával szembesülünk, hogy előbbi idősor hossza igen rövid, mindössze 1999-ben kezdődik. Így adódik annak szükségessé, hogy az egy főre jutó GDP-vel, kihagyva a munkanélküliségi rátát is modell készüljön, hiszen annak láncindexe elérhető 1960-ig visszamenőleg is.</p>
-<div id="csak-egy-főre-jutó-gdp-t-és-tta-t-tartalmazó-modell" class="section level3">
-<h3>Csak egy főre jutó GDP-t és TTA-t tartalmazó modell</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">irf_plot &lt;-<span class="st"> </span><span class="cf">function</span>(model, <span class="dt">n.ahead =</span> <span class="dv">10</span>, <span class="dt">ci =</span> <span class="fl">.95</span>,</a>
-<a class="sourceLine" id="cb6-2" title="2">                     <span class="dt">plot_filter =</span> <span class="ot">NULL</span>, <span class="dt">n.col =</span> <span class="ot">NULL</span>) {</a>
-<a class="sourceLine" id="cb6-3" title="3">  irf &lt;-<span class="st"> </span>model <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="st">    </span>vars<span class="op">::</span><span class="kw">irf</span>(<span class="dt">n.ahead =</span> n.ahead, <span class="dt">ci =</span> ci)</a>
-<a class="sourceLine" id="cb6-5" title="5">  </a>
-<a class="sourceLine" id="cb6-6" title="6">  point &lt;-<span class="st"> </span>irf <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-7" title="7"><span class="st">    </span>.<span class="op">$</span>irf <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-8" title="8"><span class="st">    </span><span class="kw">do.call</span>(<span class="dt">what =</span> rbind) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-9" title="9"><span class="st">    </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb6-10" title="10">  </a>
-<a class="sourceLine" id="cb6-11" title="11">  point &lt;-<span class="st"> </span>point <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-12" title="12"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb6-13" title="13">      <span class="dt">shock =</span> <span class="kw">rep</span>(<span class="kw">names</span>(point), <span class="dt">each =</span> <span class="kw">nrow</span>(point) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(point)),</a>
-<a class="sourceLine" id="cb6-14" title="14">      <span class="dt">t =</span> <span class="kw">rep</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">nrow</span>(point) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(point) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">times =</span> <span class="kw">length</span>(point))</a>
-<a class="sourceLine" id="cb6-15" title="15">    ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-16" title="16"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">seq_along</span>(point)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-17" title="17"><span class="st">    </span><span class="kw">transmute</span>(</a>
-<a class="sourceLine" id="cb6-18" title="18">      <span class="dt">t =</span> t,</a>
-<a class="sourceLine" id="cb6-19" title="19">      <span class="dt">variable =</span> <span class="kw">str_c</span>(shock, <span class="st">&quot; › &quot;</span>, name),</a>
-<a class="sourceLine" id="cb6-20" title="20">      <span class="dt">point =</span> value</a>
-<a class="sourceLine" id="cb6-21" title="21">    )</a>
-<a class="sourceLine" id="cb6-22" title="22">  </a>
-<a class="sourceLine" id="cb6-23" title="23">  lower &lt;-<span class="st"> </span>irf <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-24" title="24"><span class="st">    </span>.<span class="op">$</span>Lower <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-25" title="25"><span class="st">    </span><span class="kw">do.call</span>(<span class="dt">what =</span> rbind) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-26" title="26"><span class="st">    </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb6-27" title="27">  </a>
-<a class="sourceLine" id="cb6-28" title="28">  lower &lt;-<span class="st"> </span>lower <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-29" title="29"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb6-30" title="30">      <span class="dt">shock =</span> <span class="kw">rep</span>(<span class="kw">names</span>(lower), <span class="dt">each =</span> <span class="kw">nrow</span>(lower) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(lower)),</a>
-<a class="sourceLine" id="cb6-31" title="31">      <span class="dt">t =</span> <span class="kw">rep</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">nrow</span>(lower) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(lower) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">times =</span> <span class="kw">length</span>(lower))</a>
-<a class="sourceLine" id="cb6-32" title="32">    ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-33" title="33"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">seq_along</span>(lower)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-34" title="34"><span class="st">    </span><span class="kw">transmute</span>(</a>
-<a class="sourceLine" id="cb6-35" title="35">      <span class="dt">t =</span> t,</a>
-<a class="sourceLine" id="cb6-36" title="36">      <span class="dt">variable =</span> <span class="kw">str_c</span>(shock, <span class="st">&quot; › &quot;</span>, name),</a>
-<a class="sourceLine" id="cb6-37" title="37">      <span class="dt">lower =</span> value</a>
-<a class="sourceLine" id="cb6-38" title="38">    )</a>
-<a class="sourceLine" id="cb6-39" title="39">  </a>
-<a class="sourceLine" id="cb6-40" title="40">  upper &lt;-<span class="st"> </span>irf <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-41" title="41"><span class="st">    </span>.<span class="op">$</span>Upper <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-42" title="42"><span class="st">    </span><span class="kw">do.call</span>(<span class="dt">what =</span> rbind) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-43" title="43"><span class="st">    </span><span class="kw">data.frame</span>()</a>
-<a class="sourceLine" id="cb6-44" title="44">  </a>
-<a class="sourceLine" id="cb6-45" title="45">  upper &lt;-<span class="st"> </span>upper <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-46" title="46"><span class="st">    </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb6-47" title="47">      <span class="dt">shock =</span> <span class="kw">rep</span>(<span class="kw">names</span>(upper), <span class="dt">each =</span> <span class="kw">nrow</span>(upper) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(upper)),</a>
-<a class="sourceLine" id="cb6-48" title="48">      <span class="dt">t =</span> <span class="kw">rep</span>(<span class="dv">0</span><span class="op">:</span>(<span class="kw">nrow</span>(upper) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(upper) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">times =</span> <span class="kw">length</span>(upper))</a>
-<a class="sourceLine" id="cb6-49" title="49">    ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-50" title="50"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">seq_along</span>(upper)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-51" title="51"><span class="st">    </span><span class="kw">transmute</span>(</a>
-<a class="sourceLine" id="cb6-52" title="52">      <span class="dt">t =</span> t,</a>
-<a class="sourceLine" id="cb6-53" title="53">      <span class="dt">variable =</span> <span class="kw">str_c</span>(shock, <span class="st">&quot; › &quot;</span>, name),</a>
-<a class="sourceLine" id="cb6-54" title="54">      <span class="dt">upper =</span> value</a>
-<a class="sourceLine" id="cb6-55" title="55">    )</a>
-<a class="sourceLine" id="cb6-56" title="56">  </a>
-<a class="sourceLine" id="cb6-57" title="57">  df &lt;-<span class="st"> </span><span class="kw">merge</span>(point, lower, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;t&quot;</span>, <span class="st">&quot;variable&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-58" title="58"><span class="st">    </span><span class="kw">merge</span>(upper, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;t&quot;</span>, <span class="st">&quot;variable&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-59" title="59"><span class="st">    </span><span class="kw">arrange</span>(variable)</a>
-<a class="sourceLine" id="cb6-60" title="60">  </a>
-<a class="sourceLine" id="cb6-61" title="61">  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(plot_filter)) {</a>
-<a class="sourceLine" id="cb6-62" title="62">    df &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(variable <span class="op">%in%</span><span class="st"> </span><span class="kw">unique</span>(variable)[plot_filter])</a>
-<a class="sourceLine" id="cb6-63" title="63">  }</a>
-<a class="sourceLine" id="cb6-64" title="64">  </a>
-<a class="sourceLine" id="cb6-65" title="65">  <span class="cf">if</span> (<span class="kw">is.null</span>(n.col)) {</a>
-<a class="sourceLine" id="cb6-66" title="66">    n.col &lt;-<span class="st"> </span>(<span class="kw">n_distinct</span>(df<span class="op">$</span>variable)<span class="op">^</span><span class="fl">0.5</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb6-67" title="67">  }</a>
-<a class="sourceLine" id="cb6-68" title="68">  </a>
-<a class="sourceLine" id="cb6-69" title="69">  df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-70" title="70"><span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype =</span> <span class="st">&quot;dotted&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-71" title="71"><span class="st">    </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">min =</span> lower, <span class="dt">max =</span> upper, <span class="dt">x =</span> t,</a>
-<a class="sourceLine" id="cb6-72" title="72">     <span class="dt">fill =</span> <span class="kw">paste</span>(scales<span class="op">::</span><span class="kw">percent</span>(ci), <span class="st">&quot;konfidencia intervallum&quot;</span>)), <span class="dt">alpha =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-73" title="73"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> point, <span class="dt">color =</span> <span class="st">&quot;irf&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-74" title="74"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(variable), <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="dt">ncol =</span> n.col) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-75" title="75"><span class="st">    </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;irf&quot;</span> =<span class="st"> &quot;black&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-76" title="76"><span class="st">    </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="st">&quot;grey50&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-77" title="77"><span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span>n.ahead, <span class="dt">labels =</span> <span class="dv">0</span><span class="op">:</span>n.ahead,</a>
-<a class="sourceLine" id="cb6-78" title="78">                       <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-79" title="79"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">fill =</span> <span class="ot">NULL</span>, <span class="dt">color =</span> <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb6-80" title="80">}</a></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">model &lt;-<span class="st"> </span>socioeconomic_indicators <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">merge</span>(LiveBirthAndFertility) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(TotalFertility, GDPCAP1960) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;TTA&quot;</span>, <span class="st">&quot;GDP&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb7-6" title="6">    d &lt;-<span class="st"> </span><span class="kw">ndiffs</span>(x, <span class="dt">test =</span> <span class="st">&quot;kpss&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;level&quot;</span>)</a>
-<a class="sourceLine" id="cb7-7" title="7">    <span class="cf">if</span> (d <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">NA</span>, d), <span class="kw">diff</span>(x))</a>
-<a class="sourceLine" id="cb7-8" title="8">    x</a>
-<a class="sourceLine" id="cb7-9" title="9">  }) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="st">  </span><span class="kw">na.exclude</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="st">  </span><span class="kw">ts</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="st">  </span>vars<span class="op">::</span><span class="kw">VAR</span>(<span class="dt">ic =</span> <span class="st">&quot;AIC&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span>vars<span class="op">::</span><span class="kw">roots</span>()</a>
-<a class="sourceLine" id="cb8-2" title="2">model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</a>
-<a class="sourceLine" id="cb8-3" title="3">vars<span class="op">::</span><span class="kw">causality</span>(model, <span class="dt">cause =</span> <span class="st">&quot;TTA&quot;</span>)</a>
-<a class="sourceLine" id="cb8-4" title="4">vars<span class="op">::</span><span class="kw">causality</span>(model, <span class="dt">cause =</span> <span class="st">&quot;GDP&quot;</span>)</a></code></pre></div>
-<p>A modell feltétel biztosítása érdekében a Kwiatkowski-Phillips-Schmidt-Shin tesztek alapján mind a GDP/fő láncindexének, mind a TTA-nak differenciázása szükséges. Minden információs kritérium (AIC, HQ, SC, FPE) alapján egy a megfelelő késleltetés szám. Az modell gyökei jóval egy alattiak, így minden modellezési kritérium teljesül.
-A modell eredményei az előzetesen vártnak megfelelőek: (1) a TTA nem oka Granger értelemben az egy főre eső GDP-nek, míg (2) a GDP/fő a termékenységi rátának igen, (3) egyidejű okság nem áll fenn. (4) A GDP/fő differenciázott idősorának emelkedése a termékenységi ráta trendjét emeli, ezt a kapcsolatot mutatja be a 5. ábra.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">irf_plot</span>(<span class="dt">plot_filter =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">n.col =</span> <span class="dv">1</span>, <span class="dt">n.ahead =</span> <span class="dv">7</span>)</a></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-15"></span>
-<img src="my-book_files/figure-html/unnamed-chunk-15-1.png" alt="GDP/fő és TTA-t tartalmazó VAR modellből számított impulzus válaszfüggvények" width="672" />
-<p class="caption">
-Ábra 5: GDP/fő és TTA-t tartalmazó VAR modellből számított impulzus válaszfüggvények
-</p>
-</div>
-<p>A varianciadekompozíció alapján (5) a GDP/fő idősora 5%-ban magyarázza az egy évvel későbbi, 8,5%-ban a két évvel későbbi és 10%-ban a még későbbi értékeit a TTA magyarázott varianciájának. A fennmaradó rész a TTA jelen, illetve egy évvel korábbi értékeihez tartozik.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">model <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span>vars<span class="op">::</span><span class="kw">fevd</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span>.<span class="op">$</span>TTA</a></code></pre></div>
-</div>
-<div id="az-egy-főre-jutó-gdp-t-munkanélküliségi-rátát-és-tta-t-tartalmazó-modell" class="section level3">
-<h3>Az egy főre jutó GDP-t, munkanélküliségi rátát és TTA-t tartalmazó modell</h3>
-<p>Az egységgyök tesztek alapján az újonnan bejövő változót, a munkanélküliségi rátát nem szükséges differenciázni, mivel az stacioner. Ahogyan arra fentebb már említés került, a VAR modellek fő problémája, hogy rengeteg paramétert tartalmaznak. Már három változó esetén is annyit, hogy egynél nagyobb késleltetésre a munkanélküliségi ráta idősorának rövidsége miatt nincs lehetőség, így ez modell kerül kiválasztásra. Ez nagy hátránya a modellnek, de érdemes figyelembe venni, hogy az előző modellben, ahol még bőven megbecsülhető a VAR modell nagyobb késleltetés mellett is, szintén egy lett a maximális késleltetés szám az információs kritériumok alapján. A modell gyökei továbbra is jóval egy alatt maradnak.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">model &lt;-<span class="st"> </span>socioeconomic_indicators <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="st">  </span><span class="kw">merge</span>(LiveBirthAndFertility) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(TotalFertility, UnemploymentT, GDPCAP1960) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;TTA&quot;</span>, <span class="st">&quot;Munkanélküliség&quot;</span>, <span class="st">&quot;GDP&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb11-6" title="6">    d &lt;-<span class="st"> </span><span class="kw">ndiffs</span>(x, <span class="dt">test =</span> <span class="st">&quot;kpss&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;level&quot;</span>)</a>
-<a class="sourceLine" id="cb11-7" title="7">    <span class="cf">if</span> (d <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="ot">NA</span>, d), <span class="kw">diff</span>(x))</a>
-<a class="sourceLine" id="cb11-8" title="8">    x</a>
-<a class="sourceLine" id="cb11-9" title="9">  }) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-10" title="10"><span class="st">  </span><span class="kw">na.exclude</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-11" title="11"><span class="st">  </span><span class="kw">ts</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-12" title="12"><span class="st">  </span>vars<span class="op">::</span><span class="kw">VAR</span>(<span class="dt">ic =</span> <span class="st">&quot;AIC&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span>vars<span class="op">::</span><span class="kw">roots</span>()</a>
-<a class="sourceLine" id="cb12-2" title="2">model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</a></code></pre></div>
-<p>Az modell eredményei a következők: (1) mind a munkanélküliségi ráta, mind a GDP/fő Granger értelemben oka a TTA-nak, és (2) ezen kívül nincs más oksági kapcsolat a modellben. A GDP/fő differenciázott idősorának emelkedése a termékenységi ráta trendjét ebben a modellben is emeli, egy munkanélküliséget megemelő sokk pedig csökkenti a TTA trendjének értékét. A varianciadekompozíció alapján a GDP/fő értéke lényegesen meghatározóbb, mint a munkanélküliségi rátáé. Az egyes sokkok lecsapódását a 6. ábra mutatja be.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">irf_plot</span>()</a></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-19"></span>
-<img src="my-book_files/figure-html/unnamed-chunk-19-1.png" alt="GDP/fő, munkanélküliségi rátát és TTA-t tartalmazó VAR modellből számított impulzus válaszfüggvények" width="672" />
-<p class="caption">
-Ábra 6: GDP/fő, munkanélküliségi rátát és TTA-t tartalmazó VAR modellből számított impulzus válaszfüggvények
-</p>
-</div>
-<p>A varianciadekompozíció alapján a GDP/fő értéke lényegesen meghatározóbb, mint a munkanélküliségi rátáé. A magyarázott variancia alakulását a 7. ábra ismerteti. Jól kivehető rajta, hogy az előző esethez képest a GDP/fő magyarázóereje szignifikánsan nőtt. Az egy évvel későbbi értéknek 31,41%-át magyarázza.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">model <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="st">  </span>vars<span class="op">::</span><span class="kw">fevd</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span>.<span class="op">$</span>TTA <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="st">  </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb14-6" title="6">    <span class="dt">t =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="kw">nrow</span>(.) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb14-7" title="7">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-8" title="8"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;variable&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span>t) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-9" title="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">factor</span>(<span class="kw">case_when</span>(</a>
-<a class="sourceLine" id="cb14-10" title="10">    variable <span class="op">==</span><span class="st"> &quot;Munkanélküliség&quot;</span> <span class="op">~</span><span class="st"> &quot;Munkanélküliség&quot;</span>,</a>
-<a class="sourceLine" id="cb14-11" title="11">    variable <span class="op">==</span><span class="st"> &quot;GDP&quot;</span> <span class="op">~</span><span class="st"> &quot;GDP/fő&quot;</span>,</a>
-<a class="sourceLine" id="cb14-12" title="12">    T <span class="op">~</span><span class="st"> &quot;TTA&quot;</span></a>
-<a class="sourceLine" id="cb14-13" title="13">  ), <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Munkanélküliség&quot;</span>, <span class="st">&quot;GDP/fő&quot;</span>, <span class="st">&quot;TTA&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-14" title="14"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-15" title="15"><span class="st">  </span><span class="kw">geom_area</span>(<span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> value, <span class="dt">fill =</span> variable), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-16" title="16"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span><span class="kw">percent_format</span>(<span class="dt">accuracy =</span> <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb14-17" title="17">                     <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-18" title="18"><span class="st">  </span><span class="kw">scale_fill_grey</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-19" title="19"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">labels =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb14-20" title="20">                     <span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb14-21" title="21"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Év&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;TTA varianciájának magyarázata&quot;</span>, <span class="dt">fill =</span> <span class="ot">NULL</span>)</a></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-20"></span>
-<img src="my-book_files/figure-html/unnamed-chunk-20-1.png" alt="GDP/fő, munkanélküliségi rátát és TTA-t tartalmazó VAR modellből számított varianciadekompozíció" width="672" />
-<p class="caption">
-Ábra 7: GDP/fő, munkanélküliségi rátát és TTA-t tartalmazó VAR modellből számított varianciadekompozíció
-</p>
-</div>
+<div id="seminar-4" class="section level2">
+<h2>Seminar 4</h2>
 
 </div>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="2">
-<li id="fn2"><p>Ennek a szimultaneitás problémájának modellezési vonzata az oka, termesztésen elképzelhető olyan eset, hogy a születésszám hirtelen megugrása egy gazdasági vagy társadalmi mutatót már a tárgyalt évben befolyásol. Ennek vizsgálati módszerét a későbbiekben fejtem ki.<a href="Chapter-5.html#fnref2" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 
@@ -410,7 +173,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/MarcellGranat/ujdemografiaiprogram/blob/main/Chapter-5.Rmd",
+"link": "https://github.com/MarcellGranat/Data-Analysis/blob/main/week4.Rmd",
 "text": "Jump to GitHub"
 },
 "history": {
@@ -429,20 +192,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

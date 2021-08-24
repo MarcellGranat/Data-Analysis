@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Kointegrációs teszt az OECD által közölt termékenységi arányszámokon | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel</title>
-  <meta name="description" content="Kointegrációs teszt az OECD által közölt termékenységi arányszámokon | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <title>Week 3 | Data Analysis</title>
+  <meta name="description" content="Week 3 | Data Analysis" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Kointegrációs teszt az OECD által közölt termékenységi arányszámokon | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel" />
+  <meta property="og:title" content="Week 3 | Data Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Kointegrációs teszt az OECD által közölt termékenységi arányszámokon | A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel" />
+  <meta name="twitter:title" content="Week 3 | Data Analysis" />
   
   
   
 
-<meta name="author" content="Granát Marcell" />
+<meta name="author" content="Marcell Granát &amp; Zoltán Madari" />
 
 
 
@@ -32,6 +32,7 @@
   <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
 <link rel="prev" href="Chapter-3.html"/>
 <link rel="next" href="Chapter-5.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,68 +52,6 @@
 
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 </head>
 
@@ -129,35 +68,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="logo.png" width="300" height="300">
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Absztrakt</a></li>
-<li class="chapter" data-level="" data-path="Chapter-1.html"><a href="Chapter-1.html"><i class="fa fa-check"></i>Bevezetés</a></li>
-<li class="chapter" data-level="" data-path="Chapter-2.html"><a href="Chapter-2.html"><i class="fa fa-check"></i>A magyar születésszám az elmúlt 60 évben</a></li>
-<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html"><i class="fa fa-check"></i>Szakirodalom</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html"><i class="fa fa-check"></i>Kointegrációs teszt az OECD által közölt termékenységi arányszámokon</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#elméleti-megfontolás"><i class="fa fa-check"></i>Elméleti megfontolás</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#a-kointegráció-módszertanának-bemutatása"><i class="fa fa-check"></i>A kointegráció módszertanának bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#általános-modell-bemutatása"><i class="fa fa-check"></i>Általános modell bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#modellbecslés-és-hipotézisvizsgálat"><i class="fa fa-check"></i>Modellbecslés és hipotézisvizsgálat</a></li>
-<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#eredmények-értelmezése-következtetések-levonása"><i class="fa fa-check"></i>Eredmények értelmezése, következtetések levonása</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Syllabus</a></li>
+<li class="chapter" data-level="" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i>Week 1</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-1.html"><a href="week-1.html#lecture-1"><i class="fa fa-check"></i>Lecture 1</a></li>
+<li class="chapter" data-level="" data-path="week-1.html"><a href="week-1.html#seminar-1"><i class="fa fa-check"></i>Seminar 1</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html"><i class="fa fa-check"></i>Magyarországi idősoros adatok elemzése vektor autoregresszív modellel</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#elméleti-megfontolás-1"><i class="fa fa-check"></i>Elméleti megfontolás</a></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#a-vektor-autoregresszív-modell-módszertanának-bemutatása"><i class="fa fa-check"></i>A vektor autoregresszív modell módszertanának bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#modellbecslés-hipotézisvizsgálat-eredmények-értelmezése"><i class="fa fa-check"></i>Modellbecslés, hipotézisvizsgálat, eredmények értelmezése</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#csak-egy-főre-jutó-gdp-t-és-tta-t-tartalmazó-modell"><i class="fa fa-check"></i>Csak egy főre jutó GDP-t és TTA-t tartalmazó modell</a></li>
-<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#az-egy-főre-jutó-gdp-t-munkanélküliségi-rátát-és-tta-t-tartalmazó-modell"><i class="fa fa-check"></i>Az egy főre jutó GDP-t, munkanélküliségi rátát és TTA-t tartalmazó modell</a></li>
+<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html"><i class="fa fa-check"></i>Week 2</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html#lecture-2"><i class="fa fa-check"></i>Lecture 2</a></li>
+<li class="chapter" data-level="" data-path="Chapter-3.html"><a href="Chapter-3.html#seminar-2"><i class="fa fa-check"></i>Seminar 2</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html"><i class="fa fa-check"></i>Week 3</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#lecture-3"><i class="fa fa-check"></i>Lecture 3</a></li>
+<li class="chapter" data-level="" data-path="Chapter-4.html"><a href="Chapter-4.html#seminar-3"><i class="fa fa-check"></i>Seminar 3</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html"><i class="fa fa-check"></i>Magyarországi panel adatok</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#elméleti-megfontolás-2"><i class="fa fa-check"></i>Elméleti megfontolás</a></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#módszertan-bemutatása"><i class="fa fa-check"></i>Módszertan bemutatása</a></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#modellbecslés-és-hipotézisvizsgálat-1"><i class="fa fa-check"></i>Modellbecslés és hipotézisvizsgálat</a></li>
-<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#eredmények-értelmezése-következtetések-levonása-1"><i class="fa fa-check"></i>Eredmények értelmezése, következtetések levonása</a></li>
+<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html"><i class="fa fa-check"></i>Week 4</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#lecture-4"><i class="fa fa-check"></i>Lecture 4</a></li>
+<li class="chapter" data-level="" data-path="Chapter-5.html"><a href="Chapter-5.html#seminar-4"><i class="fa fa-check"></i>Seminar 4</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html"><i class="fa fa-check"></i>Konklúzió</a></li>
-<li class="chapter" data-level="" data-path="Chapter-8.html"><a href="Chapter-8.html"><i class="fa fa-check"></i>Irodalomjegyzék, függelék</a><ul>
-<li class="chapter" data-level="" data-path="Chapter-8.html"><a href="Chapter-8.html#irodalomjegyzék"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
-<li class="chapter" data-level="" data-path="Chapter-8.html"><a href="Chapter-8.html#függelék-felhasznált-adatok-forrása"><i class="fa fa-check"></i>Függelék: felhasznált adatok forrása</a></li>
+<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html"><i class="fa fa-check"></i>Week 5</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#lecture-5"><i class="fa fa-check"></i>Lecture 5</a></li>
+<li class="chapter" data-level="" data-path="Chapter-6.html"><a href="Chapter-6.html#seminar-5"><i class="fa fa-check"></i>Seminar 5</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html"><i class="fa fa-check"></i>Week 6</a>
+<ul>
+<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html#lecture-6"><i class="fa fa-check"></i>Lecture 6</a></li>
+<li class="chapter" data-level="" data-path="Chapter-7.html"><a href="Chapter-7.html#seminar-6"><i class="fa fa-check"></i>Seminar 6</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="week-7.html"><a href="week-7.html"><i class="fa fa-check"></i>Week 7</a>
+<ul>
+<li class="chapter" data-level="" data-path="week-7.html"><a href="week-7.html#lecture-7"><i class="fa fa-check"></i>Lecture 7</a></li>
+<li class="chapter" data-level="" data-path="week-7.html"><a href="week-7.html#seminar-7"><i class="fa fa-check"></i>Seminar 7</a></li>
 </ul></li>
 </ul>
 
@@ -168,7 +113,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A termékenységi ráta kapcsolata az egy főre eső bruttó kibocsátással és a munkanélküliséggel</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Analysis</a>
           </h1>
         </div>
 
@@ -177,214 +122,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="Chapter-4" class="section level1">
-<h1>Kointegrációs teszt az OECD által közölt termékenységi arányszámokon</h1>
+<h1>Week 3</h1>
 <style type="text/css">
 p {
-  text-align: justify;
-}
+text-align: justify;
+  }
 </style>
-<div id="elméleti-megfontolás" class="section level2">
-<h2>Elméleti megfontolás</h2>
-<p>A termékenységi ráta és makrogazdasági mutatók közötti kapcsolat empirikus elemzése gyakorta történik az egyes országok adatain keresztmetszeti- vagy panelökonometria alkalmazásával. Mindazonáltal téves konklúziókra juthatunk az ilyen modellekből, mivel az egymáshoz közel lévő országok számos változó (pl.: kulturálisan, politikailag, gazdaságilag) mentén klasztereket képeznek, így torzulnak az előzetes modellfeltevéseink (Götmark &amp; Andersson 2020:4). Annak érdekében, hogy ezt a hipotézist megerősítsem és ezzel az előbb említett országok adatain végzett elemzések mellett más modellezési stratégia mellett érveljek kointegrációs elemzést hajtok végre a termékenységi ráta idősorokon.
-Az eszközválasztás fő motivációja, hogy amennyiben két idősor között hosszútávon fennáll egy lineáris formában kifejezhető kapcsolat, úgy a kointegráció tesztelése során az ennek megfelelő nullhipotézis kerül elfogadásra (A bevett szakirodalommal szemben jelen tanulmányban KPSS-tesztel történik az Engel-Granger eljárás elvégzése). Ezen a ponton a kapcsolat fennállásában semmilyen közvetlen hatásmechanizmus feltevése nem indokolt, a nullhipotézis elfogadásának helyes értelmezése, hogy a két ország idősora nagyon hasonló pályát jár be (a benne lévő törések időben közel egybeesnek).
-Amennyiben Götmark és Andersson idézett feltevése helyes, úgy páronkénti tesztelés során az elemzés során gyakrabban kell egymással szomszédos országok között találnunk ilyen kapcsolatot találnunk.</p>
+<div id="lecture-3" class="section level2">
+<h2>Lecture 3</h2>
 </div>
-<div id="a-kointegráció-módszertanának-bemutatása" class="section level2">
-<h2>A kointegráció módszertanának bemutatása</h2>
-<p>A kointegráció tesztelése három lépésből áll: (1) A két idősor azonos integráltságának ellenőrzése általánosított Dickey-Fuller teszt segítségével, majd (2) egy klasszikus legkisebb négyzetek (Ordinary Least Squares, OLS) modell becslése a két változó felhasználásával, egyiket eredményváltozónak választva, másikat magyarázóváltozónak egy konstans mellé. És végül (3) a modellből származó maradéktagok integráltságának megvizsgálása. Amennyiben a reziduumok éppen egyel alacsonyabb rendben integráltak, mint az összevetett idősorok, úgy a kointegráció fennáll a két változó között, a kettejük között húzódó hosszú távú kapcsolatot pedig az OLS koefficiensei írják le. Egy hipotetikus esetben például, ha a kointegráció léte megállapításra került, az OLS-ben pedig a regresszorhoz tartozó koefficiens értéke egy, miközben a konstanshoz tartozó érték szintén egy, akkor ez úgy értelmezhető, hogy a 2 idősor között fennáll hosszú távú kapcsolat, méghozzá úgy, hogy az OLS-ben függő változóként használt idősor értéke átlagosan eggyel nagyobb, mint azé, amelyiket magyarázóváltozóként vontunk be a modellbe.
-Az idősor ezen eszközének alkalmazása már feltételeket szab a vizsgált idősorokra: (1) A két összevetett változónak azonos rendben kell integráltnak lennie, azaz azonos számú differenciázás szükséges ahhoz, hogy az idősorokat stacionerré tegyük, és (2) ez a szám nem lehet nulla. Amennyiben a két kritérium valamelyike nem teljesül, úgy az itt leírt Engel-Granger eljárás egyáltalán nem elvégezhető. Jelen tanulmányban Kwiatkowski-Phillips-Schmidt-Shin (KPSS) tesztet alkalmazok az idősorok integráltságának meghatározására, miután a módszertan szakirodalma alapján kointegrációs kapcsolat megállítására ez a legjobban teljesítő teszt (Clegg 2014). Ez alapján a második kritérium nem jelent gondot, mivel az OECD oldalán elérhető 52 ország termékenységi rátájának egyike sem stacioner, továbbá 33 közülük elsőrendben, a maradék pedig másodrendben integrált.</p>
-</div>
-<div id="általános-modell-bemutatása" class="section level2">
-<h2>Általános modell bemutatása</h2>
-<p>A kointegráció tesztelésének egy példáját mutatom be Magyarország és Lengyelország termékenységi rátája között. Az általános bemutatáshoz azért esett ezen két idősorra választásom, mert a későbbiekben kifejtésre kerülő eredményekből a kointegráció ténye itt megállapításra került. A kointegráció tesztelésének mindhárom lépését prezentálja a 2. ábra.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">oecd_fertility <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw">filter</span>(location <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;HUN&quot;</span>, <span class="st">&quot;POL&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb2-4" title="4">    <span class="dt">tfr_d =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="kw">diff</span>(tfr)),</a>
-<a class="sourceLine" id="cb2-5" title="5">    <span class="dt">tfr_d =</span> <span class="kw">ifelse</span>(time <span class="op">==</span><span class="st"> </span><span class="dv">1960</span>, <span class="ot">NA</span>, tfr_d)</a>
-<a class="sourceLine" id="cb2-6" title="6">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-7" title="7"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-8" title="8"><span class="st">  </span><span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb2-9" title="9">    <span class="kw">data.frame</span>(<span class="dt">location =</span> <span class="st">&quot;HUN&quot;</span>, <span class="dt">time =</span> <span class="dv">1960</span><span class="op">:</span><span class="dv">2018</span>, <span class="dt">name =</span> <span class="st">&quot;res&quot;</span>,</a>
-<a class="sourceLine" id="cb2-10" title="10">               <span class="dt">value =</span> oecd_fertility <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="st">                 </span><span class="kw">filter</span>(location <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;HUN&quot;</span>, <span class="st">&quot;POL&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-12" title="12"><span class="st">                 </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> location, <span class="dt">values_from =</span> tfr) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-13" title="13"><span class="st">                 </span><span class="kw">lm</span>(<span class="dt">formula =</span> HUN <span class="op">~</span><span class="st"> </span>POL) <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>residuals)</a>
-<a class="sourceLine" id="cb2-14" title="14">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-15" title="15"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name =</span> <span class="kw">factor</span>(name, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;tfr&quot;</span>, <span class="st">&quot;tfr_d&quot;</span>, <span class="st">&quot;res&quot;</span>))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-16" title="16"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> value, <span class="dt">color =</span> location)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-17" title="17"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-18" title="18"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-19" title="19"><span class="st">  </span><span class="kw">scale_color_grey</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-20" title="20"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>name,</a>
-<a class="sourceLine" id="cb2-21" title="21">             <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>,</a>
-<a class="sourceLine" id="cb2-22" title="22">             <span class="dt">labeller =</span> <span class="kw">as_labeller</span>(<span class="kw">c</span>(</a>
-<a class="sourceLine" id="cb2-23" title="23">               <span class="st">&quot;tfr&quot;</span> =<span class="st"> &quot;Transzformálatlan idősorok&quot;</span>,</a>
-<a class="sourceLine" id="cb2-24" title="24">               <span class="st">&quot;tfr_d&quot;</span> =<span class="st"> &quot;Differenciázott idősorok&quot;</span>,</a>
-<a class="sourceLine" id="cb2-25" title="25">               <span class="st">&quot;res&quot;</span> =<span class="st"> &quot;OLS maradéktagja&quot;</span></a>
-<a class="sourceLine" id="cb2-26" title="26">             ))</a>
-<a class="sourceLine" id="cb2-27" title="27">  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-28" title="28"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Év&quot;</span>, <span class="dt">y =</span> <span class="ot">NULL</span>, <span class="dt">color =</span> <span class="ot">NULL</span>)</a></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-7"></span>
-<img src="my-book_files/figure-html/unnamed-chunk-7-1.png" alt="A magyar és lengyel TTA idősorok között fennálló kointegráció" width="672" />
-<p class="caption">
-Ábra 2: A magyar és lengyel TTA idősorok között fennálló kointegráció
-</p>
-</div>
-<p>A 2. ábra első paneljében láthatóak az eredeti idősoraink. Jól látható módon valóban hasonló pályát futottak, és mindkettőjük integráltságának foka biztosan nagyobb, mint egy. A KPSS-tesztek elvégzése során a magyar és a cseh TTA-ról is bebizonyosodott, hogy integráltságuk foka egy, így a teszt következő lépése következhet (a differenciázott idősorok stacioner tulajdonságát a 2. ábra második panelje mutatja be). Ebben az esetben Lengyelország termékenységi rátájának idősorát alkalmaztam regresszorként és a magyar idősor szerepelt a modellben eredményváltozóként. A megbecsült OLS modell hibatagját a 2. ábra harmadik panelje tartalmazza. A modell reziduumainak stacioner tulajdonsága pedig az elvégzett KPSS-teszt alapján bebizonyosodott, tehát a két idősor között a vizsgált időszakban fennállt egy tartós hosszú távú kapcsolat.</p>
-</div>
-<div id="modellbecslés-és-hipotézisvizsgálat" class="section level2">
-<h2>Modellbecslés és hipotézisvizsgálat</h2>
-<p>Az imént bemutatott általános modell lefuttatásra került az OECD honlapján elérhető 52 ország termékenységi rátájának idősorából készíthető összes párosításon. A tesztek végrehajtása során minden alkalommal KPSS-teszt került végrehajtásra és 5%-os szignifikanciaszinten lettek a döntések meghozva. A kointegrációs tesztek eredményét az 3. ábra szemlélteti.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">df &lt;-<span class="st"> </span>NeighbourCountry <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">names</span>(NeighbourCountry)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>x, <span class="dt">names_to =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;neighbour&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb3-5" title="5">    <span class="dt">neighbour =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(neighbour), <span class="st">&quot;Nem határosak&quot;</span>, <span class="st">&quot;Határosak&quot;</span>),</a>
-<a class="sourceLine" id="cb3-6" title="6">    <span class="dt">neighbour =</span> <span class="kw">ifelse</span>(x <span class="op">==</span><span class="st"> </span>y, <span class="ot">NA</span>, neighbour)</a>
-<a class="sourceLine" id="cb3-7" title="7">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="st">  </span><span class="kw">merge</span>(</a>
-<a class="sourceLine" id="cb3-9" title="9">    oecd_fertility <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(location) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="st">      </span><span class="kw">summarise</span>(<span class="dt">d =</span> <span class="kw">ndiffs</span>(tfr, <span class="dt">test =</span> <span class="st">&quot;kpss&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;level&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.05</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="st">      </span><span class="kw">set_names</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;dy&quot;</span>)</a>
-<a class="sourceLine" id="cb3-12" title="12">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="st">  </span><span class="kw">merge</span>(</a>
-<a class="sourceLine" id="cb3-14" title="14">    oecd_fertility <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(location) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-15" title="15"><span class="st">      </span><span class="kw">summarise</span>(<span class="dt">d =</span> <span class="kw">ndiffs</span>(tfr, <span class="dt">test =</span> <span class="st">&quot;kpss&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;level&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.05</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-16" title="16"><span class="st">      </span><span class="kw">set_names</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;dx&quot;</span>)</a>
-<a class="sourceLine" id="cb3-17" title="17">  )</a>
-<a class="sourceLine" id="cb3-18" title="18"></a>
-<a class="sourceLine" id="cb3-19" title="19">v &lt;-<span class="st"> </span><span class="kw">vector</span>() <span class="co"># collector vector</span></a>
-<a class="sourceLine" id="cb3-20" title="20"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)) {</a>
-<a class="sourceLine" id="cb3-21" title="21">  <span class="cf">if</span> (df<span class="op">$</span>dx[i] <span class="op">==</span><span class="st"> </span>df<span class="op">$</span>dy[i] <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>x[i] <span class="op">!=</span><span class="st"> </span>df<span class="op">$</span>y[i]) {</a>
-<a class="sourceLine" id="cb3-22" title="22">    res &lt;-<span class="st"> </span>oecd_fertility <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-23" title="23"><span class="st">      </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;location&quot;</span>, <span class="dt">values_from =</span> <span class="st">&quot;tfr&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-24" title="24"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(df<span class="op">$</span>x[i], df<span class="op">$</span>y[i]) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-25" title="25"><span class="st">      </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-26" title="26"><span class="st">      </span><span class="kw">na.exclude</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-27" title="27"><span class="st">      </span><span class="kw">lm</span>(<span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-28" title="28"><span class="st">      </span>.<span class="op">$</span>residuals</a>
-<a class="sourceLine" id="cb3-29" title="29">    </a>
-<a class="sourceLine" id="cb3-30" title="30">    <span class="cf">if</span> (<span class="kw">ndiffs</span>(res, <span class="dt">test =</span> <span class="st">&quot;kpss&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;level&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.05</span>) <span class="op">&lt;</span><span class="st"> </span>df<span class="op">$</span>dx[i]) {</a>
-<a class="sourceLine" id="cb3-31" title="31">      v[i] &lt;-<span class="st"> &quot;Kointegráltak&quot;</span></a>
-<a class="sourceLine" id="cb3-32" title="32">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb3-33" title="33">      v[i] &lt;-<span class="st"> &quot;Nem kointegráltak&quot;</span></a>
-<a class="sourceLine" id="cb3-34" title="34">    }</a>
-<a class="sourceLine" id="cb3-35" title="35">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb3-36" title="36">    v[i] &lt;-<span class="st"> &quot;A teszt nem elvégezhető&quot;</span></a>
-<a class="sourceLine" id="cb3-37" title="37">  }</a>
-<a class="sourceLine" id="cb3-38" title="38">}</a>
-<a class="sourceLine" id="cb3-39" title="39"></a>
-<a class="sourceLine" id="cb3-40" title="40">df<span class="op">$</span>coint &lt;-<span class="st"> </span>v</a>
-<a class="sourceLine" id="cb3-41" title="41"></a>
-<a class="sourceLine" id="cb3-42" title="42">df &lt;-<span class="st"> </span><span class="kw">merge</span>(df, oecd_fertility <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-43" title="43"><span class="st">              </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> <span class="st">&quot;location&quot;</span>, <span class="dt">values_from =</span> <span class="st">&quot;tfr&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-44" title="44"><span class="st">              </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">cor</span>(<span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-45" title="45"><span class="st">              </span><span class="kw">data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;x&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-46" title="46"><span class="st">              </span><span class="kw">pivot_longer</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dt">names_to =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cor&quot;</span>))</a>
-<a class="sourceLine" id="cb3-47" title="47"></a>
-<a class="sourceLine" id="cb3-48" title="48"><span class="kw">ggplot</span>(<span class="dt">data =</span> df) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-49" title="49"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">fill =</span> coint), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-50" title="50"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-51" title="51"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;grey&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-52" title="52"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">vjust =</span> <span class="fl">0.45</span>))</a></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-8"></span>
-<img src="my-book_files/figure-html/unnamed-chunk-8-1.png" alt="Kointegrációs tesztek eredményei" width="672" />
-<p class="caption">
-Ábra 3: Kointegrációs tesztek eredményei
-</p>
-</div>
-</div>
-<div id="eredmények-értelmezése-következtetések-levonása" class="section level2">
-<h2>Eredmények értelmezése, következtetések levonása</h2>
-<p>Az elemzés végrehajtása előtt megfogalmazott hipotézis ellenőrzéséhez szükséges meghatározni, hogy mely országok szomszédosok egymással. Ez szárazföldi határok esetén egyszerű, víziek esetében azonban szubjektívvé válik, ami torzítás forrása lehet. A szomszédossági kapcsolatokat magam rajzolom meg, a 4. ábra vizuális segédlet ehhez. A reprodukálhatóság érdekében a lista elérhető a csatolt GitHub repoban.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">nodes &lt;-<span class="st"> </span>CountryData <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="st">  </span><span class="kw">filter</span>(code3 <span class="op">%in%</span><span class="st"> </span><span class="kw">names</span>(NeighbourCountry)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(code3, longitude, latitude) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="st">  </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>))</a>
-<a class="sourceLine" id="cb4-5" title="5"></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw">ggplot</span>(nodes) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group),</a>
-<a class="sourceLine" id="cb4-8" title="8">               <span class="dt">data =</span> <span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>),</a>
-<a class="sourceLine" id="cb4-9" title="9">               <span class="dt">fill =</span> <span class="st">&quot;#CECECE&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>,</a>
-<a class="sourceLine" id="cb4-10" title="10">               <span class="dt">size =</span> <span class="fl">0.15</span></a>
-<a class="sourceLine" id="cb4-11" title="11">  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="st">  </span><span class="kw">geom_curve</span>(<span class="kw">aes</span>(</a>
-<a class="sourceLine" id="cb4-13" title="13">    <span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">xend =</span> xend, <span class="dt">yend =</span> yend,</a>
-<a class="sourceLine" id="cb4-14" title="14">    <span class="dt">color =</span> <span class="st">&quot;Szomszédosnak tekintettek&quot;</span></a>
-<a class="sourceLine" id="cb4-15" title="15">  ),</a>
-<a class="sourceLine" id="cb4-16" title="16">  <span class="dt">size =</span> <span class="fl">1.2</span>,</a>
-<a class="sourceLine" id="cb4-17" title="17">  <span class="dt">data =</span> NeighbourCountry <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-18" title="18"><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">x =</span> <span class="kw">names</span>(NeighbourCountry)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-19" title="19"><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="op">-</span>x, <span class="dt">names_to =</span> <span class="st">&quot;y&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-20" title="20"><span class="st">    </span><span class="kw">na.exclude</span>() <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>value) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-21" title="21"><span class="st">    </span><span class="kw">merge</span>(nodes, <span class="dt">by.x =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;name&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-22" title="22"><span class="st">    </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;key&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-23" title="23"><span class="st">    </span><span class="kw">merge</span>(nodes, <span class="dt">by.x =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;name&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-24" title="24"><span class="st">    </span><span class="kw">set_names</span>(<span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;key&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;xend&quot;</span>, <span class="st">&quot;yend&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-25" title="25"><span class="st">    </span><span class="kw">filter</span>(name <span class="op">&lt;</span><span class="st"> </span>key), <span class="dt">curvature =</span> <span class="fl">0.33</span>,</a>
-<a class="sourceLine" id="cb4-26" title="26">  <span class="dt">alpha =</span> <span class="fl">0.7</span></a>
-<a class="sourceLine" id="cb4-27" title="27">  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-28" title="28"><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> lon, <span class="dt">y =</span> lat, <span class="dt">label =</span> name),</a>
-<a class="sourceLine" id="cb4-29" title="29">            <span class="dt">hjust =</span> <span class="fl">0.7</span>, <span class="dt">nudge_x =</span> <span class="dv">0</span>, <span class="dt">nudge_y =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb4-30" title="30">            <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span></a>
-<a class="sourceLine" id="cb4-31" title="31">  ) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-32" title="32"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-33" title="33"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">150</span>, <span class="dv">180</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">55</span>, <span class="dv">80</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-34" title="34"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="st">&quot;grey20&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-35" title="35"><span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-36" title="36"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</a></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-9"></span>
-<img src="my-book_files/figure-html/unnamed-chunk-9-1.png" alt="Számítások során egymás szomszédjának tekintett országok hálója" width="672" />
-<p class="caption">
-Ábra 4: Számítások során egymás szomszédjának tekintett országok hálója
-</p>
-</div>
-<p>Mind a lehetséges 2652 párosítás eredményét megvizsgálva és rendezve aszerint, hogy szomszédosok voltak-e az országok vagy sem azt kapjuk, hogy valóban szignifikánsan nagyobb a kointegráló idősor párok aránya ott, ahol a határok érintkeznek. Ezt a végső eredményt mutatja be a 1. táblázat. Az, hogy a nem elvégezhető tesztek aránya is magasabb ott, ahol az ország párok nem határosak egymással is ugyanezt a következtetést erősíti meg, mivel ez az jelenti, hogy egymással szomszédos országok gyakrabban azonos rendben integráltak, tehát jobban hasonlít egymásra az elmúlt 60 évben bejárt pályájuk. Szintén ebbe az irányba mutat, hogy az országok közötti lineáris korrelációs együtthatók átlaga is 10 %p-al magasabb a szomszéd párok körében (0,826 és 0,722).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(neighbour, coint) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(neighbour)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> neighbour, <span class="dt">values_from =</span> n) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="op">-</span><span class="dv">1</span>, <span class="cf">function</span>(x) scales<span class="op">::</span><span class="kw">percent</span>(x <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x),</a>
-<a class="sourceLine" id="cb5-7" title="7">                                            <span class="dt">decimal.mark =</span> <span class="st">&quot;,&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="st">  </span>.[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>), ] <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(</a>
-<a class="sourceLine" id="cb5-10" title="10">    <span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;Határosak&quot;</span>, <span class="st">&quot;Nem határosak&quot;</span>),</a>
-<a class="sourceLine" id="cb5-11" title="11">    <span class="dt">align =</span> <span class="kw">c</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;c&quot;</span>),</a>
-<a class="sourceLine" id="cb5-12" title="12">    <span class="dt">caption =</span></a>
-<a class="sourceLine" id="cb5-13" title="13">      <span class="st">&quot;Tesztek eredményeinek arányai egymással</span></a>
-<a class="sourceLine" id="cb5-14" title="14"><span class="st">         határos és nem határos országok esetében&quot;</span></a>
-<a class="sourceLine" id="cb5-15" title="15">  )</a></code></pre></div>
-<table>
-<caption><span id="tab:unnamed-chunk-10">Táblázat 1: </span>Tesztek eredményeinek arányai egymással
-határos és nem határos országok esetében</caption>
-<thead>
-<tr class="header">
-<th></th>
-<th align="center">Határosak</th>
-<th align="center">Nem határosak</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>A teszt nem elvégezhető</td>
-<td align="center">32,2%</td>
-<td align="center">49,4%</td>
-</tr>
-<tr class="even">
-<td>Nem kointegráltak</td>
-<td align="center">27,6%</td>
-<td align="center">27,9%</td>
-</tr>
-<tr class="odd">
-<td>Kointegráltak</td>
-<td align="center">40,2%</td>
-<td align="center">22,7%</td>
-</tr>
-</tbody>
-</table>
-<p>Az elvégzett modellezésből egy másik kinyert eredmény, hogy a Magyarország termékenységi rátája kointegrál több környező szintén posztszocialista országéval, mint Szlovákia, Horvátország, Lengyelország. A 2. ábrán látszik, hogy ennek fontos pontja a 90-es években való csökkenés a termékenységi rátában. Ennek magyarázata a foglalkoztatás és szociális juttatások csökkentése, az egy főre jutó reáljövedelem csökkenése és a rendszerváltással felerősödő nyugati kultúra (pl.: a gyermektelenség) felé való húzás (Tárkányi 2008:432-435).</p>
+<div id="seminar-3" class="section level2">
+<h2>Seminar 3</h2>
 
 </div>
 </div>
@@ -425,7 +173,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/MarcellGranat/ujdemografiaiprogram/blob/main/Chapter-4.Rmd",
+"link": "https://github.com/MarcellGranat/Data-Analysis/blob/main/week3.Rmd",
 "text": "Jump to GitHub"
 },
 "history": {
@@ -444,20 +192,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
