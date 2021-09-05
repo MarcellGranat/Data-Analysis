@@ -6,7 +6,7 @@ site: bookdown::bookdown_site
 favicon: "logo.ico"
 ---
 
-# Syllabus {#index}
+# Syllabus {.unnumbered}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = T, comment = ">", warning = F, message = F, cache = F)
@@ -19,26 +19,6 @@ theme_set(theme_grey() +
                   legend.key = element_blank()))
 ```
 
-
-```{css, echo=FALSE}
-p {
-text-align: justify;
-}
-.author {
-  font-size: 20px;
-  text-align: center;
-  color: #4a4a4a
-} 
-.title {
-  text-align: center;
-}
-```
-
-```{css, echo=FALSE}
-p {
-text-align: justify;
-  }
-```
 
 | Week | Lecture Topic | Seminar Topic | Homework/Exam |
 |:----:|---------------|---------------|---------------|

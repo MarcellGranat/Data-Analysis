@@ -1,0 +1,48 @@
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+% Match code width in O'Reilly books
+\setmonofont[Mapping=tex-ansi]{Arial}
+\usepackage{anyfontsize}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\fontsize{10.5}{11}\selectfont}
+
+% box drawing characters
+% <https://tex.stackexchange.com/a/333210/6444>
+\usepackage{newunicodechar}
+\newfontfamily{\fallbackfont}{Arial}
+\DeclareTextFontCommand{\textfallback}{\fallbackfont}
+\newunicodechar{█}{\textfallback{█}}
+\newunicodechar{└}{\textfallback{└}}
+\newunicodechar{─}{\textfallback{─}}
+\newunicodechar{├}{\textfallback{├}}
+\newunicodechar{│}{\textfallback{│}}
+
+
+% sidebar environment
+\usepackage{framed,color}
+\definecolor{shadecolor}{RGB}{242,242,242}
+\makeatletter
+\newenvironment{sidebar}{%
+\medskip{}
+\setlength{\fboxsep}{.8em}
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother

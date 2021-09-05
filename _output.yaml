@@ -1,12 +1,27 @@
+bookdown::bs4_book:
+  theme:
+    primary: "#4D6F8D"
+  repo: https://github.com/MarcellGranat/Data-Analysis
+  includes:
+    in_header: [ga_script.html]
 bookdown::gitbook:
-  number_sections: false
+  css: style.css
+  includes:
+    in_header: [ga_script.html]
   config:
     toc:
       collapse: section
       before: |
         <img src="logo.png" width="300" height="300">
+    edit: https://github.com/MarcellGranat/Data-Analysis/edit/main/%s
+    download: []
     sharing:
-      github: yes
       facebook: yes
       twitter: yes
-      all: no
+      github: yes
+      all: []
+bookdown::pdf_book:
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default

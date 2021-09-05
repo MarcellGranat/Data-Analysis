@@ -1,0 +1,175 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Data Analysis},
+  pdfauthor={Marcell Granát \& Zoltán Madari},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+
+\title{Data Analysis}
+\author{Marcell Granát \& Zoltán Madari}
+\date{}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{index}{%
+\section{Syllabus}\label{index}}
+
+\begin{longtable}[]{@{}clll@{}}
+\caption{Outline of Topics}\tabularnewline
+\toprule
+Week & Lecture Topic & Seminar Topic & Homework/Exam \\
+\midrule
+\endfirsthead
+\toprule
+Week & Lecture Topic & Seminar Topic & Homework/Exam \\
+\midrule
+\endhead
+1 & & & \\
+2 & & & \\
+3 & & & \\
+4 & & & \\
+5 & & & \\
+6 & & & \\
+7 & & & \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{week-1}{%
+\section{Week 1}\label{week-1}}
+
+\hypertarget{lecture-1}{%
+\subsection{Lecture 1}\label{lecture-1}}
+
+\hypertarget{seminar-1}{%
+\subsection{Seminar 1}\label{seminar-1}}
+
+\hypertarget{Chapter-3}{%
+\section{Week 2}\label{Chapter-3}}
+
+\hypertarget{lecture-2}{%
+\subsection{Lecture 2}\label{lecture-2}}
+
+\hypertarget{seminar-2}{%
+\subsection{Seminar 2}\label{seminar-2}}
+
+\hypertarget{Chapter-4}{%
+\section{Week 3}\label{Chapter-4}}
+
+\hypertarget{lecture-3}{%
+\subsection{Lecture 3}\label{lecture-3}}
+
+\hypertarget{seminar-3}{%
+\subsection{Seminar 3}\label{seminar-3}}
+
+\hypertarget{Chapter-5}{%
+\section{Week 4}\label{Chapter-5}}
+
+\hypertarget{lecture-4}{%
+\subsection{Lecture 4}\label{lecture-4}}
+
+\hypertarget{seminar-4}{%
+\subsection{Seminar 4}\label{seminar-4}}
+
+\hypertarget{Chapter-6}{%
+\section{Week 5}\label{Chapter-6}}
+
+\hypertarget{lecture-5}{%
+\subsection{Lecture 5}\label{lecture-5}}
+
+\hypertarget{seminar-5}{%
+\subsection{Seminar 5}\label{seminar-5}}
+
+\hypertarget{Chapter-7}{%
+\section{Week 6}\label{Chapter-7}}
+
+\hypertarget{lecture-6}{%
+\subsection{Lecture 6}\label{lecture-6}}
+
+\hypertarget{seminar-6}{%
+\subsection{Seminar 6}\label{seminar-6}}
+
+\hypertarget{week-7}{%
+\section{Week 7}\label{week-7}}
+
+\hypertarget{lecture-7}{%
+\subsection{Lecture 7}\label{lecture-7}}
+
+\hypertarget{seminar-7}{%
+\subsection{Seminar 7}\label{seminar-7}}
+
+\end{document}
