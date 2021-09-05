@@ -1,0 +1,14 @@
+# Seminar 3 {#seminar3}
+
+
+Transferring files to and from the user is a common feature of apps.
+You can use it to upload data for analysis, or download the results as a dataset or as a report.
+This chapter shows the UI and server components that you'll need to transfer files in and out of your app.
+
+
+## Upload {#upload}
+
+We'll start by discussing file uploads, showing you the basic UI and server components, and then showing how they fit together in a simple app.
+
+### UI
+

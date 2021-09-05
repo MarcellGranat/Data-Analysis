@@ -1,13 +1,24 @@
-book_filename: "my-book.Rmd"
+book_filename: "shiny-book"
 language:
   ui:
-    edit: "Jump to GitHub"
-edit: https://github.com/MarcellGranat/Data-Analysis/blob/main/%s
-output_dir: "docs"
-sharing:
-  github: yes
-  facebook: yes
-  twitter: yes
-  all: no
-rmd_files: ["index.Rmd", "week1.Rmd", "week2.Rmd", "week3.Rmd", "week4.Rmd", "week5.Rmd"
-, "week6.Rmd", "week7.Rmd"]
+    chapter_name: "Chapter "
+delete_merged_file: true
+
+rmd_files:
+  [
+    "index.Rmd",
+
+    "introduction.Rmd",
+
+    "week1.Rmd",
+    "Lecture1.Rmd",
+    "Seminar1.Rmd",
+
+    "Lecture2.Rmd",
+    "Seminar2.Rmd",
+
+    "Lecture3.Rmd",
+    "Seminar3.Rmd"
+  ]
+
+
