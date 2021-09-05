@@ -6,10 +6,17 @@ editor_options:
 
 # Introduction to R {#seminar1}
 
-## Introduction
+## Why R?
 
 In this chapter we will discuss the basics of R programming.
 R is a free software, used by millions in the field of statistics, data science, economics and many others.
+
+[![](images/meme_free.jpg){width="300"}](https://www.facebook.com/Rmemes0/photos/a.1230204967031792/2971372822914989/)
+
+The R programming language is an important tool for data related tasks, but it is much more.
+Just like other programming languages, R has many additional packages, which can extend its basic functionality.
+R has a great (probably the best) graphical tools to create your charts, and with shiny, you can easily build your minimalist web applications.
+We will learn about data manipulation, analysis and how to create awesome reports, like dashboards.
 
 ## Setup {#layout}
 
