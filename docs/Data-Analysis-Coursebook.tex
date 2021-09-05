@@ -512,27 +512,356 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 \hypertarget{seminar4}{%
-\section{Seminar 4}\label{seminar4}}
+\section{Ggplot}\label{seminar4}}
 
-In this chapter, you'll learn how to wrap ggplot2 and dplyr function in a Shiny app.
-(If you don't use the tidyverse, you can skip this chapter 😄.) The techniques for wrapping ggplot2 and dplyr functions in a functions and package, are a a little different and covered in other resources like \href{http://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html}{\emph{Using ggplot2 in packages}} or \href{http://dplyr.tidyverse.org/articles/programming.html}{\emph{Programming with dplyr}}.
+\hypertarget{motivuxe1ciuxf3-a-ggplot-package-hasznuxe1latuxe1hoz}{%
+\subsection{Motiváció a ggplot package használatához}\label{motivuxe1ciuxf3-a-ggplot-package-hasznuxe1latuxe1hoz}}
 
-\hypertarget{tidy-motivation}{%
-\subsection{Motivation}\label{tidy-motivation}}
+Bár maga a base R {[}értve itt ilyenkor mindig a \texttt{plot} paranccsal készült ábrákat{]} segítségével is lehet ábrákat készíteni, ez az egyszerűségét leszámítva nagyon ritkán ajánlott. Helyette érdemes a ggplot2-t alkalmazni, amely bár komplexebb, mint a base R, a személyre szabhatóságának szinte nincs felső határa.
 
-Imagine I want to create an app that allows you to filter a numeric variable to select rows that are greater than a threshold.
-You might write something like this:
+\includegraphics{images/plot_ggplot.jpg}
 
-Let's begin with this call to \texttt{filter()} which uses a data-variable (\texttt{carat}) and an env-variable (\texttt{min}):
+Ám amelett, hogy szebb ábráink lesznek van egy sokkal fontosabb ok, amiért a ggplotot használjuk. A csomag a nevét Leland Wilkinson \textbf{Grammar of Graphics} c.~munkája után kapta (innen a \emph{gg}), amelyben megfogalmazásra került lényegében az ideális ábrakészítő algoritmus struktúrája. Mivel a ggplot2 ezt az elvet követi, így meglátjátok majd, hogy bár sok dolgot kell fejben tartani, minden logikus benne. Miután sikerül elsajátítani ezt az anyagot (és némi utána olvasás után) bármilyen szükséges ábrát el fogtok tudni készíteni.
+
+\hypertarget{bevezetuxe9s}{%
+\subsection{Bevezetés}\label{bevezetuxe9s}}
+
+A ggplot2 telepíthető önállóan is, illetve ez a csomag része egy ``csomaggyűjteménynek'', amit \texttt{tidyverse}-nek hívnak. Jelenleg mi csak a ggplot2-vel fogunk foglalkozni, így annak telepítése és betöltése is bőven elegendő lesz. Így annak függvényébne, hogy le van-e már töltve a package telepítsük {[}\texttt{install.packages("ggplot2")}{]}, vagy ne, majd töltsük be {[}\texttt{library(ggplot2)}{]}. A ggplot2 helyett lehet egyből a \texttt{tidyverse}-t is betölteni, azonban jelenleg a többi package redundáns nekünk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(cars, }\FunctionTok{aes}\NormalTok{(speed, dist)) }\SpecialCharTok{+} 
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+A ggplot2-vel kapunk néhány kiegészítő adattáblát, az egyszerűség kedvéért használjuk most ezek közül a \texttt{diamonds}-t. Pillanatra tekintsük meg az adattábla felépítését:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(diamonds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in tab_header(., "A diamonds adattábla"): could not find function "tab_header"
+\end{verbatim}
+
+Lássuk az első ábránkat ggplottal!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-5-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-8-1} 
+
+}
+
+\caption{A legelső ábránk ggplot használatával}\label{fig:unnamed-chunk-8}
+\end{figure}
+
+Amit látunk, hogy az ábrázolás a \texttt{ggplot} paranccsal kezdődik. Itt definiálni kell, hogy melyik táblának adatait szeretnénk felhasználni (\texttt{diamonds}), majd pedig az ábrázoláshoz használt ``keretet'', ami az \texttt{aes}-es belül kap helyet. Itt általában (mint például most) az x és y tengelyen ábrázolt adatokat kell megadni. A ggplot-ot mindig egy \texttt{geom} parancs követi, amellyel az ábra típusát adjuk meg.
+
+Ezen az ábrán azonban még nicsen semmilyen felirat. Minden felirat megadható a \texttt{labs()} függvényben. Példa:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Figyelemfelkeltő cím"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Az alcím pontosítja a témát"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"x{-}tengely váltózójának neve"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"y{-}tengely változójának neve"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Mindent megmagyarázó hosszú leírás."}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1} 
+
+}
+
+\caption{Feliratok elhelyezése az ábrán}\label{fig:unnamed-chunk-9}
+\end{figure}
+
+\hypertarget{esquisse}{%
+\subsection{Esquisse}\label{esquisse}}
+
+Első látásra ez még lehet túl sok információ, illetve a következőkben a bonyolultabb ábrákra rátérve elveszítheti az ember a fonalat. Amíg bizonytalan a ggplot használata javaslom a \texttt{esquisse} packaget Ezt csupán telepíteni kell a \texttt{install.packages("esquisse")} paranccsal, majd az \texttt{Addins} menüből lehet előhívni. Ennek segítségével ``manuálisan'' adhatóak meg az ábra elemei. Lássuk például az előző ábrát!
+
+\hypertarget{szuxedn}{%
+\subsection{Szín}\label{szuxedn}}
+
+Az \texttt{esquisse} automatikusan hozzáadott 3 elemet, amit akkor itt tisztázni szükséges. A \texttt{geom} függvényen belül a \texttt{size} paraméter a pontok méretért felel, míg a \texttt{color} a pontok színéért. Színként megadható bármilyen hexadecimális érték, illetve az R számos színt ismer (\texttt{red}, \texttt{green}, \texttt{blue}, \texttt{black}, stb.).
+
+\begin{verbatim}
+#> Error in include_graphics("images/color_examples.png"): could not find function "include_graphics"
+\end{verbatim}
+
+\hypertarget{tuxe9ma}{%
+\subsection{Téma}\label{tuxe9ma}}
+
+A 3. dolog amit \texttt{esquisse} csatolt a kódunk mellé az egy \texttt{theme} parancs. Ez a parancstípus az ábra hátterének, jelmagyarázatának és feliratainak esztétikáját adja meg. Lássunk ezekből is néhányat!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_classic}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_grey}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error: Can't add `(p + theme_classic() + ggtitle("theme_classic"))` to a ggplot object.
+\end{verbatim}
+
+Persze van még rengeteg, válogass nyugodtan: \url{https://www.datanovia.com/en/blog/ggplot-themes-gallery/}
+
+Ami még fontos, hogy a \texttt{theme()} függvénnyel módosíthatóak a témánk egyes elemei (háttérszín, betűszín stb.). Például legyen tényleg figyelemfelkeltő a fentebb bemutatott cím!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Figyelemfelkeltő cím"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Az alcím pontosítja a témát"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"x{-}tengely váltózójának neve"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"y{-}tengely változójának neve"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Mindent megmagyarázó hosszú leírás."}
+\NormalTok{  ) }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{size =} \DecValTok{30}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-15-1} 
+
+}
+
+\caption{Téma egy elmének megváltoztatására példa}\label{fig:unnamed-chunk-15}
+\end{figure}
+
+\hypertarget{geom}{%
+\subsection{Geom}\label{geom}}
+
+A plot szempontjából lényeges fontosabb azonban a \texttt{geom} függvény. Maga a függvény adja meg az ábra típusát, azonban a benne foglalt paraméterek sem elhanyagolhatóak. Nézzük példát a típusokra (csak párat van módom említeni a végtelenül sokból)!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \FunctionTok{mean}\NormalTok{(diamonds}\SpecialCharTok{$}\NormalTok{carat), }\AttributeTok{color =} \StringTok{\textquotesingle{}red4\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error: Can't add `ggplot(data = diamonds, mapping = aes(x = carat))` to a ggplot object.
+\end{verbatim}
+
+A 2. kódból látszik, hogy több \texttt{geom} is tartozhat egyszerre egy ábrához, így lehet például egy hisztogramon feltüntetni az átlagot egy függőleges vonallal (\texttt{geom\_vline}). Ennek párja is rendkívül hasznos tud lennni a \texttt{geom\_hline}, amivel lehet akár 0 mentén húzni egy vízszintes vonalat. A \texttt{cut} egy kategorikus változó az adattáblánkban, amelynek az egyes kategóriákhoz tartozó darabszámait egy \texttt{geom\_bar}-al gyorsan kirajzolhatjuk.
+Most nézzük a paramétereket! Eddig láttunk példát a \texttt{size}-ra és a \texttt{color}-ra, ami majdnem minden geom esetén csinál valamit, de egyes geomoknak vannak speciális paramétereik is, mint pélául az előbbi példában az \texttt{xintercept}. Lássunk néhány további fontos paraméterre példákat:
+
+\begin{verbatim}
+#> Error in cols_align(., align = "center"): could not find function "cols_align"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{"red"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \FunctionTok{mean}\NormalTok{(diamonds}\SpecialCharTok{$}\NormalTok{carat), }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{3}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ diamonds, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{\textquotesingle{}green\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error: Can't add `ggplot(data = diamonds, mapping = aes(x = carat))` to a ggplot object.
+\end{verbatim}
+
+Az utolsó ábra itt még igényel némi magyarázatot. A pont diagram alapbeállítása szerint csak \texttt{color} paraméter adható meg. Azonban ha a \texttt{shape}-t átállítjuk, akkor van lehetőségünk olyan pontdiagramokat rajzolni, amelyeknek belsejéhez tartozó színt adja meg a \texttt{fill}, a szegélyét a \texttt{color}.
+
+\hypertarget{aes}{%
+\subsection{Aes}\label{aes}}
+
+Korábban csak átsiklottunk az \texttt{aes()} függvényen, ami az ábra ``keretét'' adta. Most nézzük meg kicsit részletesebben! A \texttt{mapping} paraméter, aminek megadásához használjuk fel az \texttt{aes()}-t az előzőekben a \texttt{ggplot()} függvényen belül szerepelt. Ennek azonban nem kell feltétlenül így lennie. A következő 3 kód, mind ugyanazt hajtja végre (erre még visszatérünk):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(diamonds) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(diamonds) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price))}
+\end{Highlighting}
+\end{Shaded}
+
+Az \texttt{aes}-ben azonban nem csak x- és y-tengely változóit definiálhatjuk. Minden ami \texttt{geom}-beni paraméter, az megadásra kerülhet az \texttt{aes()}-ben is, azonban ilyenkor az adott változó értéke szerint kerül megadásra (pl.: egy harmadik változó szerint van definiálva a méret, vagy a szín). Ami paraméter az \texttt{aes()}-ben kerül megadásra, az automatikusan a jelmagyarázatra is felkerül. Lássunk két példát!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{color =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{size =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in (ggplot(diamonds, aes(x = carat, y = price, color = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary operator
+\end{verbatim}
+
+Ha egy változó szerint adjuk meg a színeket, akkor érdemes a színezésnek módját is megadni. Erre leginkább a \texttt{viridis} függvények a javasoltak (számos alkalommla láthatod tudományos publikációkban + \emph{végződésre figyeljünk: viridis\_d, mint diszkért/viridis\_c, mint folytonos}), de ha például fontos, hogy fekete-fehér legyen, arra is van mód, illetve ``kézileg'' is meg lehet adni színeket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{color =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}
+
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{color =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_viridis\_d}\NormalTok{(}\AttributeTok{option =} \StringTok{"magma"}\NormalTok{)}
+
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{color =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}
+    \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{, }\StringTok{"orange"}\NormalTok{)}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Error in (ggplot(diamonds, aes(x = carat, y = price, color = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary operator
+\end{verbatim}
+
+És most vissza oda, hogy miért is hasznos, hogy több \texttt{aes()} definiálható egyetlen ábrán. Elképzelhető, hogy két külön \texttt{geom}-ot használunk együtt. Legyen mondjuk egy pontdiagram és egy azokra illesztett ``trendvonal''. Utóbbi a \texttt{geom\_smooth} paranccsal érhető el, s amennyiben lineáris függvény formára vágyunk (yes), úgy adjuk meg neki a \texttt{method\ =\ "lm"} paramétert.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{color =}\NormalTok{ cut)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{)}
+\CommentTok{\#\textgreater{} \textasciigrave{}geom\_smooth()\textasciigrave{} using formula \textquotesingle{}y \textasciitilde{} x\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-26-1} 
+
+}
+
+\caption{Lineáris trend illesztése pontdiagramra}\label{fig:unnamed-chunk-26}
+\end{figure}
+
+Mint látjuk jelen esetben a \texttt{geom\_smooth} ugyanazt az \texttt{aes()}-t alkalmazza, mint a \texttt{geom\_point}. Ez azonban problémás, ha nem akarunk a kategorikus ismérv mentén 5 külön trendvonalat illeszteni. Ilyenkor jelent megoldás egy új \texttt{aes()} megadása egyetlen ábrán belül.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price, }\AttributeTok{color =}\NormalTok{ cut)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_smooth}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price), }\AttributeTok{method =} \StringTok{"lm"}\NormalTok{)}
+\CommentTok{\#\textgreater{} \textasciigrave{}geom\_smooth()\textasciigrave{} using formula \textquotesingle{}y \textasciitilde{} x\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1} 
+
+}
+
+\caption{Lineáris trend illesztése pontdiagramra két külön esztétika függvénnyel}\label{fig:unnamed-chunk-27}
+\end{figure}
+
+\hypertarget{facet}{%
+\subsection{Facet}\label{facet}}
+
+A \texttt{facet} az utolsó parancs amit érinteni kívánunk. Ennek segítségével lehetőség van egy ábra felosztására valamely változó mentén. Például a \texttt{cut} változó szerint csoportosítva megtekintve a pontdiagramok:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ cut)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-28-1} 
+
+}
+
+\caption{Facet alkalmazása egy változó szerint}\label{fig:unnamed-chunk-28}
+\end{figure}
+
+Ha pedig soronként és oszloponként is akarunk csoportosítani:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(diamonds, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ carat, }\AttributeTok{y =}\NormalTok{ price)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(color }\SpecialCharTok{\textasciitilde{}}\NormalTok{ cut)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1} 
+
+}
+
+\caption{Facet alkalmazása két változó szerint}\label{fig:unnamed-chunk-29}
+\end{figure}
+
+\hypertarget{kitekintuxe9s}{%
+\subsection{Kitekintés}\label{kitekintuxe9s}}
+
+A ggplot2 logikusan felépített működése annyira a felhasználók kedvencévé tette, hogy számos kiegészító package épült rá: \texttt{ggpubs}, \texttt{GGally}, \texttt{gganimate}, stb. Ezek jelenleg nem részei a tananyagnak, azonban érdemes rájuk nézni, ha szakdolgozat vagy TDK prezentálása során szeretnéd lenyűgözni a közönséged. Kedvcsináló:
 
 \hypertarget{part-week-5}{%
 \part*{Week 5}\label{part-week-5}}
@@ -571,7 +900,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-6-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
 \hypertarget{seminar5}{%
 \section{Seminar 5}\label{seminar5}}
@@ -613,7 +942,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-7-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 \hypertarget{seminar6}{%
 \section{Seminar 6}\label{seminar6}}
@@ -636,23 +965,11 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-8-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 \hypertarget{part-week-7}{%
 \part*{Week 7}\label{part-week-7}}
 \addcontentsline{toc}{part}{Week 7}
-
-\hypertarget{week7-intro}{%
-\section*{Introduction}\label{week7-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
 
 \hypertarget{lecture7}{%
 \section{Lecture 7}\label{lecture7}}
@@ -675,7 +992,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 \hypertarget{seminar7}{%
 \section{Seminar 7}\label{seminar7}}
@@ -698,7 +1015,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-10-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
   \bibliography{references.bib}
 

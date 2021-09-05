@@ -1,3 +1,5 @@
+# (PART\*) Week 7 {.unnumbered}
+
 # Lecture 7 {#lecture7}
 
 In this chapter, you'll learn how to wrap ggplot2 and dplyr function in a Shiny app.
