@@ -172,13 +172,11 @@
 \begin{document}
 \maketitle
 
-\includepdf[pages=-]{cover.pdf}
-
 {
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-\includepdf[pages=-]{cover.pdf}\pagebreak
+\pagebreak
 
 \hypertarget{welcome}{%
 \section*{Welcome}\label{welcome}}
@@ -255,18 +253,6 @@ Homework/Exam
 \part*{Week 1}\label{part-week-1}}
 \addcontentsline{toc}{part}{Week 1}
 
-\hypertarget{week1-intro}{%
-\section*{Introduction}\label{week1-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
-
 \hypertarget{lecture1}{%
 \section{Lecture 1}\label{lecture1}}
 
@@ -288,7 +274,7 @@ We'll finish up by discussing dangerous actions, and how you give your users pea
 In this chapter we will discuss the basics of R programming.
 R is a free software, used by millions in the field of statistics, data science, economics and many others.
 
-\href{https://www.facebook.com/Rmemes0/photos/a.1230204967031792/2971372822914989/}{\includegraphics[width=3.125in,height=\textheight]{images/meme_free.jpg}}
+\href{https://www.facebook.com/Rmemes0/photos/a.1230204967031792/2971372822914989/}{\includegraphics[width=6.25in,height=\textheight]{images/meme_free.jpg}}
 
 The R programming language is an important tool for data related tasks, but it is much more.
 Just like other programming languages, R has many additional packages, which can extend its basic functionality.
@@ -386,18 +372,6 @@ Figure \ref{fig:theme} shows the results of the following code, switching \textt
 \part*{Week 2}\label{part-week-2}}
 \addcontentsline{toc}{part}{Week 2}
 
-\hypertarget{week2-intro}{%
-\section*{Introduction}\label{week2-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
-
 \hypertarget{lecture2}{%
 \section{Lecture 2}\label{lecture2}}
 
@@ -437,18 +411,6 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \part*{Week 3}\label{part-week-3}}
 \addcontentsline{toc}{part}{Week 3}
 
-\hypertarget{week3-intro}{%
-\section*{Introduction}\label{week3-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
-
 \hypertarget{lecture3}{%
 \section{Lecture 3}\label{lecture3}}
 
@@ -479,18 +441,6 @@ We'll start by discussing file uploads, showing you the basic UI and server comp
 \hypertarget{part-week-4}{%
 \part*{Week 4}\label{part-week-4}}
 \addcontentsline{toc}{part}{Week 4}
-
-\hypertarget{week4-intro}{%
-\section*{Introduction}\label{week4-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
 
 \hypertarget{lecture4}{%
 \section{Lecture 4}\label{lecture4}}
@@ -523,7 +473,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 
 Bár maga a base R {[}értve itt ilyenkor mindig a \texttt{plot} paranccsal készült ábrákat{]} segítségével is lehet ábrákat készíteni, ez az egyszerűségét leszámítva nagyon ritkán ajánlott. Helyette érdemes a ggplot2-t alkalmazni, amely bár komplexebb, mint a base R, a személyre szabhatóságának szinte nincs felső határa.
 
-\includegraphics{images/plot_ggplot.jpg}
+\includegraphics[width=4.16667in,height=\textheight]{images/plot_ggplot.jpg}
 
 Ám amelett, hogy szebb ábráink lesznek van egy sokkal fontosabb ok, amiért a ggplotot használjuk. A csomag a nevét Leland Wilkinson \textbf{Grammar of Graphics} c.~munkája után kapta (innen a \emph{gg}), amelyben megfogalmazásra került lényegében az ideális ábrakészítő algoritmus struktúrája. Mivel a ggplot2 ezt az elvet követi, így meglátjátok majd, hogy bár sok dolgot kell fejben tartani, minden logikus benne. Miután sikerül elsajátítani ezt az anyagot (és némi utána olvasás után) bármilyen szükséges ábrát el fogtok tudni készíteni.
 
@@ -694,8 +644,7 @@ A plot szempontjából lényeges fontosabb azonban a \texttt{geom} függvény. M
 #> Error: Can't add `ggplot(data = diamonds, mapping = aes(x = carat))` to a ggplot object.
 \end{verbatim}
 
-A 2. kódból látszik, hogy több \texttt{geom} is tartozhat egyszerre egy ábrához, így lehet például egy hisztogramon feltüntetni az átlagot egy függőleges vonallal (\texttt{geom\_vline}). Ennek párja is rendkívül hasznos tud lennni a \texttt{geom\_hline}, amivel lehet akár 0 mentén húzni egy vízszintes vonalat. A \texttt{cut} egy kategorikus változó az adattáblánkban, amelynek az egyes kategóriákhoz tartozó darabszámait egy \texttt{geom\_bar}-al gyorsan kirajzolhatjuk.
-Most nézzük a paramétereket! Eddig láttunk példát a \texttt{size}-ra és a \texttt{color}-ra, ami majdnem minden geom esetén csinál valamit, de egyes geomoknak vannak speciális paramétereik is, mint pélául az előbbi példában az \texttt{xintercept}. Lássunk néhány további fontos paraméterre példákat:
+A 2. kódból látszik, hogy több \texttt{geom} is tartozhat egyszerre egy ábrához, így lehet például egy hisztogramon feltüntetni az átlagot egy függőleges vonallal (\texttt{geom\_vline}). Ennek párja is rendkívül hasznos tud lennni a \texttt{geom\_hline}, amivel lehet akár 0 mentén húzni egy vízszintes vonalat. A \texttt{cut} egy kategorikus változó az adattáblánkban, amelynek az egyes kategóriákhoz tartozó darabszámait egy \texttt{geom\_bar}-al gyorsan kirajzolhatjuk. Most nézzük a paramétereket! Eddig láttunk példát a \texttt{size}-ra és a \texttt{color}-ra, ami majdnem minden geom esetén csinál valamit, de egyes geomoknak vannak speciális paramétereik is, mint pélául az előbbi példában az \texttt{xintercept}. Lássunk néhány további fontos paraméterre példákat:
 
 \begin{verbatim}
 #> Error in cols_align(., align = "center"): could not find function "cols_align"
@@ -871,18 +820,6 @@ A ggplot2 logikusan felépített működése annyira a felhasználók kedvencév
 \part*{Week 5}\label{part-week-5}}
 \addcontentsline{toc}{part}{Week 5}
 
-\hypertarget{week5-intro}{%
-\section*{Introduction}\label{week5-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
-
 \hypertarget{lecture5}{%
 \section{Lecture 5}\label{lecture5}}
 
@@ -912,18 +849,6 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \hypertarget{part-week-6}{%
 \part*{Week 6}\label{part-week-6}}
 \addcontentsline{toc}{part}{Week 6}
-
-\hypertarget{week6-intro}{%
-\section*{Introduction}\label{week6-intro}}
-\addcontentsline{toc}{section}{Introduction}
-
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \ref{Lecture1}, because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
-
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
-
-Let's begin by working on your workflow for developing apps.
 
 \hypertarget{lecture6}{%
 \section{Lecture 6}\label{lecture6}}

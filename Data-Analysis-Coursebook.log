@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.12) (preloaded format=xelatex 2021.4.18)  6 SEP 2021 02:31
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.12) (preloaded format=xelatex 2021.4.18)  7 SEP 2021 01:56
 entering extended mode
 **./Data-Analysis-Coursebook.tex
 (Data-Analysis-Coursebook.tex
@@ -1154,25 +1154,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 174
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-[1
-
-]
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-[2] (Data-Analysis-Coursebook.toc
+) (Data-Analysis-Coursebook.toc
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 7.0pt on input line 2.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
@@ -1189,132 +1171,101 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 6.99925pt on input line 2.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 2.
-[3])
+[1
+
+])
 \tf@toc=\write4
 \openout4 = `Data-Analysis-Coursebook.toc'.
 
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-[4]
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-File: cover.pdf Graphic file (type pdf)
-<use cover.pdf, page 1>
-[5]
+[2]
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 8.31146pt on input line 246.
+(Font)              scaled to size 8.31146pt on input line 244.
 Font mapping `tex-ansi.tec' for font `Arial' not found.
-
-LaTeX Warning: Reference `Lecture1' on page 6 undefined on input line 263.
-
-[6]
+[3]
 File: images/meme_free.jpg Graphic file (type bmp)
 <images/meme_free.jpg>
-[7]
+[4]
 File: images/installr.jpg Graphic file (type bmp)
 <images/installr.jpg>
+[5]
 File: images/installr2.jpg Graphic file (type bmp)
 <images/installr2.jpg>
 File: images/installr3.jpg Graphic file (type bmp)
 <images/installr3.jpg>
-[8]
+[6]
 
-LaTeX Warning: Reference `action-buttons' on page 9 undefined on input line 330
+LaTeX Warning: Reference `action-buttons' on page 7 undefined on input line 316
 .
 
-[9]
+[7]
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 8.72704pt on input line 367.
+(Font)              scaled to size 8.72704pt on input line 353.
 Font mapping `tex-ansi.tec' for font `Arial' not found.
 
-LaTeX Warning: Reference `fig:theme' on page 10 undefined on input line 383.
+LaTeX Warning: Reference `fig:theme' on page 8 undefined on input line 369.
 
-
-LaTeX Warning: Reference `Lecture1' on page 10 undefined on input line 394.
-
-[10]
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
+[8]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1.pdf Graphic
  file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1.pdf>
-
-LaTeX Warning: Reference `Lecture1' on page 11 undefined on input line 445.
-
-[11]
-
-LaTeX Warning: Reference `Lecture1' on page 12 undefined on input line 488.
-
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[12]
+[9]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-5-1.pdf Graphic
  file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-5-1.pdf>
 File: images/plot_ggplot.jpg Graphic file (type bmp)
 <images/plot_ggplot.jpg>
-[13]
+[10]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1.pdf Graphic
  file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1.pdf>
-[14]
+[11]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-10-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-10-1.pdf>
-[15]
+[12]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-16-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-16-1.pdf>
-[16] [17]
-Overfull \hbox (46.34161pt too wide) in paragraph at lines 759--759
+[13] [14]
+Overfull \hbox (46.34161pt too wide) in paragraph at lines 708--708
 []\TU/Arial(0)/m/n/10 #> Error in (ggplot(diamonds, aes(x = carat, y = price, c
 olor = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary
  operator[] 
  []
 
 
-Overfull \hbox (46.34161pt too wide) in paragraph at lines 782--782
+Overfull \hbox (46.34161pt too wide) in paragraph at lines 731--731
 []\TU/Arial(0)/m/n/10 #> Error in (ggplot(diamonds, aes(x = carat, y = price, c
 olor = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary
  operator[] 
  []
 
-[18]
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/it' will be
-(Font)              scaled to size 8.72704pt on input line 791.
+(Font)              scaled to size 8.72704pt on input line 740.
 Font mapping `tex-ansi.tec' for font `Arial Italic' not found.
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1.pdf>
+[15]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-28-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-28-1.pdf>
+[16]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1.pdf>
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-30-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-30-1.pdf>
-
-LaTeX Warning: Reference `Lecture1' on page 19 undefined on input line 879.
-
-[19] [20]
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[21]
+[17]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1.pdf>
-
-LaTeX Warning: Reference `Lecture1' on page 22 undefined on input line 921.
-
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[22]
+[18]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1.pdf>
@@ -1322,18 +1273,18 @@ Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1.pdf>
+[19]
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[23]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1.pdf>
+[20]
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-36-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-36-1.pdf>
-[24]
 No file Data-Analysis-Coursebook.bbl.
-[25] (Data-Analysis-Coursebook.aux)
+[21] (Data-Analysis-Coursebook.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1342,12 +1293,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 20208 strings out of 412095
- 350804 string characters out of 2847043
- 846833 words of memory out of 3000000
- 39513 multiletter control sequences out of 15000+200000
+ 20186 strings out of 412095
+ 350536 string characters out of 2847043
+ 846373 words of memory out of 3000000
+ 39493 multiletter control sequences out of 15000+200000
  409977 words of font info for 92 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 94i,17n,121p,610b,474s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 94i,7n,121p,833b,405s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Data-Analysis-Coursebook.pdf (25 pages).
+Output written on Data-Analysis-Coursebook.pdf (21 pages).
