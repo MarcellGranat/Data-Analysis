@@ -109,6 +109,8 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
+\usepackage{pdfpages}
+
 \usepackage{booktabs}
 \usepackage{amsthm}
 \makeatletter
@@ -170,11 +172,13 @@
 \begin{document}
 \maketitle
 
+\includepdf[pages=-]{cover.pdf}
+
 {
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-\pagebreak
+\includepdf[pages=-]{cover.pdf}\pagebreak
 
 \hypertarget{welcome}{%
 \section*{Welcome}\label{welcome}}
@@ -427,7 +431,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-3-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
 \hypertarget{part-week-3}{%
 \part*{Week 3}\label{part-week-3}}
@@ -509,7 +513,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-5-1} \end{center}
 
 \hypertarget{seminar4}{%
 \section{Ggplot}\label{seminar4}}
@@ -557,11 +561,11 @@ Lássuk az első ábránkat ggplottal!
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-8-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1} 
 
 }
 
-\caption{A legelső ábránk ggplot használatával}\label{fig:unnamed-chunk-8}
+\caption{A legelső ábránk ggplot használatával}\label{fig:unnamed-chunk-9}
 \end{figure}
 
 Amit látunk, hogy az ábrázolás a \texttt{ggplot} paranccsal kezdődik. Itt definiálni kell, hogy melyik táblának adatait szeretnénk felhasználni (\texttt{diamonds}), majd pedig az ábrázoláshoz használt ``keretet'', ami az \texttt{aes}-es belül kap helyet. Itt általában (mint például most) az x és y tengelyen ábrázolt adatokat kell megadni. A ggplot-ot mindig egy \texttt{geom} parancs követi, amellyel az ábra típusát adjuk meg.
@@ -584,11 +588,11 @@ Ezen az ábrán azonban még nicsen semmilyen felirat. Minden felirat megadható
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-10-1} 
 
 }
 
-\caption{Feliratok elhelyezése az ábrán}\label{fig:unnamed-chunk-9}
+\caption{Feliratok elhelyezése az ábrán}\label{fig:unnamed-chunk-10}
 \end{figure}
 
 \hypertarget{esquisse}{%
@@ -657,11 +661,11 @@ Ami még fontos, hogy a \texttt{theme()} függvénnyel módosíthatóak a témá
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-15-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-16-1} 
 
 }
 
-\caption{Téma egy elmének megváltoztatására példa}\label{fig:unnamed-chunk-15}
+\caption{Téma egy elmének megváltoztatására példa}\label{fig:unnamed-chunk-16}
 \end{figure}
 
 \hypertarget{geom}{%
@@ -790,11 +794,11 @@ Ha egy változó szerint adjuk meg a színeket, akkor érdemes a színezésnek m
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-26-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1} 
 
 }
 
-\caption{Lineáris trend illesztése pontdiagramra}\label{fig:unnamed-chunk-26}
+\caption{Lineáris trend illesztése pontdiagramra}\label{fig:unnamed-chunk-27}
 \end{figure}
 
 Mint látjuk jelen esetben a \texttt{geom\_smooth} ugyanazt az \texttt{aes()}-t alkalmazza, mint a \texttt{geom\_point}. Ez azonban problémás, ha nem akarunk a kategorikus ismérv mentén 5 külön trendvonalat illeszteni. Ilyenkor jelent megoldás egy új \texttt{aes()} megadása egyetlen ábrán belül.
@@ -810,11 +814,11 @@ Mint látjuk jelen esetben a \texttt{geom\_smooth} ugyanazt az \texttt{aes()}-t 
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-28-1} 
 
 }
 
-\caption{Lineáris trend illesztése pontdiagramra két külön esztétika függvénnyel}\label{fig:unnamed-chunk-27}
+\caption{Lineáris trend illesztése pontdiagramra két külön esztétika függvénnyel}\label{fig:unnamed-chunk-28}
 \end{figure}
 
 \hypertarget{facet}{%
@@ -832,11 +836,11 @@ A \texttt{facet} az utolsó parancs amit érinteni kívánunk. Ennek segítség�
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-28-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1} 
 
 }
 
-\caption{Facet alkalmazása egy változó szerint}\label{fig:unnamed-chunk-28}
+\caption{Facet alkalmazása egy változó szerint}\label{fig:unnamed-chunk-29}
 \end{figure}
 
 Ha pedig soronként és oszloponként is akarunk csoportosítani:
@@ -851,11 +855,11 @@ Ha pedig soronként és oszloponként is akarunk csoportosítani:
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1} 
+{\centering \includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-30-1} 
 
 }
 
-\caption{Facet alkalmazása két változó szerint}\label{fig:unnamed-chunk-29}
+\caption{Facet alkalmazása két változó szerint}\label{fig:unnamed-chunk-30}
 \end{figure}
 
 \hypertarget{kitekintuxe9s}{%
@@ -900,7 +904,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-31-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 \hypertarget{seminar5}{%
 \section{Seminar 5}\label{seminar5}}
@@ -942,7 +946,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 \hypertarget{seminar6}{%
 \section{Seminar 6}\label{seminar6}}
@@ -965,7 +969,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 \hypertarget{part-week-7}{%
 \part*{Week 7}\label{part-week-7}}
@@ -992,7 +996,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1} \end{center}
 
 \hypertarget{seminar7}{%
 \section{Seminar 7}\label{seminar7}}
@@ -1015,7 +1019,7 @@ Let's begin with this call to \texttt{filter()} which uses a data-variable (\tex
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-36-1} \end{center}
 
   \bibliography{references.bib}
 

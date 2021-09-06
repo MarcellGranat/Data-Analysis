@@ -1,3 +1,5 @@
+# (PART\*) Week 2 {.unnumbered}
+
 # Lecture 2 {#lecture2}
 
 You can often make your app more usable by giving the user more insight into what is happening.

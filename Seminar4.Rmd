@@ -4,7 +4,7 @@
 
 Bár maga a base R [értve itt ilyenkor mindig a `plot` paranccsal készült ábrákat] segítségével is lehet ábrákat készíteni, ez az egyszerűségét leszámítva nagyon ritkán ajánlott. Helyette érdemes a ggplot2-t alkalmazni, amely bár komplexebb, mint a base R, a személyre szabhatóságának szinte nincs felső határa.
 
-![](images/plot_ggplot.jpg)
+![](images/plot_ggplot.jpg){width="400"}
 
 Ám amelett, hogy szebb ábráink lesznek van egy sokkal fontosabb ok, amiért a ggplotot használjuk. A csomag a nevét Leland Wilkinson **Grammar of Graphics** c. munkája után kapta (innen a *gg*), amelyben megfogalmazásra került lényegében az ideális ábrakészítő algoritmus struktúrája. Mivel a ggplot2 ezt az elvet követi, így meglátjátok majd, hogy bár sok dolgot kell fejben tartani, minden logikus benne. Miután sikerül elsajátítani ezt az anyagot (és némi utána olvasás után) bármilyen szükséges ábrát el fogtok tudni készíteni.
 
@@ -15,7 +15,6 @@ A ggplot2 telepíthető önállóan is, illetve ez a csomag része egy "csomaggy
 ```{r}
 library(ggplot2)
 ```
-
 
 A ggplot2-vel kapunk néhány kiegészítő adattáblát, az egyszerűség kedvéért használjuk most ezek közül a `diamonds`-t. Pillanatra tekintsük meg az adattábla felépítését:
 
@@ -37,7 +36,7 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
   geom_point()
 ```
 
-Amit látunk, hogy az ábrázolás a `ggplot` paranccsal kezdődik. Itt definiálni kell, hogy melyik táblának adatait szeretnénk felhasználni (`diamonds`), majd pedig az ábrázoláshoz használt “keretet”, ami az `aes`-es belül kap helyet. Itt általában (mint például most) az x és y tengelyen ábrázolt adatokat kell megadni. A ggplot-ot mindig egy `geom` parancs követi, amellyel az ábra típusát adjuk meg.
+Amit látunk, hogy az ábrázolás a `ggplot` paranccsal kezdődik. Itt definiálni kell, hogy melyik táblának adatait szeretnénk felhasználni (`diamonds`), majd pedig az ábrázoláshoz használt "keretet", ami az `aes`-es belül kap helyet. Itt általában (mint például most) az x és y tengelyen ábrázolt adatokat kell megadni. A ggplot-ot mindig egy `geom` parancs követi, amellyel az ábra típusát adjuk meg.
 
 Ezen az ábrán azonban még nicsen semmilyen felirat. Minden felirat megadható a `labs()` függvényben. Példa:
 
@@ -52,7 +51,6 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
     caption = "Mindent megmagyarázó hosszú leírás."
   )
 ```
-
 
 ## Esquisse
 
@@ -112,7 +110,7 @@ p <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 (p + theme_minimal() + ggtitle("theme_minimal")))
 ```
 
-Persze van még rengeteg, válogass nyugodtan: https://www.datanovia.com/en/blog/ggplot-themes-gallery/
+Persze van még rengeteg, válogass nyugodtan: <https://www.datanovia.com/en/blog/ggplot-themes-gallery/>
 
 Ami még fontos, hogy a `theme()` függvénnyel módosíthatóak a témánk egyes elemei (háttérszín, betűszín stb.). Például legyen tényleg figyelemfelkeltő a fentebb bemutatott cím!
 
@@ -164,8 +162,8 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
      geom_point() +
      ggtitle("geom_point"))
 ```
-A 2. kódból látszik, hogy több `geom` is tartozhat egyszerre egy ábrához, így lehet például egy hisztogramon feltüntetni az átlagot egy függőleges vonallal (`geom_vline`). Ennek párja is rendkívül hasznos tud lennni a `geom_hline`, amivel lehet akár 0 mentén húzni egy vízszintes vonalat. A `cut` egy kategorikus változó az adattáblánkban, amelynek az egyes kategóriákhoz tartozó darabszámait egy `geom_bar`-al gyorsan kirajzolhatjuk.
-Most nézzük a paramétereket! Eddig láttunk példát a `size`-ra és a `color`-ra, ami majdnem minden geom esetén csinál valamit, de egyes geomoknak vannak speciális paramétereik is, mint pélául az előbbi példában az `xintercept`. Lássunk néhány további fontos paraméterre példákat:
+
+A 2. kódból látszik, hogy több `geom` is tartozhat egyszerre egy ábrához, így lehet például egy hisztogramon feltüntetni az átlagot egy függőleges vonallal (`geom_vline`). Ennek párja is rendkívül hasznos tud lennni a `geom_hline`, amivel lehet akár 0 mentén húzni egy vízszintes vonalat. A `cut` egy kategorikus változó az adattáblánkban, amelynek az egyes kategóriákhoz tartozó darabszámait egy `geom_bar`-al gyorsan kirajzolhatjuk. Most nézzük a paramétereket! Eddig láttunk példát a `size`-ra és a `color`-ra, ami majdnem minden geom esetén csinál valamit, de egyes geomoknak vannak speciális paramétereik is, mint pélául az előbbi példában az `xintercept`. Lássunk néhány további fontos paraméterre példákat:
 
 ```{r echo = F}
 tibble(Paraméter = c('fill', 'alpha', 'ltp', 'shape'), Jelentés = c('kitöltés színe', 'átlátszóság', 'vonal szaggatásának típusa', 'alak típusa')) %>% 
@@ -262,6 +260,7 @@ ggplot(diamonds, aes(x = carat, y = price, color = cut)) +
      geom_point() + 
      scale_color_manual(values = c("red", "green", "blue", "yellow", "orange")))
 ```
+
 És most vissza oda, hogy miért is hasznos, hogy több `aes()` definiálható egyetlen ábrán. Elképzelhető, hogy két külön `geom`-ot használunk együtt. Legyen mondjuk egy pontdiagram és egy azokra illesztett "trendvonal". Utóbbi a `geom_smooth` paranccsal érhető el, s amennyiben lineáris függvény formára vágyunk (yes), úgy adjuk meg neki a `method = "lm"` paramétert.
 
 ```{r fig.cap =  "Lineáris trend illesztése pontdiagramra"}
@@ -287,6 +286,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point() +
   facet_wrap(~ cut)
 ```
+
 Ha pedig soronként és oszloponként is akarunk csoportosítani:
 
 ```{r fig.cap="Facet alkalmazása két változó szerint", fig.height=12}
@@ -297,7 +297,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 ## Kitekintés
 
-A ggplot2 logikusan felépített működése annyira a felhasználók kedvencévé tette, hogy számos kiegészító package épült rá: `ggpubs`, `GGally`, `gganimate`, stb. Ezek jelenleg nem részei a tananyagnak, azonban érdemes rájuk nézni, ha szakdolgozat vagy TDK prezentálása során szeretnéd lenyűgözni a közönséged. Kedvcsináló: 
+A ggplot2 logikusan felépített működése annyira a felhasználók kedvencévé tette, hogy számos kiegészító package épült rá: `ggpubs`, `GGally`, `gganimate`, stb. Ezek jelenleg nem részei a tananyagnak, azonban érdemes rájuk nézni, ha szakdolgozat vagy TDK prezentálása során szeretnéd lenyűgözni a közönséged. Kedvcsináló:
 
 ```{r, eval=knitr::is_html_output(excludes = "epub"), results = 'asis', echo = F}
 cat(

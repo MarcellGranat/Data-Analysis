@@ -10,19 +10,15 @@ rmd_files:
 
     "introduction.Rmd",
 
-    "week1.Rmd",
     "Lecture1.Rmd",
     "Seminar1.Rmd",
 
-    "week2.Rmd",
     "Lecture2.Rmd",
     "Seminar2.Rmd",
 
-    "week3.Rmd",
     "Lecture3.Rmd",
     "Seminar3.Rmd",
     
-    "week4.Rmd",
     "Lecture4.Rmd",
     "Seminar4.Rmd",
     
@@ -30,7 +26,6 @@ rmd_files:
     "Lecture5.Rmd",
     "Seminar5.Rmd",
     
-    "week6.Rmd",
     "Lecture6.Rmd",
     "Seminar6.Rmd",
 

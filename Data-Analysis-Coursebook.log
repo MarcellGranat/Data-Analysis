@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.12) (preloaded format=xelatex 2021.4.18)  6 SEP 2021 01:51
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 20.12) (preloaded format=xelatex 2021.4.18)  6 SEP 2021 02:31
 entering extended mode
 **./Data-Analysis-Coursebook.tex
 (Data-Analysis-Coursebook.tex
@@ -491,17 +491,38 @@ Package graphics Info: Driver file: xetex.def on input line 105.
 )
 \Gin@req@height=\dimen187
 \Gin@req@width=\dimen188
+) (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pdfpages.sty
+Package: pdfpages 2021/01/09 v0.5r Insert pages of external PDF documents (AM)
+(C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/eso-pic\eso-pic.sty
+Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
+\ESO@tempdima=\dimen189
+\ESO@tempdimb=\dimen190
+)
+\AM@pagewidth=\dimen191
+\AM@pageheight=\dimen192
+(C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\ppxetex.def
+File: ppxetex.def 2021/01/09 v0.5r Pdfpages driver for XeTeX (AM)
+)
+\pdfpages@includegraphics@status=\count310
+\AM@pagebox=\box59
+\AM@global@opts=\toks26
+\AM@pagecnt=\count311
+\AM@toc@title=\toks27
+\c@AM@survey=\count312
+\AM@templatesizebox=\box60
 ) (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/amscls\amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks26
-\thm@bodyfont=\toks27
-\thm@headfont=\toks28
-\thm@notefont=\toks29
-\thm@headpunct=\toks30
+\thm@style=\toks28
+\thm@bodyfont=\toks29
+\thm@headfont=\toks30
+\thm@notefont=\toks31
+\thm@headpunct=\toks32
 \thm@preskip=\skip63
 \thm@postskip=\skip64
 \thm@headsep=\skip65
-\dth@everypar=\toks31
+\dth@everypar=\toks33
 )
 
 Package fontspec Info: Arial scale = 0.8311533923217035.
@@ -644,9 +665,9 @@ ge=dflt;mapping=tex-ansi;"
 ge=dflt;+smcp;mapping=tex-ansi;"
 
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/Arial(1)/m/n on input line 123.
+(Font)                  OT1/lmtt/m/n --> TU/Arial(1)/m/n on input line 125.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/Arial(1)/bx/n on input line 123.
+(Font)                  OT1/lmtt/m/n --> TU/Arial(1)/bx/n on input line 125.
 
 (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/anyfontsize\anyfontsize
 .sty
@@ -722,7 +743,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip66
 \bibsep=\skip67
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count310
+\c@NAT@ctr=\count313
 ) (Data-Analysis-Coursebook.aux
 
 LaTeX Warning: Label `tidy-motivation' multiply defined.
@@ -745,36 +766,36 @@ LaTeX Warning: Label `tidy-motivation' multiply defined.
 )
 \openout1 = `Data-Analysis-Coursebook.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 170.
-LaTeX Font Info:    ... okay on input line 170.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 172.
+LaTeX Font Info:    ... okay on input line 172.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 170.
+(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 172.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 170.
+(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 172.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 170.
+(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 172.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 170.
+(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 172.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 170.
+(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 172.
 
 Package fontspec Info: latinmodern-math scale = 0.9999964596882403.
 
@@ -803,7 +824,7 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 170.
+(Font)              scaled to size 10.0pt on input line 172.
 
 Package fontspec Info: latinmodern-math scale = 0.9999964596882403.
 
@@ -842,18 +863,18 @@ pt=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 170.
+(Font)              scaled to size 10.0pt on input line 172.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 170.
+(Font)              `operators' in the math version `normal' on input line 172.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 170.
+ line 172.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 170.
+(Font)              `operators' in the math version `bold' on input line 172.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 170.
+t line 172.
 
 Package fontspec Info: latinmodern-math scale = 0.9999964596882403.
 
@@ -940,15 +961,15 @@ t=math;language=dflt;"
 (fontspec)             \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 170.
+(Font)              `symbols' in the math version `normal' on input line 172.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  OMS/lmsy/m/n --> TU/latinmodern-math.otf(2)/m/n on inpu
-t line 170.
+t line 172.
 LaTeX Font Info:    Encoding `OMS' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 170.
+(Font)              `symbols' in the math version `bold' on input line 172.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  OMS/lmsy/b/n --> TU/latinmodern-math.otf(2)/b/n on inpu
-t line 170.
+t line 172.
 
 Package fontspec Info: latinmodern-math scale = 0.9999964596882403.
 
@@ -1018,17 +1039,17 @@ pt=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 1
-70.
+72.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/m/n on inpu
-t line 170.
+t line 172.
 LaTeX Font Info:    Encoding `OMX' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 170
+(Font)              `largesymbols' in the math version `bold' on input line 172
 .
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/lmex/m/n --> TU/latinmodern-math.otf(3)/b/n on inpu
-t line 170.
-LaTeX Info: Redefining \microtypecontext on input line 170.
+t line 172.
+LaTeX Info: Redefining \microtypecontext on input line 172.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1040,7 +1061,7 @@ nRoman.cfg
 File: mt-LatinModernRoman.cfg 2013/03/13 v1.0 microtype config. file: Latin Mod
 ern Roman (RS)
 )
-Package hyperref Info: Link coloring OFF on input line 170.
+Package hyperref Info: Link coloring OFF on input line 172.
 (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
@@ -1050,11 +1071,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count311
+\c@section@level=\count314
 )
-LaTeX Info: Redefining \ref on input line 170.
-LaTeX Info: Redefining \pageref on input line 170.
-LaTeX Info: Redefining \nameref on input line 170.
+LaTeX Info: Redefining \ref on input line 172.
+LaTeX Info: Redefining \pageref on input line 172.
+LaTeX Info: Redefining \nameref on input line 172.
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -1088,43 +1109,70 @@ LaTeX Info: Redefining \nameref on input line 170.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+
+(C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
+Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+(C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/graphics\lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: dvipdfm (xetex) on input line 98.
+
+)
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 12.0pt on input line 172.
+(Font)              scaled to size 12.0pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 172.
+(Font)              scaled to size 8.0pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 172.
+(Font)              scaled to size 6.0pt on input line 174.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-72.
+74.
 (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 172.
+(Font)              scaled to size 12.0011pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 172.
+(Font)              scaled to size 8.00073pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 172.
+(Font)              scaled to size 6.00055pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 172.
+(Font)              scaled to size 11.99872pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 172.
+(Font)              scaled to size 7.99915pt on input line 174.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 172.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 172
+(Font)              scaled to size 5.99936pt on input line 174.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 174
 .
 (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 172
+LaTeX Font Info:    Trying to load font information for U+msb on input line 174
 .
 (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\Marci\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-) (Data-Analysis-Coursebook.toc
+)
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+[1
+
+]
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+[2] (Data-Analysis-Coursebook.toc
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 7.0pt on input line 2.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
@@ -1141,96 +1189,106 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 6.99925pt on input line 2.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 2.
-[1
-
-])
+[3])
 \tf@toc=\write4
 \openout4 = `Data-Analysis-Coursebook.toc'.
 
-[2]
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+[4]
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+File: cover.pdf Graphic file (type pdf)
+<use cover.pdf, page 1>
+[5]
 LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 8.31146pt on input line 242.
+(Font)              scaled to size 8.31146pt on input line 246.
 Font mapping `tex-ansi.tec' for font `Arial' not found.
 
-LaTeX Warning: Reference `Lecture1' on page 3 undefined on input line 259.
+LaTeX Warning: Reference `Lecture1' on page 6 undefined on input line 263.
 
-[3]
+[6]
 File: images/meme_free.jpg Graphic file (type bmp)
 <images/meme_free.jpg>
-[4]
+[7]
 File: images/installr.jpg Graphic file (type bmp)
 <images/installr.jpg>
 File: images/installr2.jpg Graphic file (type bmp)
 <images/installr2.jpg>
 File: images/installr3.jpg Graphic file (type bmp)
 <images/installr3.jpg>
-[5]
-
-LaTeX Warning: Reference `action-buttons' on page 6 undefined on input line 326
-.
-
-[6]
-LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
-(Font)              scaled to size 8.72704pt on input line 363.
-Font mapping `tex-ansi.tec' for font `Arial' not found.
-
-LaTeX Warning: Reference `fig:theme' on page 7 undefined on input line 379.
-
-
-LaTeX Warning: Reference `Lecture1' on page 7 undefined on input line 390.
-
-[7]
-Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-3-1.pdf Graphic
- file (type pdf)
-<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-3-1.pdf>
-
-LaTeX Warning: Reference `Lecture1' on page 8 undefined on input line 441.
-
 [8]
 
-LaTeX Warning: Reference `Lecture1' on page 9 undefined on input line 484.
+LaTeX Warning: Reference `action-buttons' on page 9 undefined on input line 330
+.
 
-Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
 [9]
+LaTeX Font Info:    Font shape `TU/Arial(0)/m/n' will be
+(Font)              scaled to size 8.72704pt on input line 367.
+Font mapping `tex-ansi.tec' for font `Arial' not found.
+
+LaTeX Warning: Reference `fig:theme' on page 10 undefined on input line 383.
+
+
+LaTeX Warning: Reference `Lecture1' on page 10 undefined on input line 394.
+
+[10]
+Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1.pdf Graphic
  file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-4-1.pdf>
+
+LaTeX Warning: Reference `Lecture1' on page 11 undefined on input line 445.
+
+[11]
+
+LaTeX Warning: Reference `Lecture1' on page 12 undefined on input line 488.
+
+Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
+[12]
+File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-5-1.pdf Graphic
+ file (type pdf)
+<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-5-1.pdf>
 File: images/plot_ggplot.jpg Graphic file (type bmp)
 <images/plot_ggplot.jpg>
-[10]
-File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-8-1.pdf Graphic
- file (type pdf)
-<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-8-1.pdf>
-[11]
+[13]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1.pdf Graphic
  file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-9-1.pdf>
-[12]
-File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-15-1.pdf Graphi
+[14]
+File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-10-1.pdf Graphi
 c file (type pdf)
-<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-15-1.pdf>
-[13] [14]
-Overfull \hbox (46.34161pt too wide) in paragraph at lines 755--755
-[]\TU/Arial(0)/m/n/10 #> Error in (ggplot(diamonds, aes(x = carat, y = price, c
-olor = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary
- operator[] 
- []
-
-
-Overfull \hbox (46.34161pt too wide) in paragraph at lines 778--778
-[]\TU/Arial(0)/m/n/10 #> Error in (ggplot(diamonds, aes(x = carat, y = price, c
-olor = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary
- operator[] 
- []
-
+<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-10-1.pdf>
 [15]
-LaTeX Font Info:    Font shape `TU/Arial(0)/m/it' will be
-(Font)              scaled to size 8.72704pt on input line 787.
-Font mapping `tex-ansi.tec' for font `Arial Italic' not found.
-File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-26-1.pdf Graphi
+File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-16-1.pdf Graphi
 c file (type pdf)
-<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-26-1.pdf>
+<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-16-1.pdf>
+[16] [17]
+Overfull \hbox (46.34161pt too wide) in paragraph at lines 759--759
+[]\TU/Arial(0)/m/n/10 #> Error in (ggplot(diamonds, aes(x = carat, y = price, c
+olor = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary
+ operator[] 
+ []
+
+
+Overfull \hbox (46.34161pt too wide) in paragraph at lines 782--782
+[]\TU/Arial(0)/m/n/10 #> Error in (ggplot(diamonds, aes(x = carat, y = price, c
+olor = cut)) + geom_point())/(ggplot(diamonds, : non-numeric argument to binary
+ operator[] 
+ []
+
+[18]
+LaTeX Font Info:    Font shape `TU/Arial(0)/m/it' will be
+(Font)              scaled to size 8.72704pt on input line 791.
+Font mapping `tex-ansi.tec' for font `Arial Italic' not found.
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-27-1.pdf>
@@ -1240,39 +1298,42 @@ c file (type pdf)
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-29-1.pdf>
-
-LaTeX Warning: Reference `Lecture1' on page 16 undefined on input line 875.
-
-[16] [17]
-Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[18]
-File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-31-1.pdf Graphi
+File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-30-1.pdf Graphi
 c file (type pdf)
-<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-31-1.pdf>
+<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-30-1.pdf>
 
-LaTeX Warning: Reference `Lecture1' on page 19 undefined on input line 917.
+LaTeX Warning: Reference `Lecture1' on page 19 undefined on input line 879.
 
+[19] [20]
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[19]
+[21]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-32-1.pdf>
+
+LaTeX Warning: Reference `Lecture1' on page 22 undefined on input line 921.
+
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
+[22]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-33-1.pdf>
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
-[20]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-34-1.pdf>
 Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
+[23]
 File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1.pdf Graphi
 c file (type pdf)
 <use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-35-1.pdf>
-[21]
+Missing character: There is no 😄 in font [lmroman10-regular]:mapping=tex-text;!
+File: Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-36-1.pdf Graphi
+c file (type pdf)
+<use Data-Analysis-Coursebook_files/figure-latex/unnamed-chunk-36-1.pdf>
+[24]
 No file Data-Analysis-Coursebook.bbl.
-[22] (Data-Analysis-Coursebook.aux)
+[25] (Data-Analysis-Coursebook.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1281,12 +1342,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 19508 strings out of 412095
- 339802 string characters out of 2847043
- 831894 words of memory out of 3000000
- 38834 multiletter control sequences out of 15000+200000
+ 20208 strings out of 412095
+ 350804 string characters out of 2847043
+ 846833 words of memory out of 3000000
+ 39513 multiletter control sequences out of 15000+200000
  409977 words of font info for 92 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
- 94i,7n,121p,610b,403s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 94i,17n,121p,610b,474s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Data-Analysis-Coursebook.pdf (22 pages).
+Output written on Data-Analysis-Coursebook.pdf (25 pages).

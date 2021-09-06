@@ -6,7 +6,10 @@ bibliography: references.bib
 suppress-bibliography: true
 ---
 
-\pagebreak
+```{r eavl = knitr::is_latex_output(), echo=FALSE, results='asis'}
+cat("\\pagebreak")
+```
+
 
 ```{r include=FALSE}
 library(tidyverse)
