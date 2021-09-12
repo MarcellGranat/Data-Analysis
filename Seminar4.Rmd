@@ -25,8 +25,7 @@ head(diamonds)
 ```{r echo = F}
 diamonds %>% 
   head %>% 
-  gt %>% 
-  tab_header("A diamonds adattábla")
+  knitr::kable(caption = "A diamonds adattábla")
 ```
 
 Lássuk az első ábránkat ggplottal!
@@ -56,8 +55,9 @@ ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
 
 Első látásra ez még lehet túl sok információ, illetve a következőkben a bonyolultabb ábrákra rátérve elveszítheti az ember a fonalat. Amíg bizonytalan a ggplot használata javaslom a `esquisse` packaget Ezt csupán telepíteni kell a `install.packages("esquisse")` paranccsal, majd az `Addins` menüből lehet előhívni. Ennek segítségével "manuálisan" adhatóak meg az ábra elemei. Lássuk például az előző ábrát!
 
-```{r eval=knitr::is_html_output(), results='asis', echo=FALSE}
-cat('![](images/esquisse.gif)')
+```{r eval=knitr::is_html_output(), fig.cap="Esquisse", echo=FALSE}
+# cat('![](images/esquisse.gif)')
+knitr::include_graphics("images/esquisse.gif")
 ```
 
 ## Szín
@@ -65,7 +65,7 @@ cat('![](images/esquisse.gif)')
 Az `esquisse` automatikusan hozzáadott 3 elemet, amit akkor itt tisztázni szükséges. A `geom` függvényen belül a `size` paraméter a pontok méretért felel, míg a `color` a pontok színéért. Színként megadható bármilyen hexadecimális érték, illetve az R számos színt ismer (`red`, `green`, `blue`, `black`, stb.).
 
 ```{r fig.cap="Néhány példa az elérhető színekre", echo = F}
-include_graphics("images/color_examples.png")
+knitr::include_graphics("images/color_examples.png")
 ```
 
 ## Téma

@@ -1,21 +1,94 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Syllabus {.unnumbered}
 
-+----------------+-----------------+-----------------------------------+----------------+
-| Week           | Lecture Topic   | Seminar Topic                     | Homework/Exam  |
-+:==============:+=================+===================================+================+
-| 1              |                 | Introduction to R                 |                |
-+----------------+-----------------+-----------------------------------+----------------+
-| 2              |                 | Functional programming, RMarkdown |                |
-+----------------+-----------------+-----------------------------------+----------------+
-| 3              |                 | `Tibble`, `Dplyr`                 |                |
-+----------------+-----------------+-----------------------------------+----------------+
-| 4              |                 | `Ggplot2`                         |                |
-+----------------+-----------------+-----------------------------------+----------------+
-| 5              |                 | Statistical analysis, `purrr`     |                |
-+----------------+-----------------+-----------------------------------+----------------+
-| 6              |                 | Statistical analysis, `broom`     |                |
-+----------------+-----------------+-----------------------------------+----------------+
-| 7              |                 |                                   |                |
-+----------------+-----------------+-----------------------------------+----------------+
+## Topics
 
-: Outline of Topics
+-   **Basic R knowledge (Week 1)**
+
+    -   Data categorize, sampling, importing-exporting
+
+    -   Types, tables, selection, objects, functions
+
+-   **Data manipulation in Tidyverse (Week 2)**
+
+    -   Filter, group_by, arrange, summarize commands
+
+    -   purr
+
+    -   %\>%
+
+    -   Join (mutating, filtering)
+
+    -   tidy data (longer, wider)
+
+-   **Visualization with ggplot2 (Week 3)**
+
+    -   Layers, facets, geoms
+
+    -   Descriptive statistics in R
+
+    -   Summary statistics, variability, correlation, covariance
+
+    -   Extreme values, problem of missing values
+
+-   **Statistical estimation (Week 4)**
+
+    -   Distributions
+    -   Sample techniques, confidence intervals, standard error
+
+-   **Hypothesis testing I (Week 5)**
+
+    -   Inductive statistics in R
+
+    -   Null and alternative hypothesis, t-test, p-value, fals
+        positive/negative, Type I and II error
+
+-   **Hypothesis testing II (Week 6)**
+
+    -   Relation testing in R
+
+-   **Project presentations (Week 7)**
+
+## **Requirements**
+
+-   **Test** (30%): 90 min task solution in R + explanation (exam week)
+
+-   **Project** (25%): groups (3-4 students), one detailed report
+    (essay) and one - **presentation**
+
+-   **Homeworks** and essays (45%)
+
+-   **Extra** tasks (+5%)
+
+### Project
+
+By the end of the course you have to make a statistical report about your own research project in small groups. You have to find a proper dataset (kaggle, eurostat, UCI datasets etc.) or conduct an own survey in optional topic.
+
+At week 7 you will hold a presentation about your findings and results. At the end of the week you will upload your detailed essay about your project work.
+
+### Homework
+
+During the Study period you get 3-5 homeworks. The number of homeworks depends ont he material progress. It could be R code writing or R code writing and analysis (short essay about methods and results).
+
+|         |                  |
+|---------|------------------|
+| 0-50%   | Fail (1)         |
+| 51-62%  | Pass (2)         |
+| 63-74%  | Satisfactory (3) |
+| 75-86%  | Good (4)         |
+| 87-100% | excellent (5)    |
+
+: Grades
+
+## Recommended (compulsory) reading
+
+-   [**Grolemund G & Wickham H:
+    R for Data Science**](http://r4ds.had.co.nz/)
+
+-   Gábor Békés & Gábor Kézdi: Data Analysis:
+    Patterns, Prediction and Causality

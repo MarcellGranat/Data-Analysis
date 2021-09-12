@@ -13,6 +13,7 @@ cat("\\pagebreak")
 
 ```{r include=FALSE}
 library(tidyverse)
+library(patchwork)
 
 knitr::opts_chunk$set(
   comment = "#>",
@@ -24,7 +25,7 @@ knitr::opts_chunk$set(
   out.width = "70%",
   error = TRUE,
   fig.align = 'center',
-  fig.width = 6,
+  fig.width = 8,
   fig.asp = 0.618,  # 1 / phi
   fig.show = "hold",
   eval.after = 'fig.cap' # so captions can use link to demos
