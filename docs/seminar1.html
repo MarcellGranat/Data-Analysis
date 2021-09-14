@@ -49,24 +49,6 @@
 <li class="book-part">Week 1</li>
 <li><a class="" href="lecture1.html"><span class="header-section-number">1</span> Lecture 1</a></li>
 <li><a class="active" href="seminar1.html"><span class="header-section-number">2</span> Introduction to R</a></li>
-<li class="book-part">Week 2</li>
-<li><a class="" href="lecture2.html"><span class="header-section-number">3</span> Lecture 2</a></li>
-<li><a class="" href="seminar2.html"><span class="header-section-number">4</span> Seminar 2</a></li>
-<li class="book-part">Week 3</li>
-<li><a class="" href="lecture3.html"><span class="header-section-number">5</span> Lecture 3</a></li>
-<li><a class="" href="seminar3.html"><span class="header-section-number">6</span> Seminar 3</a></li>
-<li class="book-part">Week 4</li>
-<li><a class="" href="lecture4.html"><span class="header-section-number">7</span> Lecture 4</a></li>
-<li><a class="" href="seminar4.html"><span class="header-section-number">8</span> Ggplot</a></li>
-<li class="book-part">Week 5</li>
-<li><a class="" href="lecture5.html"><span class="header-section-number">9</span> Lecture 5</a></li>
-<li><a class="" href="seminar5.html"><span class="header-section-number">10</span> Seminar 5</a></li>
-<li class="book-part">Week 6</li>
-<li><a class="" href="lecture6.html"><span class="header-section-number">11</span> Lecture 6</a></li>
-<li><a class="" href="seminar6.html"><span class="header-section-number">12</span> Seminar 6</a></li>
-<li class="book-part">Week 7</li>
-<li><a class="" href="lecture7.html"><span class="header-section-number">13</span> Lecture 7</a></li>
-<li><a class="" href="seminar7.html"><span class="header-section-number">14</span> Seminar 7</a></li>
 </ul>
 
         <div class="book-extra">
@@ -102,84 +84,18 @@ Please install the appropriate version based on your OS, and do not forget that 
 Next, we will also need the RStudio.</p>
 <p><a href="https://www.rstudio.com/products/rstudio/download/#download"><img src="images/installr3.jpg" title="Install RStudio" width="600" alt="Install RStudio"></a></p>
 <p>If the installation process of R and RStudio is finished, then we can open RStudio and start to learn the software.</p>
-</div>
-<div id="bootstrap" class="section level2" number="2.3">
-<h2>
-<span class="header-section-number">2.3</span> Bootstrap<a class="anchor" aria-label="anchor" href="#bootstrap"><i class="fas fa-link"></i></a>
-</h2>
-<p>To continue your app customisation journey, you’ll need to learn a little more about the <a href="https://getbootstrap.com">Bootstrap</a> framework used by Shiny.
-Bootstrap is a collection of HTML conventions, CSS styles, and JS snippets bundled up into a convenient form.
-Bootstrap grew out of a framework originally developed for Twitter and over the last 10 years has grown to become one of the most popular CSS frameworks used on the web.
-Bootstrap is also popular in R — you’ve undoubtedly seen many documents produced by <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_document.html">rmarkdown::html_document()</a></code> and used many package websites made by <a href="http://pkgdown.r-lib.org/">pkgdown</a>, both of which also use Bootstrap.</p>
-<p>As a Shiny developer, you don’t need to think too much about Bootstrap, because Shiny functions automatically generate bootstrap compatible HTML for you.
-But it’s good to know that Bootstrap exists because then:</p>
-<ul>
-<li><p>You can use <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bslib::bs_theme()</a></code> to customise the visual appearance of your code, Section <a href="seminar1.html#themes">2.4</a>.</p></li>
-<li><p>You can use the <code>class</code> argument to customise some layouts, inputs, and outputs using Bootstrap class names, as you saw in Section <a href="#action-buttons"><strong>??</strong></a>.</p></li>
-<li><p>You can make your own functions to generate Bootstrap components that Shiny doesn’t provide, as explained in “<a href="https://rstudio.github.io/bslib/articles/theming.html#utility-classes">Utility classes</a>”.</p></li>
-</ul>
-<p>It’s also possible to use a completely different CSS framework.
-A number of existing R packages make this easy by wrapping popular alternatives to Bootstrap:</p>
-<ul>
-<li><p><a href="https://appsilon.github.io/shiny.semantic/">shiny.semantic</a>, by <a href="https://appsilon.com/">Appsilon</a>, builds on top of <a href="https://fomantic-ui.com">formantic UI</a>.</p></li>
-<li><p><a href="https://github.com/RinteRface/shinyMobile">shinyMobile</a>, by <a href="https://rinterface.com">RInterface</a>, builds on top of <a href="https://framework7.io">framework 7</a>, and is specifically designed for mobile apps.</p></li>
-<li><p><a href="https://ericrayanderson.github.io/shinymaterial/">shinymaterial</a>, by <a href="https://github.com/ericrayanderson">Eric Anderson</a>, is built on top of Google’s <a href="https://material.io/design">Material design</a> framework.</p></li>
-<li><p><a href="https://rstudio.github.io/shinydashboard/">shinydashboard</a>, also by RStudio, provides a layout system designed to create dashboards.</p></li>
-</ul>
-<p>You can find a fuller, and actively maintained, list at <a href="https://github.com/nanxstats/awesome-shiny-extensions" class="uri">https://github.com/nanxstats/awesome-shiny-extensions</a>.</p>
-</div>
-<div id="themes" class="section level2" number="2.4">
-<h2>
-<span class="header-section-number">2.4</span> Themes<a class="anchor" aria-label="anchor" href="#themes"><i class="fas fa-link"></i></a>
-</h2>
-<p>Bootstrap is so ubiquitous within the R community that it’s easy to get style fatigue: after a while every Shiny app and Rmd start to look the same.
-The solution is theming with the <a href="https://rstudio.github.io/bslib">bslib</a> package.
-bslib is relatively new package that allows you to override many Bootstrap defaults in order to create an appearance that is uniquely yours.
-As I write this, bslib is mostly applicable only to Shiny, but work is afoot to bring its enhanced theming power to RMarkdown, pkgdown, and more.</p>
-<p>If you’re producing apps for your company, I highly recommend investing a little time in theming — theming your app to match your corporate style guide is an easy way to make yourself look good.</p>
-<div id="getting-started" class="section level3" number="2.4.1">
-<h3>
-<span class="header-section-number">2.4.1</span> Getting started<a class="anchor" aria-label="anchor" href="#getting-started"><i class="fas fa-link"></i></a>
-</h3>
-<p>Create a theme with <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bslib::bs_theme()</a></code> then apply it to an app with the <code>theme</code> argument of the page layout function:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">fluidPage</span><span class="op">(</span>
-  theme <span class="op">=</span> <span class="fu">bslib</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bs_theme</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>If not specified, Shiny will use the classic Bootstrap v3 theme that it has used basically since it was created.
-By default, <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bslib::bs_theme()</a></code>, will use Bootstrap v4.
-Using Bootstrap v4 instead of v3 will not cause problems if you only use built-in components.
-There is a possibility that it might cause problems if you’ve used custom HTML, so you can force it to stay with v3 with <code>version = 3</code>.</p>
-</div>
-<div id="shiny-themes" class="section level3" number="2.4.2">
-<h3>
-<span class="header-section-number">2.4.2</span> Shiny themes<a class="anchor" aria-label="anchor" href="#shiny-themes"><i class="fas fa-link"></i></a>
-</h3>
-<p>The easiest way to change the overall look of your app is to pick a premade “<a href="https://bootswatch.com">bootswatch</a>” theme using the <code>bootswatch</code> argument to <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html">bslib::bs_theme()</a></code>.
-Figure <a href="#fig:theme"><strong>??</strong></a> shows the results of the following code, switching <code>"darkly"</code> out for other themes.</p>
 
 </div>
 </div>
-</div>
-
-
-
   <div class="chapter-nav">
 <div class="prev"><a href="lecture1.html"><span class="header-section-number">1</span> Lecture 1</a></div>
-<div class="next"><a href="lecture2.html"><span class="header-section-number">3</span> Lecture 2</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#seminar1"><span class="header-section-number">2</span> Introduction to R</a></li>
 <li><a class="nav-link" href="#why-r"><span class="header-section-number">2.1</span> Why R?</a></li>
 <li><a class="nav-link" href="#layout"><span class="header-section-number">2.2</span> Setup</a></li>
-<li><a class="nav-link" href="#bootstrap"><span class="header-section-number">2.3</span> Bootstrap</a></li>
-<li>
-<a class="nav-link" href="#themes"><span class="header-section-number">2.4</span> Themes</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#getting-started"><span class="header-section-number">2.4.1</span> Getting started</a></li>
-<li><a class="nav-link" href="#shiny-themes"><span class="header-section-number">2.4.2</span> Shiny themes</a></li>
-</ul>
-</li>
 </ul>
 
       <div class="book-extra">

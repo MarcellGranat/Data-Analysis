@@ -11,25 +11,25 @@ rmd_files:
     "introduction.Rmd",
 
     "Lecture1.Rmd",
-    "Seminar1.Rmd",
+    "Seminar1.Rmd"
 
-    "Lecture2.Rmd",
-    "Seminar2.Rmd",
-
-    "Lecture3.Rmd",
-    "Seminar3.Rmd",
-    
-    "Lecture4.Rmd",
-    "Seminar4.Rmd",
-    
-    "Lecture5.Rmd",
-    "Seminar5.Rmd",
-    
-    "Lecture6.Rmd",
-    "Seminar6.Rmd",
-
-    "Lecture7.Rmd",
-    "Seminar7.Rmd",
+    # "Lecture2.Rmd",
+    # "Seminar2.Rmd",
+    # 
+    # "Lecture3.Rmd",
+    # "Seminar3.Rmd",
+    # 
+    # "Lecture4.Rmd",
+    # "Seminar4.Rmd",
+    # 
+    # "Lecture5.Rmd",
+    # "Seminar5.Rmd",
+    # 
+    # "Lecture6.Rmd",
+    # "Seminar6.Rmd",
+    # 
+    # "Lecture7.Rmd",
+    # "Seminar7.Rmd",
   ]
 
 
