@@ -18,9 +18,7 @@ editor_options:
 
     -   Filter, group_by, arrange, summarize commands
 
-    -   purr
-
-    -   %\>%
+    -   `%\>%`
 
     -   Join (mutating, filtering)
 

@@ -33,3 +33,354 @@ Next, we will also need the RStudio.
 [![Install RStudio](images/installr3.jpg "Install RStudio"){width="600"}](https://www.rstudio.com/products/rstudio/download/#download)
 
 If the installation process of R and RStudio is finished, then we can open RStudio and start to learn the software.
+
+## Our first meet with R
+
+RStudio is dedicated IDEE for R, which means, that it will make our life much simplier.
+In stead of writing each line of code ourself, RStudio has many built-in functions to help us.
+We see some panes if we open RStudio:
+
+```{r fig.cap="Panes in RStudio", echo=FALSE}
+knitr::include_graphics(str_c(WD, "/images/Inkedrstudio_LI.jpg"))
+```
+
+1.  Source
+
+    -   We will write here our codes, which we would like to save.
+        The basic extension of our codes are `.R`, but this is not the only possibility (we will cover this later). Once you save your code for later use, you can open your script also with a simple text editor (like Notepad), since this is only plain text. If you hit `enter` your code wont be executed, you will just simply start a new line. If you want to run your code hit `ctrl + enter` to execute a single line, and `ctrl+shift+enter` to execute your full script.
+
+2.  Console
+
+    - Here you find the executed codes, and the response to that. For example, if you type `2 + 2` and hit `enter`, R will execute the expression, and response that it is 4.
+    
+```{r}
+2 + 2
+```
+
+3.  Help
+
+    - You can use this pane if you are not familier with a function. For example, you want to know what input you can specify while using `mean`, you can type `?mean` on the console, or use the search field on this pane. The description of the function will be presented on this pane. (This pane is super useful on the exam)
+
+4.  History
+
+5.  Files
+
+    - You can see the list of your files which are in the current working directory. Working directory is the folder, from where R want currently read the files. If you want to import a dataset, just click on a file on this pane.
+    - I highly recommend you to set a project folder for the class and any later job. This means that, R creates a folder and puts an `.Rproj` file into it. You can always click on this  `.Rproj` file to return your unfinished work. You can customise if R should put the variables into your environtent as you left them last time, you have a history about the used codes, and you see all the data you copy + paste into this folder.
+
+6.  Plots
+
+7.  Packages
+
+    - You can install packages from this pane. If you need a given package, click on install, and start typing its name. After that, you have to activate packages each time you open R again with the `library(eurostat)` command. You can also use a function from a package if you just simly type `eurostat::get_eurostat()`.
+
+8.  Environment
+
+    - Here you can see the list of the variables you have already created. For example you can type `x = 3` on the console. Now and x variable will appear in the environment pane, and you can check its value if you type `x` on the console. You can also save these variables into an `.RData` data format if you wish.
+
+9.  Viewer
+
+## Data types
+
+Lets see first, what kind of datatypes exist in R. Lets assign a variable called `x`.
+
+```{r}
+x <- 4
+```
+
+So, what is the type of `x`? We can use the `class` command to answer this.
+
+```{r}
+class(x)
+```
+
+Its numeric^[Integer and double also exist in R, but these are not the default, and variables will be always coerced automatically]. This means that you can use `+`, `-`, `*` operators on it.
+
+Lets see other types.
+
+```{r}
+y <- "blue"
+class(y)
+```
+
+Its a character, basically can contain any kind of letter, digits, or white space.
+
+```{r}
+does_it_rain <- TRUE
+class(does_it_rain)
+```
+
+Its a logical value. It can be `TRUE` or `FALSE`
+
+### vectors
+
+We can create a vector with the `c` function. (combine)
+
+```{r}
+x <- c(11, 201, 301)
+x
+```
+
+We can asses a given element of it by:
+
+```{r}
+x[2]
+```
+
+Or we can use functions on it:
+
+```{r}
+sum(x)
+```
+
+We can also easily create sequence with the syntax `start:stop`
+
+```{r}
+1:10
+```
+
+If we combine characters, I mentiont that we can convert this vector to **factor** type. This is useful if we can enclose an order to the vector or we want to control for the possible values.
+Lets see a minimal example
+
+```{r}
+my_vector <- c("First", "Second", "Third", "Fourth")
+sort(my_vector)
+```
+
+If we want to sort the vector, we see that *Fourth* comes right after *First*. It is because character vectors are sorted in alphabetical order. We can solve it with `factor`
+
+```{r}
+my_vector2 <- factor(my_vector, ordered = TRUE, levels = c("First", "Second", "Third", "Fourth"))
+sort(my_vector2)
+```
+
+We can merge these vectors into a data.frame, which is basically like an excel table. Each column is a variable (with a header), and each row is an observation.
+
+```{r}
+avengers_df <- data.frame(name = c("Captain America", "Hulk", "Dr. Strange"), 
+           color = c("blue", "green", NA))
+
+avengers_df
+```
+
+NA stands for "not available", so these values are missing. Most of the times we will work with data.frames (similarly like pandas in python), so it is the most important data type we learn.
+
+Storing more complex data, you can use the `list`. To use `data.frame` you need vectors with equal length. If this does not hold, or a more frequent case, you want to store a collection of data.frames, then `list` is a perfect solution! It is not a rare issue, big panel dataset are usually stored in separated files (a different file to each year, like: `cis_survey2016.csv`, `cis_survey2017.csv`). In this situations its suggested to store your data in a list.
+
+```{r}
+mylist <- list(avengers_df, my_vector, x)
+```
+
+Now `mylist` stores a data.frame and two vector. You can access the components with a `[[ ]]`. For example, the first element:
+
+```{r}
+mylist[[1]]
+```
+
+## Data manipulation
+
+### Import data into R
+
+We mentioned formely that the easiest way to import your data is to click on it in the files pane. However, this manual step is useful if you have to import and analyse the data once, but probably you want to use your data next time as well. That is way it is a good idea to copy and paste the code for importing the data into your script.
+
+```{r echo = F, fig.cap="Import csv data into R", eval=knitr::is_html_output()}
+knitr::include_graphics(str_c(WD, "/images/importcsv.gif"))
+```
+
+In fact, if the data is in your working directory, you can refer to it with "**relative referencing**". This means that you have to type only the name of the file, not the full path, because R will automatically start to look for the file in the working directory^[you can download this example dataset from the GitHub page of this bookdown].
+
+```{r eval = FALSE}
+library(readr)
+df <- read_delim("da_q.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+```{r}
+df <- read_delim(str_c(WD, "/data/da_q.csv"), delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+Now we have imported a tidy dataset. Each column is variable, and each row is an observation. Lets see how to select specific data from that. If you want to analyse only one column of it, you can use `$` operator.
+
+```{r}
+pizza <- df$`How many slices of pizza can you it at once?`
+
+pizza
+```
+
+The output `pizza` is a character vector currently, because some of the answers contain letters. We have to options here:
+
+1. Using `as.numeric` function to force R using the values as numerical data.
+
+```{r warning=TRUE}
+as.numeric(pizza)
+```
+
+We got a warning message. Where letters appear R cannot convert the values to numbers, so this values became NA (Not Available) values.
+
+2. Remove the letters from the answers and convert the vector to the correct datatype.
+
+To manage this, we have to use the syntax called **regular expressions**. I want to show you 4 expressions now and a function. The function `gsub` will detect a given letter in a character and replace it with something. Lets see how!
+
+```{r}
+gsub(x = "Awesome 12", pattern = "\\w", replacement = "B") # every non-white space
+gsub(x = "Awesome 12", pattern = "\\s", replacement = "B") # every white space
+gsub(x = "Awesome 12", pattern = "\\d", replacement = "B") # every digit
+gsub(x = "Awesome 12", pattern = "\\D", replacement = "B") # every non-digit value
+```
+
+So we can use the last example to solve our problem. 
+
+```{r}
+pizza_only_digits <- gsub(x = pizza, pattern = "\\D", replacement = "") 
+
+pizza_only_digits
+
+as.numeric(pizza_only_digits)
+```
+
+## Conditional statements
+
+We offen use conditional statement in programming. It has a clean concept: **If the condition is TRUE, then evaluate the following task.**
+
+```{r eval = knitr::is_html_output(), echo = F, results='asis'}
+cat(
+  '<iframe width="560" height="315" src="https://www.youtube.com/embed/m2Ux2PnJe6E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+)
+```
+
+If you want to write an if else statement in R, I highly recomment you to use the snippet for that. Snippet means, that when you type `if` and press `shift + tab`, then R will automaticly write the framework you have to use:
+
+```{r eval = F}
+if (condition) {
+  
+}
+```
+
+As a condition you have to use a logical value as input, or a condition. You can use conditions with the following operators: `<`, `>`, `<=`, `>=`, `==`, `!=`, `is.na`, `%in%`, `stringr::str_detect()`.
+
+```{r}
+4 < 5
+5 <= 5
+4 > 5
+5 >=4
+2 == 3 # equal?
+(2 + 2) == 4
+(2 + 2) != 4 # not equal?
+3 != 3
+is.na(4)
+is.na(NA)
+3 %in% c(1, 2, 3)
+stringr::str_detect(string = "this function is awesome!", pattern = "some")
+stringr::str_detect(string = "this function is awesome!", pattern = "none")
+```
+
+You can also specify the task R has to do, if the statement is false.
+
+```{r}
+if (2>3) {
+  print("Print this")
+} else {
+  print("Print that")
+}
+```
+
+## Loops
+
+### While
+
+You can also use while loop to specify a task R has to do until a condition is TRUE.
+
+```{r}
+x <- 1
+
+while (x < 15) {
+  cat(paste0(x, "^2=")) # cat = print, just into the same line
+  cat(x^2)
+  cat("\n") # force R to create a new line
+  x <- x + 1 # if you miss this step then R will repeat the task infinit times
+}
+```
+
+### For
+
+With this framewrok you can specify a task, that R has to do x times. For example, print a message 10 times.
+
+```{r}
+for (i in 1:10) {
+  print("You R amazing!")
+}
+```
+
+And you can use `i` inside the `{` parenthesis.
+
+```{r}
+for (i in 1:5) {
+  print(i)
+}
+```
+
+## Functions
+
+We offen work with functions in R, but you can also write your own. You have to use the `function` word and specify the input variables.
+
+```{r}
+my_first_function <- function(x) {
+  # removed all non-digit characters from x, and take the squared of it.
+  as.numeric(gsub(x, pattern = "\\D", replacement = ""))^2
+}
+
+my_first_function("Depends on, maybe 5 slices")
+```
+
+## Apply family
+
+This family contains 3 functions, which I want to show you (There are more complex ones, those are not covered in this bookdown). 
+
+The function `apply` tells R to use a function on each row or column of a data.frame. So the its frist argument is the `data.frame`, the third is the function which shoul use and the second is the margin:
+    - margin = 2: apply the given function on each of the COLUMNS
+    - margin = 1: apply the given function on each of the ROWS
+
+```{r}
+non_na <- function(x) {
+  # how many numeric observation are in the vector
+  sum(!is.na(as.numeric(x)))
+}
+```
+
+Number of numeric answers by quetions:
+
+```{r}
+apply(df, 2, non_na)
+```
+
+Number of numeric answers by participant:
+
+```{r}
+apply(df, 1, non_na)
+```
+
+`Lapply` is similar but with list objects. 
+
+```{r}
+mylist <- list(
+  first_vector = c(1, 2, 3),
+  second_vector = letters # built in character vector, contains all the letters
+)
+
+mylist
+```
+
+We are interested in the number of observation (the `length`) of each vector:
+
+```{r}
+out <- lapply(mylist, length)
+
+out
+
+class(out)
+```
+
+But the output is still a list. `sapply` is the solution if we want to convert it into vector.
+
+```{r}
+sapply(mylist, length)
+```

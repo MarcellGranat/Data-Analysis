@@ -84,9 +84,441 @@ Please install the appropriate version based on your OS, and do not forget that 
 Next, we will also need the RStudio.</p>
 <p><a href="https://www.rstudio.com/products/rstudio/download/#download"><img src="images/installr3.jpg" title="Install RStudio" width="600" alt="Install RStudio"></a></p>
 <p>If the installation process of R and RStudio is finished, then we can open RStudio and start to learn the software.</p>
+</div>
+<div id="our-first-meet-with-r" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Our first meet with R<a class="anchor" aria-label="anchor" href="#our-first-meet-with-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>RStudio is dedicated IDEE for R, which means, that it will make our life much simplier.
+In stead of writing each line of code ourself, RStudio has many built-in functions to help us.
+We see some panes if we open RStudio:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="images/Inkedrstudio_LI.jpg" alt="Panes in RStudio" width="70%"><p class="caption">
+Figure 2.1: Panes in RStudio
+</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>
+<p>Source</p>
+<ul>
+<li>We will write here our codes, which we would like to save.
+The basic extension of our codes are <code>.R</code>, but this is not the only possibility (we will cover this later). Once you save your code for later use, you can open your script also with a simple text editor (like Notepad), since this is only plain text. If you hit <code>enter</code> your code wont be executed, you will just simply start a new line. If you want to run your code hit <code>ctrl + enter</code> to execute a single line, and <code>ctrl+shift+enter</code> to execute your full script.</li>
+</ul>
+</li>
+<li>
+<p>Console</p>
+<ul>
+<li>Here you find the executed codes, and the response to that. For example, if you type <code>2 + 2</code> and hit <code>enter</code>, R will execute the expression, and response that it is 4.</li>
+</ul>
+</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span>
+<span class="co">#&gt; [1] 4</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>
+<p>Help</p>
+<ul>
+<li>You can use this pane if you are not familier with a function. For example, you want to know what input you can specify while using <code>mean</code>, you can type <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code> on the console, or use the search field on this pane. The description of the function will be presented on this pane. (This pane is super useful on the exam)</li>
+</ul>
+</li>
+<li><p>History</p></li>
+<li>
+<p>Files</p>
+<ul>
+<li>You can see the list of your files which are in the current working directory. Working directory is the folder, from where R want currently read the files. If you want to import a dataset, just click on a file on this pane.</li>
+<li>I highly recommend you to set a project folder for the class and any later job. This means that, R creates a folder and puts an <code>.Rproj</code> file into it. You can always click on this <code>.Rproj</code> file to return your unfinished work. You can customise if R should put the variables into your environtent as you left them last time, you have a history about the used codes, and you see all the data you copy + paste into this folder.</li>
+</ul>
+</li>
+<li><p>Plots</p></li>
+<li>
+<p>Packages</p>
+<ul>
+<li>You can install packages from this pane. If you need a given package, click on install, and start typing its name. After that, you have to activate packages each time you open R again with the <code><a href="https://ropengov.github.io/eurostat/">library(eurostat)</a></code> command. You can also use a function from a package if you just simly type <code><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">eurostat::get_eurostat()</a></code>.</li>
+</ul>
+</li>
+<li>
+<p>Environment</p>
+<ul>
+<li>Here you can see the list of the variables you have already created. For example you can type <code>x = 3</code> on the console. Now and x variable will appear in the environment pane, and you can check its value if you type <code>x</code> on the console. You can also save these variables into an <code>.RData</code> data format if you wish.</li>
+</ul>
+</li>
+<li><p>Viewer</p></li>
+</ol>
+</div>
+<div id="data-types" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Data types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
+</h2>
+<p>Lets see first, what kind of datatypes exist in R. Lets assign a variable called <code>x</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">4</span></code></pre></div>
+<p>So, what is the type of <code>x</code>? We can use the <code>class</code> command to answer this.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] "numeric"</span></code></pre></div>
+<p>Its numeric<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Integer and double also exist in R, but these are not the default, and variables will be always coerced automatically&lt;/p&gt;"><sup>1</sup></a>. This means that you can use <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>, <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code>, <code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code> operators on it.</p>
+<p>Lets see other types.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"blue"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
+<span class="co">#&gt; [1] "character"</span></code></pre></div>
+<p>Its a character, basically can contain any kind of letter, digits, or white space.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">does_it_rain</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">does_it_rain</span><span class="op">)</span>
+<span class="co">#&gt; [1] "logical"</span></code></pre></div>
+<p>Its a logical value. It can be <code>TRUE</code> or <code>FALSE</code></p>
+<div id="vectors" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can create a vector with the <code>c</code> function. (combine)</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">201</span>, <span class="fl">301</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1]  11 201 301</span></code></pre></div>
+<p>We can asses a given element of it by:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>
+<span class="co">#&gt; [1] 201</span></code></pre></div>
+<p>Or we can use functions on it:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] 513</span></code></pre></div>
+<p>We can also easily create sequence with the syntax <code>start:stop</code></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+<span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></code></pre></div>
+<p>If we combine characters, I mentiont that we can convert this vector to <strong>factor</strong> type. This is useful if we can enclose an order to the vector or we want to control for the possible values.
+Lets see a minimal example</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"First"</span>, <span class="st">"Second"</span>, <span class="st">"Third"</span>, <span class="st">"Fourth"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">my_vector</span><span class="op">)</span>
+<span class="co">#&gt; [1] "First"  "Fourth" "Second" "Third"</span></code></pre></div>
+<p>If we want to sort the vector, we see that <em>Fourth</em> comes right after <em>First</em>. It is because character vectors are sorted in alphabetical order. We can solve it with <code>factor</code></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_vector2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">my_vector</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"First"</span>, <span class="st">"Second"</span>, <span class="st">"Third"</span>, <span class="st">"Fourth"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">my_vector2</span><span class="op">)</span>
+<span class="co">#&gt; [1] First  Second Third  Fourth</span>
+<span class="co">#&gt; Levels: First &lt; Second &lt; Third &lt; Fourth</span></code></pre></div>
+<p>We can merge these vectors into a data.frame, which is basically like an excel table. Each column is a variable (with a header), and each row is an observation.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">avengers_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Captain America"</span>, <span class="st">"Hulk"</span>, <span class="st">"Dr. Strange"</span><span class="op">)</span>, 
+           color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">avengers_df</span>
+<span class="co">#&gt;              name color</span>
+<span class="co">#&gt; 1 Captain America  blue</span>
+<span class="co">#&gt; 2            Hulk green</span>
+<span class="co">#&gt; 3     Dr. Strange  &lt;NA&gt;</span></code></pre></div>
+<p>NA stands for “not available”, so these values are missing. Most of the times we will work with data.frames (similarly like pandas in python), so it is the most important data type we learn.</p>
+<p>Storing more complex data, you can use the <code>list</code>. To use <code>data.frame</code> you need vectors with equal length. If this does not hold, or a more frequent case, you want to store a collection of data.frames, then <code>list</code> is a perfect solution! It is not a rare issue, big panel dataset are usually stored in separated files (a different file to each year, like: <code>cis_survey2016.csv</code>, <code>cis_survey2017.csv</code>). In this situations its suggested to store your data in a list.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mylist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">avengers_df</span>, <span class="va">my_vector</span>, <span class="va">x</span><span class="op">)</span></code></pre></div>
+<p>Now <code>mylist</code> stores a data.frame and two vector. You can access the components with a <code>[[ ]]</code>. For example, the first element:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mylist</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt;              name color</span>
+<span class="co">#&gt; 1 Captain America  blue</span>
+<span class="co">#&gt; 2            Hulk green</span>
+<span class="co">#&gt; 3     Dr. Strange  &lt;NA&gt;</span></code></pre></div>
+</div>
+</div>
+<div id="data-manipulation" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation"><i class="fas fa-link"></i></a>
+</h2>
+<div id="import-data-into-r" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> Import data into R<a class="anchor" aria-label="anchor" href="#import-data-into-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>We mentioned formely that the easiest way to import your data is to click on it in the files pane. However, this manual step is useful if you have to import and analyse the data once, but probably you want to use your data next time as well. That is way it is a good idea to copy and paste the code for importing the data into your script.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-18"></span>
+<img src="images/importcsv.gif" alt="Import csv data into R" width="70%"><p class="caption">
+Figure 2.2: Import csv data into R
+</p>
+</div>
+<p>In fact, if the data is in your working directory, you can refer to it with “<strong>relative referencing</strong>”. This means that you have to type only the name of the file, not the full path, because R will automatically start to look for the file in the working directory<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;you can download this example dataset from the GitHub page of this bookdown&lt;/p&gt;"><sup>2</sup></a>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="st">"da_q.csv"</span>, delim <span class="op">=</span> <span class="st">";"</span>, escape_double <span class="op">=</span> <span class="cn">FALSE</span>, trim_ws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim</a></span><span class="op">(</span><span class="fu">str_c</span><span class="op">(</span><span class="va">WD</span>, <span class="st">"/data/da_q.csv"</span><span class="op">)</span>, delim <span class="op">=</span> <span class="st">";"</span>, escape_double <span class="op">=</span> <span class="cn">FALSE</span>, trim_ws <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>Now we have imported a tidy dataset. Each column is variable, and each row is an observation. Lets see how to select specific data from that. If you want to analyse only one column of it, you can use <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pizza</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">`How many slices of pizza can you it at once?`</span>
+
+<span class="va">pizza</span>
+<span class="co">#&gt;  [1] "8"                                                         </span>
+<span class="co">#&gt;  [2] "12"                                                        </span>
+<span class="co">#&gt;  [3] "Depends on size. Can be up to 5 slices of the medium pizza"</span>
+<span class="co">#&gt;  [4] "2"                                                         </span>
+<span class="co">#&gt;  [5] "3"                                                         </span>
+<span class="co">#&gt;  [6] "4"                                                         </span>
+<span class="co">#&gt;  [7] "4"                                                         </span>
+<span class="co">#&gt;  [8] "4"                                                         </span>
+<span class="co">#&gt;  [9] "3"                                                         </span>
+<span class="co">#&gt; [10] "2"                                                         </span>
+<span class="co">#&gt; [11] "4"                                                         </span>
+<span class="co">#&gt; [12] "3"                                                         </span>
+<span class="co">#&gt; [13] "3"                                                         </span>
+<span class="co">#&gt; [14] "2"                                                         </span>
+<span class="co">#&gt; [15] "2"                                                         </span>
+<span class="co">#&gt; [16] "4 and It depends how much I am hungry"                     </span>
+<span class="co">#&gt; [17] "4"                                                         </span>
+<span class="co">#&gt; [18] "3"                                                         </span>
+<span class="co">#&gt; [19] "2"                                                         </span>
+<span class="co">#&gt; [20] "6"                                                         </span>
+<span class="co">#&gt; [21] "3"</span></code></pre></div>
+<p>The output <code>pizza</code> is a character vector currently, because some of the answers contain letters. We have to options here:</p>
+<ol style="list-style-type: decimal">
+<li>Using <code>as.numeric</code> function to force R using the values as numerical data.</li>
+</ol>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">pizza</span><span class="op">)</span>
+<span class="co">#&gt; Warning: NAs introduced by coercion</span>
+<span class="co">#&gt;  [1]  8 12 NA  2  3  4  4  4  3  2  4  3  3  2  2 NA  4  3  2  6  3</span></code></pre></div>
+<p>We got a warning message. Where letters appear R cannot convert the values to numbers, so this values became NA (Not Available) values.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Remove the letters from the answers and convert the vector to the correct datatype.</li>
+</ol>
+<p>To manage this, we have to use the syntax called <strong>regular expressions</strong>. I want to show you 4 expressions now and a function. The function <code>gsub</code> will detect a given letter in a character and replace it with something. Lets see how!</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Awesome 12"</span>, pattern <span class="op">=</span> <span class="st">"\\w"</span>, replacement <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="co"># every non-white space</span>
+<span class="co">#&gt; [1] "BBBBBBB BB"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Awesome 12"</span>, pattern <span class="op">=</span> <span class="st">"\\s"</span>, replacement <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="co"># every white space</span>
+<span class="co">#&gt; [1] "AwesomeB12"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Awesome 12"</span>, pattern <span class="op">=</span> <span class="st">"\\d"</span>, replacement <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="co"># every digit</span>
+<span class="co">#&gt; [1] "Awesome BB"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Awesome 12"</span>, pattern <span class="op">=</span> <span class="st">"\\D"</span>, replacement <span class="op">=</span> <span class="st">"B"</span><span class="op">)</span> <span class="co"># every non-digit value</span>
+<span class="co">#&gt; [1] "BBBBBBBB12"</span></code></pre></div>
+<p>So we can use the last example to solve our problem.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pizza_only_digits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pizza</span>, pattern <span class="op">=</span> <span class="st">"\\D"</span>, replacement <span class="op">=</span> <span class="st">""</span><span class="op">)</span> 
+
+<span class="va">pizza_only_digits</span>
+<span class="co">#&gt;  [1] "8"  "12" "5"  "2"  "3"  "4"  "4"  "4"  "3"  "2"  "4"  "3"  "3"  "2"  "2" </span>
+<span class="co">#&gt; [16] "4"  "4"  "3"  "2"  "6"  "3"</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">pizza_only_digits</span><span class="op">)</span>
+<span class="co">#&gt;  [1]  8 12  5  2  3  4  4  4  3  2  4  3  3  2  2  4  4  3  2  6  3</span></code></pre></div>
+</div>
+</div>
+<div id="conditional-statements" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
+</h2>
+<p>We offen use conditional statement in programming. It has a clean concept: <strong>If the condition is TRUE, then evaluate the following task.</strong></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m2Ux2PnJe6E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<p>If you want to write an if else statement in R, I highly recomment you to use the snippet for that. Snippet means, that when you type <code>if</code> and press <code>shift + tab</code>, then R will automaticly write the framework you have to use:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="va">condition</span><span class="op">)</span> <span class="op">{</span>
+  
+<span class="op">}</span></code></pre></div>
+<p>As a condition you have to use a logical value as input, or a condition. You can use conditions with the following operators: <code><a href="https://rdrr.io/r/base/Comparison.html">&lt;</a></code>, <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code>, <code><a href="https://rdrr.io/r/base/Comparison.html">&lt;=</a></code>, <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;=</a></code>, <code><a href="https://rdrr.io/r/base/Comparison.html">==</a></code>, <code><a href="https://rdrr.io/r/base/Comparison.html">!=</a></code>, <code>is.na</code>, <code><a href="https://rdrr.io/r/base/match.html">%in%</a></code>, <code><a href="https://stringr.tidyverse.org/reference/str_detect.html">stringr::str_detect()</a></code>.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">4</span> <span class="op">&lt;</span> <span class="fl">5</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fl">5</span> <span class="op">&lt;=</span> <span class="fl">5</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fl">4</span> <span class="op">&gt;</span> <span class="fl">5</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fl">5</span> <span class="op">&gt;=</span><span class="fl">4</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fl">2</span> <span class="op">==</span> <span class="fl">3</span> <span class="co"># equal?</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">==</span> <span class="fl">4</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">4</span> <span class="co"># not equal?</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fl">3</span> <span class="op">!=</span> <span class="fl">3</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fl">3</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span>string <span class="op">=</span> <span class="st">"this function is awesome!"</span>, pattern <span class="op">=</span> <span class="st">"some"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span>
+<span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span>string <span class="op">=</span> <span class="st">"this function is awesome!"</span>, pattern <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span>
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>You can also specify the task R has to do, if the statement is false.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="fl">2</span><span class="op">&gt;</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Print this"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Print that"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] "Print that"</span></code></pre></div>
+</div>
+<div id="loops" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h2>
+<div id="while" class="section level3" number="2.7.1">
+<h3>
+<span class="header-section-number">2.7.1</span> While<a class="anchor" aria-label="anchor" href="#while"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can also use while loop to specify a task R has to do until a condition is TRUE.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+
+<span class="kw">while</span> <span class="op">(</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fl">15</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"^2="</span><span class="op">)</span><span class="op">)</span> <span class="co"># cat = print, just into the same line</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span> <span class="co"># force R to create a new line</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span> <span class="co"># if you miss this step then R will repeat the task infinit times</span>
+<span class="op">}</span>
+<span class="co">#&gt; 1^2=1</span>
+<span class="co">#&gt; 2^2=4</span>
+<span class="co">#&gt; 3^2=9</span>
+<span class="co">#&gt; 4^2=16</span>
+<span class="co">#&gt; 5^2=25</span>
+<span class="co">#&gt; 6^2=36</span>
+<span class="co">#&gt; 7^2=49</span>
+<span class="co">#&gt; 8^2=64</span>
+<span class="co">#&gt; 9^2=81</span>
+<span class="co">#&gt; 10^2=100</span>
+<span class="co">#&gt; 11^2=121</span>
+<span class="co">#&gt; 12^2=144</span>
+<span class="co">#&gt; 13^2=169</span>
+<span class="co">#&gt; 14^2=196</span></code></pre></div>
+</div>
+<div id="for" class="section level3" number="2.7.2">
+<h3>
+<span class="header-section-number">2.7.2</span> For<a class="anchor" aria-label="anchor" href="#for"><i class="fas fa-link"></i></a>
+</h3>
+<p>With this framewrok you can specify a task, that R has to do x times. For example, print a message 10 times.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"You R amazing!"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span>
+<span class="co">#&gt; [1] "You R amazing!"</span></code></pre></div>
+<p>And you can use <code>i</code> inside the <code>{</code> parenthesis.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 5</span></code></pre></div>
+</div>
+</div>
+<div id="functions" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>We offen work with functions in R, but you can also write your own. You have to use the <code>function</code> word and specify the input variables.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_first_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># removed all non-digit characters from x, and take the squared of it.</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="va">x</span>, pattern <span class="op">=</span> <span class="st">"\\D"</span>, replacement <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>
+<span class="op">}</span>
+
+<span class="fu">my_first_function</span><span class="op">(</span><span class="st">"Depends on, maybe 5 slices"</span><span class="op">)</span>
+<span class="co">#&gt; [1] 25</span></code></pre></div>
+</div>
+<div id="apply-family" class="section level2" number="2.9">
+<h2>
+<span class="header-section-number">2.9</span> Apply family<a class="anchor" aria-label="anchor" href="#apply-family"><i class="fas fa-link"></i></a>
+</h2>
+<p>This family contains 3 functions, which I want to show you (There are more complex ones, those are not covered in this bookdown).</p>
+<p>The function <code>apply</code> tells R to use a function on each row or column of a data.frame. So the its frist argument is the <code>data.frame</code>, the third is the function which shoul use and the second is the margin:
+- margin = 2: apply the given function on each of the COLUMNS
+- margin = 1: apply the given function on each of the ROWS</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">non_na</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># how many numeric observation are in the vector</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>Number of numeric answers by quetions:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">df</span>, <span class="fl">2</span>, <span class="va">non_na</span><span class="op">)</span>
+<span class="co">#&gt;                                                                                ID </span>
+<span class="co">#&gt;                                                                                21 </span>
+<span class="co">#&gt;                    What is your zodiac? (https://www.astrology-zodiac-signs.com/) </span>
+<span class="co">#&gt;                                                                                 0 </span>
+<span class="co">#&gt;                                                       Do you prefer dogs or cats? </span>
+<span class="co">#&gt;                                                                                 0 </span>
+<span class="co">#&gt;                             What experiences do have on related to R programming? </span>
+<span class="co">#&gt;                                                                                 0 </span>
+<span class="co">#&gt;                                      How many slices of pizza can you it at once? </span>
+<span class="co">#&gt;                                                                                19 </span>
+<span class="co">#&gt;                                                             Do you wear glasses?2 </span>
+<span class="co">#&gt;                                                                                 0 </span>
+<span class="co">#&gt;                                       How many countries have you been to so far? </span>
+<span class="co">#&gt;                                                                                21 </span>
+<span class="co">#&gt;   How many instagram followers do you have? (zero, if you do not have an account) </span>
+<span class="co">#&gt;                                                                                20 </span>
+<span class="co">#&gt;                                        How many brothers and sisters do you have? </span>
+<span class="co">#&gt;                                                                                19 </span>
+<span class="co">#&gt;                              What is your batteries current charge level? (0-100) </span>
+<span class="co">#&gt;                                                                                19 </span>
+<span class="co">#&gt; What is the traditional food in your country? (you can mention more, if you wish) </span>
+<span class="co">#&gt;                                                                                 0</span></code></pre></div>
+<p>Number of numeric answers by participant:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">df</span>, <span class="fl">1</span>, <span class="va">non_na</span><span class="op">)</span>
+<span class="co">#&gt;  [1] 6 6 4 5 6 6 6 6 6 6 5 6 6 6 6 4 6 6 6 6 5</span></code></pre></div>
+<p><code>Lapply</code> is similar but with list objects.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mylist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  first_vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,
+  second_vector <span class="op">=</span> <span class="va">letters</span> <span class="co"># built in character vector, contains all the letters</span>
+<span class="op">)</span>
+
+<span class="va">mylist</span>
+<span class="co">#&gt; $first_vector</span>
+<span class="co">#&gt; [1] 1 2 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $second_vector</span>
+<span class="co">#&gt;  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"</span>
+<span class="co">#&gt; [20] "t" "u" "v" "w" "x" "y" "z"</span></code></pre></div>
+<p>We are interested in the number of observation (the <code>length</code>) of each vector:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">mylist</span>, <span class="va">length</span><span class="op">)</span>
+
+<span class="va">out</span>
+<span class="co">#&gt; $first_vector</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $second_vector</span>
+<span class="co">#&gt; [1] 26</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
+<span class="co">#&gt; [1] "list"</span></code></pre></div>
+<p>But the output is still a list. <code>sapply</code> is the solution if we want to convert it into vector.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">mylist</span>, <span class="va">length</span><span class="op">)</span>
+<span class="co">#&gt;  first_vector second_vector </span>
+<span class="co">#&gt;             3            26</span></code></pre></div>
 
 </div>
 </div>
+
+
+
+
+
+
+
+
   <div class="chapter-nav">
 <div class="prev"><a href="lecture1.html"><span class="header-section-number">1</span> Lecture 1</a></div>
 <div class="empty"></div>
@@ -96,6 +528,22 @@ Next, we will also need the RStudio.</p>
 <li><a class="nav-link" href="#seminar1"><span class="header-section-number">2</span> Introduction to R</a></li>
 <li><a class="nav-link" href="#why-r"><span class="header-section-number">2.1</span> Why R?</a></li>
 <li><a class="nav-link" href="#layout"><span class="header-section-number">2.2</span> Setup</a></li>
+<li><a class="nav-link" href="#our-first-meet-with-r"><span class="header-section-number">2.3</span> Our first meet with R</a></li>
+<li>
+<a class="nav-link" href="#data-types"><span class="header-section-number">2.4</span> Data types</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#vectors"><span class="header-section-number">2.4.1</span> vectors</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#data-manipulation"><span class="header-section-number">2.5</span> Data manipulation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#import-data-into-r"><span class="header-section-number">2.5.1</span> Import data into R</a></li></ul>
+</li>
+<li><a class="nav-link" href="#conditional-statements"><span class="header-section-number">2.6</span> Conditional statements</a></li>
+<li>
+<a class="nav-link" href="#loops"><span class="header-section-number">2.7</span> Loops</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#while"><span class="header-section-number">2.7.1</span> While</a></li>
+<li><a class="nav-link" href="#for"><span class="header-section-number">2.7.2</span> For</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#functions"><span class="header-section-number">2.8</span> Functions</a></li>
+<li><a class="nav-link" href="#apply-family"><span class="header-section-number">2.9</span> Apply family</a></li>
 </ul>
 
       <div class="book-extra">
