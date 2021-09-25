@@ -1,18 +1,217 @@
-# Seminar 2 {#seminar2}
+# Markdown & Tidyverse {#seminar2}
 
-In this chapter, you'll learn how to wrap ggplot2 and dplyr function in a Shiny app.
-(If you don't use the tidyverse, you can skip this chapter 😄.) The techniques for wrapping ggplot2 and dplyr functions in a functions and package, are a a little different and covered in other resources like [*Using ggplot2 in packages*](http://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html) or [*Programming with dplyr*](http://dplyr.tidyverse.org/articles/programming.html).
+## Markdown
 
+Last week we wrote or codes on the `Source` pane, and if you save the codes and revisit the file with your file explorer, you can see that the extension of the file is `.R`. You can open the file with any other text editor (like Notepad) and see the codes. In a `.R` file you can write your codes and comments, and if you hit `ctrl + shift + enter` then all lines will be evaluated. Most of the times the goal to use `.R` files is this, we want to reuse the codes frequently (like downloading data from a website).
 
-## Motivation {#tidy-motivation}
+Another possible extension for your files is the `.Rmd`, which stands for *R MarkDown*.
 
-Imagine I want to create an app that allows you to filter a numeric variable to select rows that are greater than a threshold.
-You might write something like this:
+## Introduction
 
-Let's begin with this call to `filter()` which uses a data-variable (`carat`) and an env-variable (`min`):
+We will work with the tidyverse today. You can simply install it from the CRAN (go to `Packages` pane and click the install button). But tidyverse is not a simple package, it is a collection of packages providing a enormous amount of functions which you can use efficiently together. 
 
 ```{r}
-ggplot(cars, aes(speed, dist)) + 
-  geom_point()
+library(tidyverse)
 ```
 
+## The `%>%` operator
+
+`%>%`= "and then"
+`ctrl + shift + m`
+
+```{r}
+norm_sample <- rnorm(n = 1000, mean = 0, sd = 1) # standard normal
+hist(norm_sample)
+```
+
+```{r}
+rnorm(n = 1000, mean = 0, sd = 1) %>% 
+  hist()
+```
+
+```{r}
+rnorm(n = 1000, mean = 0, sd = 1) %>% 
+  mean()
+```
+
+ctrl + alt + i
+
+```{r message=T}
+fertility_df <- read_csv("DP_LIVE_22092021161631568.csv")
+```
+
+```{r}
+fertility_df
+```
+
+```{r}
+count(fertility_df, LOCATION)
+```
+
+```{r}
+fertility_df %>% # %>% = the 1st argument of count function is the fertility_df data.frame
+  count(INDICATOR)
+```
+
+```{r}
+fertility_df %>% 
+  count(SUBJECT)
+```
+```{r}
+fertility_df %>% 
+  count(LOCATION, sort = TRUE)
+```
+
+```{r}
+fertility_df %>% 
+  count(LOCATION, TIME)
+```
+
+```{r}
+gdp_df <- read_csv("DP_LIVE_22092021163414835.csv")
+```
+
+```{r}
+gdp_df %>% 
+  count(MEASURE, SUBJECT)
+```
+
+```{r}
+gdp_df %>% 
+  count(FREQUENCY)
+```
+
+
+```{r}
+gdp_df %>% 
+  filter(SUBJECT == "TOT" & MEASURE == "PC_CHGPY" & FREQUENCY != "A") %>% 
+  mutate(TIME = lubridate::yq(TIME)) %>% 
+  filter(TIME == max(TIME)) %>% 
+  arrange(desc(Value)) %>% 
+  select(geo = LOCATION, gdp_change = Value)
+```
+
+`filter`: filter the rows, where the condition(s) are TRUE
+`select`: select the specified columns
+`mutate`: specify a new column or change an existing one
+
+```{r}
+gdp_df %>% 
+  select(1)
+
+gdp_df %>% 
+  select(-1)
+
+gdp_df %>% 
+  select(1:2)
+
+gdp_df %>% 
+  select(LOCATION:TIME)
+
+gdp_df %>% 
+  select(TIME, LOCATION, everything())
+```
+
+```{r}
+gdp_df %>% 
+  mutate(g = 1 + Value/100)
+
+gdp_df %>% 
+  mutate(Value = 1 + Value/100)
+
+gdp_df %>% 
+  filter(FREQUENCY != "A") %>% 
+  mutate(
+    TIME = lubridate::yq(TIME),
+    Value = 1 + Value/100
+  )
+```
+
+`summary`
+
+```{r}
+eurostat::search_eurostat("birth")
+```
+
+```{r}
+livebirth_eu_df <- eurostat::get_eurostat("demo_r_fagec")
+```
+
+```{r}
+livebirth_eu_df %>% 
+  filter(str_length(geo) != 2) %>% 
+  filter(age != "TOTAL" & time == "2019-01-01") %>% 
+  filter(!(age %in% c("UNK", "Y_GE45", "Y_GE48", "Y_GE50", "Y_LT16"))) %>% 
+  group_by(age) %>% 
+  summarise(values = sum(values))
+```
+
+```{r}
+x <- c(100, 107, 105, 110)
+chain_index(x)
+```
+
+```{r}
+chain_index <- function(x) {
+  scales::percent(x/lag(x)-1, accuracy = .01)
+}
+```
+
+## Pivot longer/wider
+
+```{r}
+fertility_df %>% 
+  select(geo = LOCATION, time = TIME, fertility = Value) %>% 
+  pivot_wider(names_from = "geo", values_from = "fertility") %>% 
+  mutate_at(-1, chain_index) %>% 
+  pivot_longer(-1, names_to = "geo", values_to = "fertility")
+```
+
+```{r}
+fertility_df %>% 
+  select(geo = LOCATION, time = TIME, fertility = Value) %>% 
+  arrange(time) %>% 
+  group_by(geo) %>% 
+  group_modify(~ mutate(.x, fertility_growth = chain_index(fertility)), .keep = F)
+  
+```
+
+ggplot(data, mapping) + geom
+
+```{r}
+df_to_plot <- fertility_df %>% 
+  filter(TIME == 2018) %>% 
+  select(geo = LOCATION, fertility = Value)
+```
+
+```{r}
+ggplot(data = df_to_plot, mapping = aes(x = fertility, y = geo)) + 
+  geom_col()
+```
+
+```{r}
+df_to_plot2 <-fertility_df %>% 
+  filter(TIME ==2018) %>% 
+  select(geo = LOCATION, fertility = Value) %>% 
+  mutate(continent = countrycode::countrycode(sourcevar = geo, origin  = "iso3c",
+                                              destination = "continent"),
+         geo = fct_reorder(geo, fertility)) %>%
+  filter(continent == "Europe")
+```
+
+```{r}
+ggplot(data = df_to_plot2, mapping = aes(x = fertility, y = geo)) + 
+  geom_col()
+```
+
+```{r}
+fertility_df %>% 
+  filter(TIME ==2018) %>% 
+  select(geo = LOCATION, fertility = Value) %>% 
+  mutate(continent = countrycode::countrycode(sourcevar = geo, origin  = "iso3c",
+                                              destination = "continent"),
+         geo = fct_reorder(geo, fertility)) %>%
+  filter(continent == "Europe") %>% 
+  ggplot(mapping = aes(x = fertility, y = geo)) + 
+  geom_col(fill = "green", color = "black")
+```
