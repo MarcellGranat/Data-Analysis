@@ -11,10 +11,10 @@ rmd_files:
     "introduction.Rmd",
 
     "Lecture1.Rmd",
-    "Seminar1.Rmd"
+    "Seminar1.Rmd",
 
-    # "Lecture2.Rmd",
-    # "Seminar2.Rmd",
+    "Lecture2.Rmd",
+    "Seminar2.Rmd"
     # 
     # "Lecture3.Rmd",
     # "Seminar3.Rmd",

@@ -4,83 +4,136 @@
 
 Last week we wrote or codes on the `Source` pane, and if you save the codes and revisit the file with your file explorer, you can see that the extension of the file is `.R`. You can open the file with any other text editor (like Notepad) and see the codes. In a `.R` file you can write your codes and comments, and if you hit `ctrl + shift + enter` then all lines will be evaluated. Most of the times the goal to use `.R` files is this, we want to reuse the codes frequently (like downloading data from a website).
 
-Another possible extension for your files is the `.Rmd`, which stands for *R MarkDown*.
+Another possible extension for your files is the `.Rmd`, which stands for *R MarkDown*. In this file format you can combine text, R codes and their output into one single document. from now, We will use `RMarkdown` during the class. Please visit the following website to find useful examples: <https://rmarkdown.rstudio.com/articles_intro.html>
 
-## Introduction
+## Introduction to the tidyverse
 
-We will work with the tidyverse today. You can simply install it from the CRAN (go to `Packages` pane and click the install button). But tidyverse is not a simple package, it is a collection of packages providing a enormous amount of functions which you can use efficiently together. 
+We will work with the tidyverse today. You can simply install it from the CRAN (go to `Packages` pane and click the install button). But tidyverse is not a simple package. "The tidyverse is a set of packages that work in harmony because they share common data representations [...]"
 
-```{r}
+`Tidyverse` contains the most important packages that you're likely to use in everyday data analyses:
+
+-   [ggplot2](https://ggplot2.tidyverse.org/), for data visualisation.
+
+-   [dplyr](https://dplyr.tidyverse.org/), for data manipulation.
+
+-   [tidyr](https://tidyr.tidyverse.org/), for data tidying.
+
+-   [readr](https://readr.tidyverse.org/), for data import.
+
+-   [purrr](https://purrr.tidyverse.org/), for functional programming.
+
+-   [tibble](https://tibble.tidyverse.org/), for tibbles, a modern re-imagining of data frames.
+
+-   [stringr](https://github.com/tidyverse/stringr), for strings.
+
+-   [forcats](https://github.com/tidyverse/forcats), for factors.
+
+After you installed the packages, you can load in the core packages with \`library\` command. You will receive a warning message, but do not worry, this is fine.
+
+```{r message=T, warning=T}
 library(tidyverse)
 ```
 
 ## The `%>%` operator
 
-`%>%`= "and then"
-`ctrl + shift + m`
+This operator is written `ctrl + shift + m`, it is denoted as `%>%`, but we pronounce as **pipe**. To understand its relevance, you should think about it like *... then*. This opreator forward the value of the previous expression into the next function as the first unspecified input. Lets see an example:
 
-```{r}
+We first generate a numerical vector as trajectories of standard normal distribution.
+
+```{r fig.cap="Histogram of standard normal distribution"}
 norm_sample <- rnorm(n = 1000, mean = 0, sd = 1) # standard normal
+```
+
+**AND THEN** we visualize its distribution with a histogram.
+
+```{r fig.cap="Histogram of standard normal distribution"}
 hist(norm_sample)
 ```
 
-```{r}
+Now we had to assign the `norm_sample` object to use only for a single graph. If you are working on a project it will be confusing to have tons of one time used objects in your `environment` (Like `DataFrameAfterCleaningStep1`, `DataFrameAfterCleaningStep2`, `DataFrameAfterCleaningStep3`, etc.).
+
+With the pipe operator we can embed several steps into one single workflow. This way we do not have to assign the `norm_sample` object. We simple generate the random values AND THEN draw their distribution.
+
+```{r fig.cap="Histogram of standard normal distribution using the pipe"}
 rnorm(n = 1000, mean = 0, sd = 1) %>% 
   hist()
 ```
 
+You may see that the title of plot has changed (probably the graph also changed a bit, since chances are low that we generate exactly the 1000 random values). This is because pipe and many other tidyverse function works with a *lambda like* function framework. This means that you can refer to the input value (only if you have only one single input) with `.`.
+
+Example:
+
 ```{r}
-rnorm(n = 1000, mean = 0, sd = 1) %>% 
-  mean()
+(2 + 2) %>% 
+  {. * .}
 ```
 
-ctrl + alt + i
+The result is 16, since 2 + 2 = 4, and 4 \* 4 equals 16.
 
-```{r message=T}
+The pipe may seem unrelevant first, but this is one of the most powerful tool in R if you have complex data manipulating steps. We will cover the core functions of `dplyr` in this chapter, which appear in the following video (37:30 - 38:30), but when you are familier with them, you will see the motivation behind the pipe.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8SGif63VW6E?start=2249" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+
+</iframe>
+
+## Tibble, count, filter, select, arrange
+
+### Tibble
+
+Let's import a dataset from the [OECD webpage](https://data.oecd.org/pop/fertility-rates.htm#indicator-chart). Download the data in csv format and paste it into your working directory.
+
+```{r }
 fertility_df <- read_csv("DP_LIVE_22092021161631568.csv")
 ```
+
+`read_csv` is importad from the `readr` package, thus shares its output is adequat to the tidyverse principles. `fertility_df` is a data.frame, but it is a `tibble`, which means that it will be printed nicely on the console: only the first 10 rows appears, and only the amount of columns that can be printed without a linebreak (similar to pandas dataframe in python).
 
 ```{r}
 fertility_df
 ```
 
+### Count
+
+With the `count` function you can simple *count* the number of appearancesof the levels of a given column. Example:
+
 ```{r}
 count(fertility_df, LOCATION)
 ```
 
+Now we can see that we have 60 observation from ARG. If you are interested in for which country we have the most datapoints, you can use the `sort = TRUE` option.
+
+```{r}
+count(fertility_df, LOCATION, sort = TRUE)
+```
+
+You can also use the pipe here[^It would not be a good solution to assign a new dataframe to each count table]
+
 ```{r}
 fertility_df %>% # %>% = the 1st argument of count function is the fertility_df data.frame
-  count(INDICATOR)
+  count(LOCATION)
 ```
+
+You may specifiy multiple columns, this way the frequency of all value combinaton appears.
 
 ```{r}
 fertility_df %>% 
-  count(SUBJECT)
-```
-```{r}
-fertility_df %>% 
-  count(LOCATION, sort = TRUE)
+  count(LOCATION, TIME, sort = T)
 ```
 
-```{r}
-fertility_df %>% 
-  count(LOCATION, TIME)
-```
+Now we see that we have only one observation for each country at a time, so this data frame was originally tidy (this is usually not the case). Let's see for example the Q GDP data from the [OECD webpage](https://data.oecd.org/gdp/quarterly-gdp.htm).
 
 ```{r}
 gdp_df <- read_csv("DP_LIVE_22092021163414835.csv")
 ```
 
-```{r}
-gdp_df %>% 
-  count(MEASURE, SUBJECT)
-```
+Using the `count` function, we may find that `MEASURE`, `SUBJECT` & `FREQUENCY` columns have multiple levels.
 
 ```{r}
 gdp_df %>% 
-  count(FREQUENCY)
+  count(MEASURE, SUBJECT, FREQUENCY)
 ```
 
+Let's say we are interested only in the observations where the `SUBJECT` is equal to TOT (total), `MEASURE` is equal to PC_CHGPY (percentage change to previous value) and the `FREQUENCY` is not equal to A (onyl quarterly date).
 
 ```{r}
 gdp_df %>% 
@@ -91,9 +144,7 @@ gdp_df %>%
   select(geo = LOCATION, gdp_change = Value)
 ```
 
-`filter`: filter the rows, where the condition(s) are TRUE
-`select`: select the specified columns
-`mutate`: specify a new column or change an existing one
+`filter`: filter the rows, where the condition(s) are TRUE `select`: select the specified columns `mutate`: specify a new column or change an existing one
 
 ```{r}
 gdp_df %>% 

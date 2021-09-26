@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Markdown &amp; Tidyverse | Data Analysis Coursebook</title>
+<meta name="author" content="Marcell Granat &amp; Zoltan Madari">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Markdown &amp; Tidyverse | Data Analysis Coursebook">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Markdown &amp; Tidyverse | Data Analysis Coursebook">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="4.1 Markdown Last week we wrote or codes on the Source pane, and if you save the codes and revisit the file with your file explorer, you can see that the extension of the file is .R. You can open...">
+<meta property="og:description" content="4.1 Markdown Last week we wrote or codes on the Source pane, and if you save the codes and revisit the file with your file explorer, you can see that the extension of the file is .R. You can open...">
+<meta name="twitter:description" content="4.1 Markdown Last week we wrote or codes on the Source pane, and if you save the codes and revisit the file with your file explorer, you can see that the extension of the file is .R. You can open...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title=""><strong>Data Analysis</strong> Coursebook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="syllabus.html">Syllabus</a></li>
+<li class="book-part">Week 1</li>
+<li><a class="" href="lecture1.html"><span class="header-section-number">1</span> Lecture 1</a></li>
+<li><a class="" href="seminar1.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li class="book-part">Week 2</li>
+<li><a class="" href="lecture2.html"><span class="header-section-number">3</span> Lecture 2</a></li>
+<li><a class="active" href="seminar2.html"><span class="header-section-number">4</span> Markdown &amp; Tidyverse</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/MarcellGranat/Data-Analysis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="seminar2" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Markdown &amp; Tidyverse<a class="anchor" aria-label="anchor" href="#seminar2"><i class="fas fa-link"></i></a>
+</h1>
+<div id="markdown" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Markdown<a class="anchor" aria-label="anchor" href="#markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>Last week we wrote or codes on the <code>Source</code> pane, and if you save the codes and revisit the file with your file explorer, you can see that the extension of the file is <code>.R</code>. You can open the file with any other text editor (like Notepad) and see the codes. In a <code>.R</code> file you can write your codes and comments, and if you hit <code>ctrl + shift + enter</code> then all lines will be evaluated. Most of the times the goal to use <code>.R</code> files is this, we want to reuse the codes frequently (like downloading data from a website).</p>
+<p>Another possible extension for your files is the <code>.Rmd</code>, which stands for <em>R MarkDown</em>. In this file format you can combine text, R codes and their output into one single document. from now, We will use <code>RMarkdown</code> during the class. Please visit the following website to find useful examples: <a href="https://rmarkdown.rstudio.com/articles_intro.html" class="uri">https://rmarkdown.rstudio.com/articles_intro.html</a></p>
+</div>
+<div id="introduction-to-the-tidyverse" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Introduction to the tidyverse<a class="anchor" aria-label="anchor" href="#introduction-to-the-tidyverse"><i class="fas fa-link"></i></a>
+</h2>
+<p>We will work with the tidyverse today. You can simply install it from the CRAN (go to <code>Packages</code> pane and click the install button). But tidyverse is not a simple package. “The tidyverse is a set of packages that work in harmony because they share common data representations […]”</p>
+<p><code>Tidyverse</code> contains the most important packages that you’re likely to use in everyday data analyses:</p>
+<ul>
+<li><p><a href="https://ggplot2.tidyverse.org/">ggplot2</a>, for data visualisation.</p></li>
+<li><p><a href="https://dplyr.tidyverse.org/">dplyr</a>, for data manipulation.</p></li>
+<li><p><a href="https://tidyr.tidyverse.org/">tidyr</a>, for data tidying.</p></li>
+<li><p><a href="https://readr.tidyverse.org/">readr</a>, for data import.</p></li>
+<li><p><a href="https://purrr.tidyverse.org/">purrr</a>, for functional programming.</p></li>
+<li><p><a href="https://tibble.tidyverse.org/">tibble</a>, for tibbles, a modern re-imagining of data frames.</p></li>
+<li><p><a href="https://github.com/tidyverse/stringr">stringr</a>, for strings.</p></li>
+<li><p><a href="https://github.com/tidyverse/forcats">forcats</a>, for factors.</p></li>
+</ul>
+<p>After you installed the packages, you can load in the core packages with `library` command. You will receive a warning message, but do not worry, this is fine.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="the-operator" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> The <code>%&gt;%</code> operator<a class="anchor" aria-label="anchor" href="#the-operator"><i class="fas fa-link"></i></a>
+</h2>
+<p>This operator is written <code>ctrl + shift + m</code>, it is denoted as <code>%&gt;%</code>, but we pronounce as <strong>pipe</strong>. To understand its relevance, you should think about it like <em>… then</em>. This opreator forward the value of the previous expression into the next function as the first unspecified input. Lets see an example:</p>
+<p>We first generate a numerical vector as trajectories of standard normal distribution.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">norm_sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="co"># standard normal</span></code></pre></div>
+<p><strong>AND THEN</strong> we visualize its distribution with a histogram.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">norm_sample</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-41"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-41-1.png" alt="Histogram of standard normal distribution" width="70%"><p class="caption">
+Figure 4.1: Histogram of standard normal distribution
+</p>
+</div>
+<p>Now we had to assign the <code>norm_sample</code> object to use only for a single graph. If you are working on a project it will be confusing to have tons of one time used objects in your <code>environment</code> (Like <code>DataFrameAfterCleaningStep1</code>, <code>DataFrameAfterCleaningStep2</code>, <code>DataFrameAfterCleaningStep3</code>, etc.).</p>
+<p>With the pipe operator we can embed several steps into one single workflow. This way we do not have to assign the <code>norm_sample</code> object. We simple generate the random values AND THEN draw their distribution.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-42"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-42-1.png" alt="Histogram of standard normal distribution using the pipe" width="70%"><p class="caption">
+Figure 4.2: Histogram of standard normal distribution using the pipe
+</p>
+</div>
+<p>You may see that the title of plot has changed (probably the graph also changed a bit, since chances are low that we generate exactly the 1000 random values). This is because pipe and many other tidyverse function works with a <em>lambda like</em> function framework. This means that you can refer to the input value (only if you have only one single input) with <code>.</code>.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="op">{</span><span class="va">.</span> <span class="op">*</span> <span class="va">.</span><span class="op">}</span>
+<span class="co">#&gt; [1] 16</span></code></pre></div>
+<p>The result is 16, since 2 + 2 = 4, and 4 * 4 equals 16.</p>
+<p>The pipe may seem unrelevant first, but this is one of the most powerful tool in R if you have complex data manipulating steps. We will cover the core functions of <code>dplyr</code> in this chapter, which appear in the following video (37:30 - 38:30), but when you are familier with them, you will see the motivation behind the pipe.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8SGif63VW6E?start=2249" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"DP_LIVE_22092021161631568.csv"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span>
+<span class="co">#&gt; # A tibble: 3,193 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE   FREQUENCY  TIME Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;       </span>
+<span class="co">#&gt;  1 AUS      FERTILITY TOT     CHD_WOMAN A          1960  3.45 NA          </span>
+<span class="co">#&gt;  2 AUS      FERTILITY TOT     CHD_WOMAN A          1961  3.55 NA          </span>
+<span class="co">#&gt;  3 AUS      FERTILITY TOT     CHD_WOMAN A          1962  3.43 NA          </span>
+<span class="co">#&gt;  4 AUS      FERTILITY TOT     CHD_WOMAN A          1963  3.34 NA          </span>
+<span class="co">#&gt;  5 AUS      FERTILITY TOT     CHD_WOMAN A          1964  3.15 NA          </span>
+<span class="co">#&gt;  6 AUS      FERTILITY TOT     CHD_WOMAN A          1965  2.97 NA          </span>
+<span class="co">#&gt;  7 AUS      FERTILITY TOT     CHD_WOMAN A          1966  2.89 NA          </span>
+<span class="co">#&gt;  8 AUS      FERTILITY TOT     CHD_WOMAN A          1967  2.85 NA          </span>
+<span class="co">#&gt;  9 AUS      FERTILITY TOT     CHD_WOMAN A          1968  2.89 NA          </span>
+<span class="co">#&gt; 10 AUS      FERTILITY TOT     CHD_WOMAN A          1969  2.89 NA          </span>
+<span class="co">#&gt; # ... with 3,183 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">count</span><span class="op">(</span><span class="va">fertility_df</span>, <span class="va">LOCATION</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 54 x 2</span>
+<span class="co">#&gt;    LOCATION     n</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;</span>
+<span class="co">#&gt;  1 ARG         60</span>
+<span class="co">#&gt;  2 AUS         60</span>
+<span class="co">#&gt;  3 AUT         61</span>
+<span class="co">#&gt;  4 BEL         60</span>
+<span class="co">#&gt;  5 BGR         60</span>
+<span class="co">#&gt;  6 BRA         60</span>
+<span class="co">#&gt;  7 CAN         60</span>
+<span class="co">#&gt;  8 CHE         61</span>
+<span class="co">#&gt;  9 CHL         60</span>
+<span class="co">#&gt; 10 CHN         60</span>
+<span class="co">#&gt; # ... with 44 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> <span class="co"># %&gt;% = the 1st argument of count function is the fertility_df data.frame</span>
+  <span class="fu">count</span><span class="op">(</span><span class="va">INDICATOR</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   INDICATOR     n</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 FERTILITY  3193</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">SUBJECT</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   SUBJECT     n</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1 TOT      3193</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">LOCATION</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 54 x 2</span>
+<span class="co">#&gt;    LOCATION     n</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;</span>
+<span class="co">#&gt;  1 AUT         61</span>
+<span class="co">#&gt;  2 CHE         61</span>
+<span class="co">#&gt;  3 CZE         61</span>
+<span class="co">#&gt;  4 DNK         61</span>
+<span class="co">#&gt;  5 EST         61</span>
+<span class="co">#&gt;  6 FIN         61</span>
+<span class="co">#&gt;  7 FRA         61</span>
+<span class="co">#&gt;  8 LUX         61</span>
+<span class="co">#&gt;  9 NOR         61</span>
+<span class="co">#&gt; 10 NZL         61</span>
+<span class="co">#&gt; # ... with 44 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">LOCATION</span>, <span class="va">TIME</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3,193 x 3</span>
+<span class="co">#&gt;    LOCATION  TIME     n</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;</span>
+<span class="co">#&gt;  1 ARG       1960     1</span>
+<span class="co">#&gt;  2 ARG       1961     1</span>
+<span class="co">#&gt;  3 ARG       1962     1</span>
+<span class="co">#&gt;  4 ARG       1963     1</span>
+<span class="co">#&gt;  5 ARG       1964     1</span>
+<span class="co">#&gt;  6 ARG       1965     1</span>
+<span class="co">#&gt;  7 ARG       1966     1</span>
+<span class="co">#&gt;  8 ARG       1967     1</span>
+<span class="co">#&gt;  9 ARG       1968     1</span>
+<span class="co">#&gt; 10 ARG       1969     1</span>
+<span class="co">#&gt; # ... with 3,183 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"DP_LIVE_22092021163414835.csv"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">MEASURE</span>, <span class="va">SUBJECT</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   MEASURE  SUBJECT     n</span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;int&gt;</span>
+<span class="co">#&gt; 1 IDX      VOLIDX   8891</span>
+<span class="co">#&gt; 2 PC_CHGPP TOT     11801</span>
+<span class="co">#&gt; 3 PC_CHGPY TOT      9385</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">FREQUENCY</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   FREQUENCY     n</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 A          4093</span>
+<span class="co">#&gt; 2 Q         25984</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span> <span class="op">&amp;</span> <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span> <span class="op">&amp;</span> <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Value</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, gdp_change <span class="op">=</span> <span class="va">Value</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 49 x 2</span>
+<span class="co">#&gt;    geo   gdp_change</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 GBR         22.2</span>
+<span class="co">#&gt;  2 TUR         21.4</span>
+<span class="co">#&gt;  3 IRL         21.1</span>
+<span class="co">#&gt;  4 IND         20.9</span>
+<span class="co">#&gt;  5 ESP         19.8</span>
+<span class="co">#&gt;  6 MEX         19.5</span>
+<span class="co">#&gt;  7 FRA         18.7</span>
+<span class="co">#&gt;  8 HUN         17.7</span>
+<span class="co">#&gt;  9 NZL         17.4</span>
+<span class="co">#&gt; 10 ITA         17.3</span>
+<span class="co">#&gt; # ... with 39 more rows</span></code></pre></div>
+<p><code>filter</code>: filter the rows, where the condition(s) are TRUE <code>select</code>: select the specified columns <code>mutate</code>: specify a new column or change an existing one</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 1</span>
+<span class="co">#&gt;    LOCATION</span>
+<span class="co">#&gt;    &lt;chr&gt;   </span>
+<span class="co">#&gt;  1 OECD    </span>
+<span class="co">#&gt;  2 OECD    </span>
+<span class="co">#&gt;  3 OECD    </span>
+<span class="co">#&gt;  4 OECD    </span>
+<span class="co">#&gt;  5 OECD    </span>
+<span class="co">#&gt;  6 OECD    </span>
+<span class="co">#&gt;  7 OECD    </span>
+<span class="co">#&gt;  8 OECD    </span>
+<span class="co">#&gt;  9 OECD    </span>
+<span class="co">#&gt; 10 OECD    </span>
+<span class="co">#&gt; # ... with 30,067 more rows</span>
+
+<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 7</span>
+<span class="co">#&gt;    INDICATOR SUBJECT MEASURE  FREQUENCY TIME  Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 QGDP      TOT     PC_CHGPP A         1962   5.70 &lt;NA&gt;        </span>
+<span class="co">#&gt;  2 QGDP      TOT     PC_CHGPP A         1963   5.20 &lt;NA&gt;        </span>
+<span class="co">#&gt;  3 QGDP      TOT     PC_CHGPP A         1964   6.38 &lt;NA&gt;        </span>
+<span class="co">#&gt;  4 QGDP      TOT     PC_CHGPP A         1965   5.35 &lt;NA&gt;        </span>
+<span class="co">#&gt;  5 QGDP      TOT     PC_CHGPP A         1966   5.75 &lt;NA&gt;        </span>
+<span class="co">#&gt;  6 QGDP      TOT     PC_CHGPP A         1967   3.96 &lt;NA&gt;        </span>
+<span class="co">#&gt;  7 QGDP      TOT     PC_CHGPP A         1968   5.92 &lt;NA&gt;        </span>
+<span class="co">#&gt;  8 QGDP      TOT     PC_CHGPP A         1969   5.57 &lt;NA&gt;        </span>
+<span class="co">#&gt;  9 QGDP      TOT     PC_CHGPP A         1970   3.94 &lt;NA&gt;        </span>
+<span class="co">#&gt; 10 QGDP      TOT     PC_CHGPP A         1971   3.70 &lt;NA&gt;        </span>
+<span class="co">#&gt; # ... with 30,067 more rows</span>
+
+<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 2</span>
+<span class="co">#&gt;    LOCATION INDICATOR</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 OECD     QGDP     </span>
+<span class="co">#&gt;  2 OECD     QGDP     </span>
+<span class="co">#&gt;  3 OECD     QGDP     </span>
+<span class="co">#&gt;  4 OECD     QGDP     </span>
+<span class="co">#&gt;  5 OECD     QGDP     </span>
+<span class="co">#&gt;  6 OECD     QGDP     </span>
+<span class="co">#&gt;  7 OECD     QGDP     </span>
+<span class="co">#&gt;  8 OECD     QGDP     </span>
+<span class="co">#&gt;  9 OECD     QGDP     </span>
+<span class="co">#&gt; 10 OECD     QGDP     </span>
+<span class="co">#&gt; # ... with 30,067 more rows</span>
+
+<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">LOCATION</span><span class="op">:</span><span class="va">TIME</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 6</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME </span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;</span>
+<span class="co">#&gt;  1 OECD     QGDP      TOT     PC_CHGPP A         1962 </span>
+<span class="co">#&gt;  2 OECD     QGDP      TOT     PC_CHGPP A         1963 </span>
+<span class="co">#&gt;  3 OECD     QGDP      TOT     PC_CHGPP A         1964 </span>
+<span class="co">#&gt;  4 OECD     QGDP      TOT     PC_CHGPP A         1965 </span>
+<span class="co">#&gt;  5 OECD     QGDP      TOT     PC_CHGPP A         1966 </span>
+<span class="co">#&gt;  6 OECD     QGDP      TOT     PC_CHGPP A         1967 </span>
+<span class="co">#&gt;  7 OECD     QGDP      TOT     PC_CHGPP A         1968 </span>
+<span class="co">#&gt;  8 OECD     QGDP      TOT     PC_CHGPP A         1969 </span>
+<span class="co">#&gt;  9 OECD     QGDP      TOT     PC_CHGPP A         1970 </span>
+<span class="co">#&gt; 10 OECD     QGDP      TOT     PC_CHGPP A         1971 </span>
+<span class="co">#&gt; # ... with 30,067 more rows</span>
+
+<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">TIME</span>, <span class="va">LOCATION</span>, <span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 8</span>
+<span class="co">#&gt;    TIME  LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 1962  OECD     QGDP      TOT     PC_CHGPP A          5.70 &lt;NA&gt;        </span>
+<span class="co">#&gt;  2 1963  OECD     QGDP      TOT     PC_CHGPP A          5.20 &lt;NA&gt;        </span>
+<span class="co">#&gt;  3 1964  OECD     QGDP      TOT     PC_CHGPP A          6.38 &lt;NA&gt;        </span>
+<span class="co">#&gt;  4 1965  OECD     QGDP      TOT     PC_CHGPP A          5.35 &lt;NA&gt;        </span>
+<span class="co">#&gt;  5 1966  OECD     QGDP      TOT     PC_CHGPP A          5.75 &lt;NA&gt;        </span>
+<span class="co">#&gt;  6 1967  OECD     QGDP      TOT     PC_CHGPP A          3.96 &lt;NA&gt;        </span>
+<span class="co">#&gt;  7 1968  OECD     QGDP      TOT     PC_CHGPP A          5.92 &lt;NA&gt;        </span>
+<span class="co">#&gt;  8 1969  OECD     QGDP      TOT     PC_CHGPP A          5.57 &lt;NA&gt;        </span>
+<span class="co">#&gt;  9 1970  OECD     QGDP      TOT     PC_CHGPP A          3.94 &lt;NA&gt;        </span>
+<span class="co">#&gt; 10 1971  OECD     QGDP      TOT     PC_CHGPP A          3.70 &lt;NA&gt;        </span>
+<span class="co">#&gt; # ... with 30,067 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>g <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Value</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 9</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME  Value `Flag Codes`     g</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 OECD     QGDP      TOT     PC_CHGPP A         1962   5.70 &lt;NA&gt;          1.06</span>
+<span class="co">#&gt;  2 OECD     QGDP      TOT     PC_CHGPP A         1963   5.20 &lt;NA&gt;          1.05</span>
+<span class="co">#&gt;  3 OECD     QGDP      TOT     PC_CHGPP A         1964   6.38 &lt;NA&gt;          1.06</span>
+<span class="co">#&gt;  4 OECD     QGDP      TOT     PC_CHGPP A         1965   5.35 &lt;NA&gt;          1.05</span>
+<span class="co">#&gt;  5 OECD     QGDP      TOT     PC_CHGPP A         1966   5.75 &lt;NA&gt;          1.06</span>
+<span class="co">#&gt;  6 OECD     QGDP      TOT     PC_CHGPP A         1967   3.96 &lt;NA&gt;          1.04</span>
+<span class="co">#&gt;  7 OECD     QGDP      TOT     PC_CHGPP A         1968   5.92 &lt;NA&gt;          1.06</span>
+<span class="co">#&gt;  8 OECD     QGDP      TOT     PC_CHGPP A         1969   5.57 &lt;NA&gt;          1.06</span>
+<span class="co">#&gt;  9 OECD     QGDP      TOT     PC_CHGPP A         1970   3.94 &lt;NA&gt;          1.04</span>
+<span class="co">#&gt; 10 OECD     QGDP      TOT     PC_CHGPP A         1971   3.70 &lt;NA&gt;          1.04</span>
+<span class="co">#&gt; # ... with 30,067 more rows</span>
+
+<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>Value <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Value</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30,077 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME  Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 OECD     QGDP      TOT     PC_CHGPP A         1962   1.06 &lt;NA&gt;        </span>
+<span class="co">#&gt;  2 OECD     QGDP      TOT     PC_CHGPP A         1963   1.05 &lt;NA&gt;        </span>
+<span class="co">#&gt;  3 OECD     QGDP      TOT     PC_CHGPP A         1964   1.06 &lt;NA&gt;        </span>
+<span class="co">#&gt;  4 OECD     QGDP      TOT     PC_CHGPP A         1965   1.05 &lt;NA&gt;        </span>
+<span class="co">#&gt;  5 OECD     QGDP      TOT     PC_CHGPP A         1966   1.06 &lt;NA&gt;        </span>
+<span class="co">#&gt;  6 OECD     QGDP      TOT     PC_CHGPP A         1967   1.04 &lt;NA&gt;        </span>
+<span class="co">#&gt;  7 OECD     QGDP      TOT     PC_CHGPP A         1968   1.06 &lt;NA&gt;        </span>
+<span class="co">#&gt;  8 OECD     QGDP      TOT     PC_CHGPP A         1969   1.06 &lt;NA&gt;        </span>
+<span class="co">#&gt;  9 OECD     QGDP      TOT     PC_CHGPP A         1970   1.04 &lt;NA&gt;        </span>
+<span class="co">#&gt; 10 OECD     QGDP      TOT     PC_CHGPP A         1971   1.04 &lt;NA&gt;        </span>
+<span class="co">#&gt; # ... with 30,067 more rows</span>
+
+<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span>,
+    Value <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Value</span><span class="op">/</span><span class="fl">100</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 25,984 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME       Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 DEU      QGDP      TOT     PC_CHGPY Q         1961-01-01 1.07  E           </span>
+<span class="co">#&gt;  2 DEU      QGDP      TOT     PC_CHGPY Q         1961-04-01 1.05  E           </span>
+<span class="co">#&gt;  3 DEU      QGDP      TOT     PC_CHGPY Q         1961-07-01 1.04  E           </span>
+<span class="co">#&gt;  4 DEU      QGDP      TOT     PC_CHGPY Q         1961-10-01 1.03  E           </span>
+<span class="co">#&gt;  5 DEU      QGDP      TOT     PC_CHGPY Q         1962-01-01 1.03  E           </span>
+<span class="co">#&gt;  6 DEU      QGDP      TOT     PC_CHGPY Q         1962-04-01 1.05  E           </span>
+<span class="co">#&gt;  7 DEU      QGDP      TOT     PC_CHGPY Q         1962-07-01 1.05  E           </span>
+<span class="co">#&gt;  8 DEU      QGDP      TOT     PC_CHGPY Q         1962-10-01 1.05  E           </span>
+<span class="co">#&gt;  9 DEU      QGDP      TOT     PC_CHGPY Q         1963-01-01 0.996 E           </span>
+<span class="co">#&gt; 10 DEU      QGDP      TOT     PC_CHGPY Q         1963-04-01 1.03  E           </span>
+<span class="co">#&gt; # ... with 25,974 more rows</span></code></pre></div>
+<p><code>summary</code></p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/search_eurostat.html">search_eurostat</a></span><span class="op">(</span><span class="st">"birth"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 275 x 8</span>
+<span class="co">#&gt;    title   code  type  `last update of~ `last table str~ `data start` `data end`</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 Live b~ demo~ data~ 30.06.2021       23.02.2021       1990         2019      </span>
+<span class="co">#&gt;  2 Live b~ demo~ data~ 01.07.2021       01.07.2021       2013         2019      </span>
+<span class="co">#&gt;  3 Live b~ demo~ data~ 30.06.2021       23.02.2021       1990         2019      </span>
+<span class="co">#&gt;  4 Popula~ cens~ data~ 26.08.2015       08.02.2021       2011         2011      </span>
+<span class="co">#&gt;  5 Popula~ cens~ data~ 26.08.2015       08.02.2021       2011         2011      </span>
+<span class="co">#&gt;  6 Popula~ cens~ data~ 26.08.2015       08.02.2021       2011         2011      </span>
+<span class="co">#&gt;  7 Popula~ cens~ data~ 26.08.2015       08.02.2021       2011         2011      </span>
+<span class="co">#&gt;  8 Popula~ cens~ data~ 26.08.2015       08.02.2021       2011         2011      </span>
+<span class="co">#&gt;  9 Popula~ lfst~ data~ 10.09.2021       27.04.2021       1999         2020      </span>
+<span class="co">#&gt; 10 Activi~ lfst~ data~ 10.09.2021       27.04.2021       1999         2020      </span>
+<span class="co">#&gt; # ... with 265 more rows, and 1 more variable: values &lt;chr&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">&lt;-</span> <span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">get_eurostat</a></span><span class="op">(</span><span class="st">"demo_r_fagec"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_length</span><span class="op">(</span><span class="va">geo</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">age</span> <span class="op">!=</span> <span class="st">"TOTAL"</span> <span class="op">&amp;</span> <span class="va">time</span> <span class="op">==</span> <span class="st">"2019-01-01"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">age</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UNK"</span>, <span class="st">"Y_GE45"</span>, <span class="st">"Y_GE48"</span>, <span class="st">"Y_GE50"</span>, <span class="st">"Y_LT16"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">summarise</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 36 x 2</span>
+<span class="co">#&gt;    age    values</span>
+<span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Y10-14   5337</span>
+<span class="co">#&gt;  2 Y15     13440</span>
+<span class="co">#&gt;  3 Y16     30049</span>
+<span class="co">#&gt;  4 Y17     60282</span>
+<span class="co">#&gt;  5 Y18    106563</span>
+<span class="co">#&gt;  6 Y19    172655</span>
+<span class="co">#&gt;  7 Y20    244849</span>
+<span class="co">#&gt;  8 Y21    308539</span>
+<span class="co">#&gt;  9 Y22    378984</span>
+<span class="co">#&gt; 10 Y23    450972</span>
+<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">107</span>, <span class="fl">105</span>, <span class="fl">110</span><span class="op">)</span>
+<span class="fu">chain_index</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; Error in chain_index(x): could not find function "chain_index"</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">chain_index</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">(</span><span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>, accuracy <span class="op">=</span> <span class="fl">.01</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+</div>
+<div id="pivot-longerwider" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Pivot longer/wider<a class="anchor" aria-label="anchor" href="#pivot-longerwider"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, time <span class="op">=</span> <span class="va">TIME</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"geo"</span>, values_from <span class="op">=</span> <span class="st">"fertility"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate_at</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="va">chain_index</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, names_to <span class="op">=</span> <span class="st">"geo"</span>, values_to <span class="op">=</span> <span class="st">"fertility"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3,294 x 3</span>
+<span class="co">#&gt;     time geo   fertility</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    </span>
+<span class="co">#&gt;  1  1960 AUS   &lt;NA&gt;     </span>
+<span class="co">#&gt;  2  1960 AUT   &lt;NA&gt;     </span>
+<span class="co">#&gt;  3  1960 BEL   &lt;NA&gt;     </span>
+<span class="co">#&gt;  4  1960 CAN   &lt;NA&gt;     </span>
+<span class="co">#&gt;  5  1960 CZE   &lt;NA&gt;     </span>
+<span class="co">#&gt;  6  1960 DNK   &lt;NA&gt;     </span>
+<span class="co">#&gt;  7  1960 FIN   &lt;NA&gt;     </span>
+<span class="co">#&gt;  8  1960 FRA   &lt;NA&gt;     </span>
+<span class="co">#&gt;  9  1960 DEU   &lt;NA&gt;     </span>
+<span class="co">#&gt; 10  1960 GRC   &lt;NA&gt;     </span>
+<span class="co">#&gt; # ... with 3,284 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, time <span class="op">=</span> <span class="va">TIME</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="va">time</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">geo</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_modify</span><span class="op">(</span><span class="op">~</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">.x</span>, fertility_growth <span class="op">=</span> <span class="fu">chain_index</span><span class="op">(</span><span class="va">fertility</span><span class="op">)</span><span class="op">)</span>, .keep <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3,193 x 4</span>
+<span class="co">#&gt; # Groups:   geo [54]</span>
+<span class="co">#&gt;    geo    time fertility fertility_growth</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;           </span>
+<span class="co">#&gt;  1 ARG    1960      3.11 &lt;NA&gt;            </span>
+<span class="co">#&gt;  2 ARG    1961      3.1  -0.32%          </span>
+<span class="co">#&gt;  3 ARG    1962      3.09 -0.32%          </span>
+<span class="co">#&gt;  4 ARG    1963      3.08 -0.32%          </span>
+<span class="co">#&gt;  5 ARG    1964      3.07 -0.32%          </span>
+<span class="co">#&gt;  6 ARG    1965      3.06 -0.33%          </span>
+<span class="co">#&gt;  7 ARG    1966      3.05 -0.33%          </span>
+<span class="co">#&gt;  8 ARG    1967      3.05 0.00%           </span>
+<span class="co">#&gt;  9 ARG    1968      3.05 0.00%           </span>
+<span class="co">#&gt; 10 ARG    1969      3.06 0.33%           </span>
+<span class="co">#&gt; # ... with 3,183 more rows</span></code></pre></div>
+<p>ggplot(data, mapping) + geom</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_to_plot</span> <span class="op">&lt;-</span> <span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span> <span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_to_plot</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">fertility</span>, y <span class="op">=</span> <span class="va">geo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-65-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_to_plot2</span> <span class="op">&lt;-</span><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span><span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>continent <span class="op">=</span> <span class="fu">countrycode</span><span class="fu">::</span><span class="fu"><a href="https://vincentarelbundock.github.io/countrycode/reference/countrycode.html">countrycode</a></span><span class="op">(</span>sourcevar <span class="op">=</span> <span class="va">geo</span>, origin  <span class="op">=</span> <span class="st">"iso3c"</span>,
+                                              destination <span class="op">=</span> <span class="st">"continent"</span><span class="op">)</span>,
+         geo <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">geo</span>, <span class="va">fertility</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Europe"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_to_plot2</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">fertility</span>, y <span class="op">=</span> <span class="va">geo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-67-1.png" width="70%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span><span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>continent <span class="op">=</span> <span class="fu">countrycode</span><span class="fu">::</span><span class="fu"><a href="https://vincentarelbundock.github.io/countrycode/reference/countrycode.html">countrycode</a></span><span class="op">(</span>sourcevar <span class="op">=</span> <span class="va">geo</span>, origin  <span class="op">=</span> <span class="st">"iso3c"</span>,
+                                              destination <span class="op">=</span> <span class="st">"continent"</span><span class="op">)</span>,
+         geo <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">geo</span>, <span class="va">fertility</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Europe"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">fertility</span>, y <span class="op">=</span> <span class="va">geo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_col</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-68-1.png" width="70%" style="display: block; margin: auto;"></div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture2.html"><span class="header-section-number">3</span> Lecture 2</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#seminar2"><span class="header-section-number">4</span> Markdown &amp; Tidyverse</a></li>
+<li><a class="nav-link" href="#markdown"><span class="header-section-number">4.1</span> Markdown</a></li>
+<li><a class="nav-link" href="#introduction-to-the-tidyverse"><span class="header-section-number">4.2</span> Introduction to the tidyverse</a></li>
+<li><a class="nav-link" href="#the-operator"><span class="header-section-number">4.3</span> The %&gt;% operator</a></li>
+<li><a class="nav-link" href="#pivot-longerwider"><span class="header-section-number">4.4</span> Pivot longer/wider</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/MarcellGranat/Data-Analysis/blob/master/Seminar2.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/MarcellGranat/Data-Analysis/edit/master/Seminar2.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong><strong>Data Analysis</strong> Coursebook</strong>" was written by Marcell Granat &amp; Zoltan Madari. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

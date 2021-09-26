@@ -1,5 +1,7 @@
 fig:unnamed-chunk-3
 fig:unnamed-chunk-18
+fig:unnamed-chunk-41
+fig:unnamed-chunk-42
 topics
 requirements
 project
@@ -20,3 +22,9 @@ while
 for
 functions
 apply-family
+lecture2
+seminar2
+markdown
+introduction-to-the-tidyverse
+the-operator
+pivot-longerwider
