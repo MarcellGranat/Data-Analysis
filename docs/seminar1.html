@@ -233,9 +233,9 @@ Lets see a minimal example</p>
 <h2>
 <span class="header-section-number">2.5</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation"><i class="fas fa-link"></i></a>
 </h2>
-<div id="import-data-into-r" class="section level3" number="2.5.1">
+<div id="data-import" class="section level3" number="2.5.1">
 <h3>
-<span class="header-section-number">2.5.1</span> Import data into R<a class="anchor" aria-label="anchor" href="#import-data-into-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.1</span> Import data into R<a class="anchor" aria-label="anchor" href="#data-import"><i class="fas fa-link"></i></a>
 </h3>
 <p>We mentioned formely that the easiest way to import your data is to click on it in the files pane. However, this manual step is useful if you have to import and analyse the data once, but probably you want to use your data next time as well. That is way it is a good idea to copy and paste the code for importing the data into your script.</p>
 <div class="figure" style="text-align: center">
@@ -532,7 +532,7 @@ Figure 2.2: Import csv data into R
 <a class="nav-link" href="#data-types"><span class="header-section-number">2.4</span> Data types</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#vectors"><span class="header-section-number">2.4.1</span> vectors</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#data-manipulation"><span class="header-section-number">2.5</span> Data manipulation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#import-data-into-r"><span class="header-section-number">2.5.1</span> Import data into R</a></li></ul>
+<a class="nav-link" href="#data-manipulation"><span class="header-section-number">2.5</span> Data manipulation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#data-import"><span class="header-section-number">2.5.1</span> Import data into R</a></li></ul>
 </li>
 <li><a class="nav-link" href="#conditional-statements"><span class="header-section-number">2.6</span> Conditional statements</a></li>
 <li>
@@ -568,6 +568,34 @@ Figure 2.2: Import csv data into R
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

@@ -106,7 +106,7 @@ Now we can see that we have 60 observation from ARG. If you are interested in fo
 count(fertility_df, LOCATION, sort = TRUE)
 ```
 
-You can also use the pipe here[^It would not be a good solution to assign a new dataframe to each count table]
+You can also use the pipe here[\^It would not be a good solution to assign a new dataframe to each count table]
 
 ```{r}
 fertility_df %>% # %>% = the 1st argument of count function is the fertility_df data.frame
@@ -133,7 +133,49 @@ gdp_df %>%
   count(MEASURE, SUBJECT, FREQUENCY)
 ```
 
-Let's say we are interested only in the observations where the `SUBJECT` is equal to TOT (total), `MEASURE` is equal to PC_CHGPY (percentage change to previous value) and the `FREQUENCY` is not equal to A (onyl quarterly date).
+Let's say we are interested only in the observations where the `SUBJECT` is equal to TOT (total), `MEASURE` is equal to PC_CHGPY (percentage change to previous value) and the `FREQUENCY` is not equal to A (only quarterly observations). *You can select rows by using the* `filter` function. Its 1st argument is the dataframe you want to modify, and the other arguments are conditional statements. If all the statements are TRUE, then the row will be selected.
+
+```{r}
+filter(gdp_df, SUBJECT == "TOT", MEASURE == "PC_CHGPY", FREQUENCY != "A")
+```
+
+Just like the `count`, we use this function with `%>%` operator, and use `&` instead of `,`, but if you wish to use *"OR"*, then you can use `|` between two statement.
+
+```{r}
+gdp_df %>% 
+  filter(SUBJECT == "TOT" & MEASURE == "PC_CHGPY" & FREQUENCY != "A")
+```
+
+### Mutate
+
+In the `gdp_df` dataframe you can find the `TIME` column and that its class character. Lets say we want to change this to date. Functions related to date are in the `lubridate` package. Since the values of the `TIME` column consist of a *y*ear and a *q*uarter, we will use the `yq` function to change it into date. But we should not forget that this will work only with the datapoints where the `FREQUENCY` is not annual. So let's keep the previous filter. If we want to modify a given column of a dataframe we should use the `mutate` function. With the pipe operator we now combine the `filter` and the `mutate` command.
+
+```{r}
+gdp_df %>% 
+  filter(SUBJECT == "TOT" & MEASURE == "PC_CHGPY" & FREQUENCY != "A") %>% 
+  mutate(TIME = lubridate::yq(TIME))
+```
+
+Now that `TIME` is already a date column, we can add an additional condition: we want to analyze only the latest valuse (where the value of `TIME` is maximum).
+
+```{r}
+gdp_df %>% 
+  filter(SUBJECT == "TOT" & MEASURE == "PC_CHGPY" & FREQUENCY != "A") %>% 
+  mutate(TIME = lubridate::yq(TIME)) %>% 
+  filter(TIME == max(TIME)) 
+```
+
+Let's where we find the highest values. We have to change the order of the rows with the `arrange` function. If you want to set decreasing order, then you should put the columns name into the `desc` command.
+
+```{r}
+gdp_df %>% 
+  filter(SUBJECT == "TOT" & MEASURE == "PC_CHGPY" & FREQUENCY != "A") %>% 
+  mutate(TIME = lubridate::yq(TIME)) %>% 
+  filter(TIME == max(TIME)) %>%
+  arrange(desc(Value)) 
+```
+
+And we want to remove the unused columns. You can select columns with the `select` function.
 
 ```{r}
 gdp_df %>% 
@@ -141,74 +183,139 @@ gdp_df %>%
   mutate(TIME = lubridate::yq(TIME)) %>% 
   filter(TIME == max(TIME)) %>% 
   arrange(desc(Value)) %>% 
-  select(geo = LOCATION, gdp_change = Value)
+  select(geo = LOCATION, gdp_change = Value) # select the LOCATION & gdp_change columns
 ```
 
-`filter`: filter the rows, where the condition(s) are TRUE `select`: select the specified columns `mutate`: specify a new column or change an existing one
+Alternative notation with select:
 
 ```{r}
 gdp_df %>% 
-  select(1)
+  select(1) # select the 1st column
 
 gdp_df %>% 
-  select(-1)
+  select(-1) # omit the 1st column
 
 gdp_df %>% 
-  select(1:2)
+  select(1:2) # select all the columns between the 1st and the 2nd
 
 gdp_df %>% 
-  select(LOCATION:TIME)
+  select(LOCATION:TIME) # select all the columns between the LOCATION and the TIME column
 
 gdp_df %>% 
-  select(TIME, LOCATION, everything())
+  select(TIME, LOCATION, everything()) 
+  # select all the columns, but TIME & LOCATION to the first place
 ```
 
-```{r}
-gdp_df %>% 
-  mutate(g = 1 + Value/100)
+## `Group_by`, `Summary`
 
-gdp_df %>% 
-  mutate(Value = 1 + Value/100)
-
-gdp_df %>% 
-  filter(FREQUENCY != "A") %>% 
-  mutate(
-    TIME = lubridate::yq(TIME),
-    Value = 1 + Value/100
-  )
-```
-
-`summary`
+Let's see another source for data. You can easily access Eurostat tables with the `eurostat` package.
 
 ```{r}
 eurostat::search_eurostat("birth")
 ```
 
+Let's choose the "Live births by mother's age and NUTS 2 region" dataset.
+
 ```{r}
 livebirth_eu_df <- eurostat::get_eurostat("demo_r_fagec")
+
+livebirth_eu_df
 ```
+
+First of all, we are interested in NUTS 2 reginal data. But in this dataset national aggregated values are also published (where the geo codes length is only 2 characters). Let's remove these.
+
+```{r}
+livebirth_eu_df %>% 
+  filter(str_length(geo) != 2)
+```
+
+We also should remove the aggregated values and keep only the latest one.
 
 ```{r}
 livebirth_eu_df %>% 
   filter(str_length(geo) != 2) %>% 
   filter(age != "TOTAL" & time == "2019-01-01") %>% 
+  filter(!(age %in% c("UNK", "Y_GE45", "Y_GE48", "Y_GE50", "Y_LT16")))
+```
+
+Now our dataset is clean: we have one observation to each geo and age category. Let's suppose we are interested in the total number of birth by the mothers age in EU (I know we would found a table for this). For this we want to sum the values in the `values` column by age category.
+
+```{r eval=F}
+livebirth_eu_df %>% 
+  filter(str_length(geo) != 2) %>% 
+  filter(age != "TOTAL" & time == "2019-01-01") %>% 
   filter(!(age %in% c("UNK", "Y_GE45", "Y_GE48", "Y_GE50", "Y_LT16"))) %>% 
-  group_by(age) %>% 
+  group_by(age) %>%
   summarise(values = sum(values))
 ```
 
-```{r}
-x <- c(100, 107, 105, 110)
-chain_index(x)
+```{r echo=F}
+livebirth_eu_df %>% 
+  filter(str_length(geo) != 2) %>% 
+  filter(age != "TOTAL" & time == "2019-01-01") %>% 
+  filter(!(age %in% c("UNK", "Y_GE45", "Y_GE48", "Y_GE50", "Y_LT16"))) %>% 
+  group_by(age) %>%
+  summarise(values = sum(values)) %>% 
+  knitr::kable()
 ```
+
+## Pivot longer/wider
+
+Let's assume we are interested in the growth rate of fertility in each country. First, we should write a function to calculate growth rates (chain index).
 
 ```{r}
 chain_index <- function(x) {
   scales::percent(x/lag(x)-1, accuracy = .01)
+  # lag: previous observation
 }
 ```
 
-## Pivot longer/wider
+Example:
+
+```{r}
+x <- c(100, 107, 105, 110)
+
+chain_index(x)
+```
+
+```{r eval = F}
+fertility_df %>% 
+  select(LOCATION, TIME, Value) %>% 
+  mutate(GrowthRate = chain_index(Value))
+```
+
+(I hided the rest of the table)
+
+```{r echo = F}
+fertility_df %>% 
+  select(LOCATION, TIME, Value) %>% 
+  mutate(GrowthRate = chain_index(Value)) %>% 
+  head(70) %>% 
+  knitr::kable()
+```
+
+But the problem comes at the `GrowthRate` at AUT in 1960, since now (check in the table):
+
+$$\text{Growth}_{\text{AUT}, 1960} = \frac{\text{AUS}_{2019}}{\text{AUT}_{1960}}$$
+
+We can easily solve this by transforming the structure of the table. We need to make the table **wider** in this case, with the `pivot_wider`. this function will create a new column to each level of a seleceted variable.
+
+```{r}
+fertility_df %>% 
+  select(geo = LOCATION, time = TIME, fertility = Value) %>% 
+  pivot_wider(names_from = "geo", values_from = "fertility")
+```
+
+If we use the `chain_index` function now on all the columns, then we can avoid the previous bug. You can use a function on all columns (except on the first) with the `mutate_at` function.
+
+```{r}
+fertility_df %>% 
+  select(geo = LOCATION, time = TIME, fertility = Value) %>% 
+  pivot_wider(names_from = "geo", values_from = "fertility") %>% 
+  mutate_at(-1, chain_index)
+```
+
+And now let's transform the table to its original structure. You can do this with the `pivot_longer` column.
 
 ```{r}
 fertility_df %>% 
@@ -218,51 +325,62 @@ fertility_df %>%
   pivot_longer(-1, names_to = "geo", values_to = "fertility")
 ```
 
-```{r}
+## `Group_modify`
+
+Alternativly, we could solve this problem if we split the data frame into 63 individual data frames (one for each country). If you use the following syntax, you will get the correct results:
+
+```{r eval = F}
 fertility_df %>% 
   select(geo = LOCATION, time = TIME, fertility = Value) %>% 
   arrange(time) %>% 
   group_by(geo) %>% 
   group_modify(~ mutate(.x, fertility_growth = chain_index(fertility)), .keep = F)
-  
 ```
 
-ggplot(data, mapping) + geom
-
-```{r}
-df_to_plot <- fertility_df %>% 
-  filter(TIME == 2018) %>% 
-  select(geo = LOCATION, fertility = Value)
-```
-
-```{r}
-ggplot(data = df_to_plot, mapping = aes(x = fertility, y = geo)) + 
-  geom_col()
-```
-
-```{r}
-df_to_plot2 <-fertility_df %>% 
-  filter(TIME ==2018) %>% 
-  select(geo = LOCATION, fertility = Value) %>% 
-  mutate(continent = countrycode::countrycode(sourcevar = geo, origin  = "iso3c",
-                                              destination = "continent"),
-         geo = fct_reorder(geo, fertility)) %>%
-  filter(continent == "Europe")
-```
-
-```{r}
-ggplot(data = df_to_plot2, mapping = aes(x = fertility, y = geo)) + 
-  geom_col()
-```
-
-```{r}
+```{r echo = F}
 fertility_df %>% 
-  filter(TIME ==2018) %>% 
-  select(geo = LOCATION, fertility = Value) %>% 
-  mutate(continent = countrycode::countrycode(sourcevar = geo, origin  = "iso3c",
-                                              destination = "continent"),
-         geo = fct_reorder(geo, fertility)) %>%
-  filter(continent == "Europe") %>% 
-  ggplot(mapping = aes(x = fertility, y = geo)) + 
-  geom_col(fill = "green", color = "black")
+  select(geo = LOCATION, time = TIME, fertility = Value) %>% 
+  arrange(time) %>% 
+  group_by(geo) %>% 
+  group_modify(~ mutate(.x, fertility_growth = chain_index(fertility)), .keep = F) %>% 
+  head(70) %>% 
+  knitr::kable()
 ```
+
+## Exercise
+
+You have to get to know your classmates to solve this exercise.
+
+1.  Create a new .Rmd file
+
+2.  Import the da_q.csv data into R with relative referencing (see Chapter \@ref(data-import))
+
+3.  Write down the information you know about at least 3 of your teammates (Names are neccesary) as text in the `.Rmd`.
+
+4.  Write R codes to find the teammates (write also comments in the code^["A comment always writes down the why, not the what"]) using only base R function (tools you have learned in the 1st seminar).
+
+5.  Write R codes to find the teammates using dplyr function (tools you have learned in the 2nd seminar)
+
+**You found your teammate if the output of an R code is correct ID number of the person.**
+
+Example:
+
+```{r echo=F}
+df <- read_delim(str_c(WD, "/data/da_q.csv"), delim = ";", escape_double = FALSE, trim_ws = TRUE)
+```
+
+```{r}
+df
+```
+
+*I am from Hungary, and the national food in Hungary is gulash.*
+
+```{r}
+df %>% 
+  filter(str_detect(`What is the traditional food in your country? (you can mention more, if you wish)`, "gulash")) %>% 
+  pull(ID)
+```
+
+*So my ID number is 1.*
+
+Of course, you can not choose me. :)

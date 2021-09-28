@@ -128,8 +128,19 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <p>The pipe may seem unrelevant first, but this is one of the most powerful tool in R if you have complex data manipulating steps. We will cover the core functions of <code>dplyr</code> in this chapter, which appear in the following video (37:30 - 38:30), but when you are familier with them, you will see the motivation behind the pipe.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/8SGif63VW6E?start=2249" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
+</div>
+<div id="tibble-count-filter-select-arrange" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Tibble, count, filter, select, arrange<a class="anchor" aria-label="anchor" href="#tibble-count-filter-select-arrange"><i class="fas fa-link"></i></a>
+</h2>
+<div id="tibble" class="section level3" number="4.4.1">
+<h3>
+<span class="header-section-number">4.4.1</span> Tibble<a class="anchor" aria-label="anchor" href="#tibble"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s import a dataset from the <a href="https://data.oecd.org/pop/fertility-rates.htm#indicator-chart">OECD webpage</a>. Download the data in csv format and paste it into your working directory.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"DP_LIVE_22092021161631568.csv"</span><span class="op">)</span></code></pre></div>
+<p><code>read_csv</code> is importad from the <code>readr</code> package, thus shares its output is adequat to the tidyverse principles. <code>fertility_df</code> is a data.frame, but it is a <code>tibble</code>, which means that it will be printed nicely on the console: only the first 10 rows appears, and only the amount of columns that can be printed without a linebreak (similar to pandas dataframe in python).</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fertility_df</span>
 <span class="co">#&gt; # A tibble: 3,193 x 8</span>
@@ -146,6 +157,12 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9 AUS      FERTILITY TOT     CHD_WOMAN A          1968  2.89 NA          </span>
 <span class="co">#&gt; 10 AUS      FERTILITY TOT     CHD_WOMAN A          1969  2.89 NA          </span>
 <span class="co">#&gt; # ... with 3,183 more rows</span></code></pre></div>
+</div>
+<div id="count" class="section level3" number="4.4.2">
+<h3>
+<span class="header-section-number">4.4.2</span> Count<a class="anchor" aria-label="anchor" href="#count"><i class="fas fa-link"></i></a>
+</h3>
+<p>With the <code>count</code> function you can simple <em>count</em> the number of appearancesof the levels of a given column. Example:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">count</span><span class="op">(</span><span class="va">fertility_df</span>, <span class="va">LOCATION</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 54 x 2</span>
@@ -162,23 +179,9 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9 CHL         60</span>
 <span class="co">#&gt; 10 CHN         60</span>
 <span class="co">#&gt; # ... with 44 more rows</span></code></pre></div>
+<p>Now we can see that we have 60 observation from ARG. If you are interested in for which country we have the most datapoints, you can use the <code>sort = TRUE</code> option.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> <span class="co"># %&gt;% = the 1st argument of count function is the fertility_df data.frame</span>
-  <span class="fu">count</span><span class="op">(</span><span class="va">INDICATOR</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
-<span class="co">#&gt;   INDICATOR     n</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 FERTILITY  3193</span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">count</span><span class="op">(</span><span class="va">SUBJECT</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
-<span class="co">#&gt;   SUBJECT     n</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt;</span>
-<span class="co">#&gt; 1 TOT      3193</span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">count</span><span class="op">(</span><span class="va">LOCATION</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">count</span><span class="op">(</span><span class="va">fertility_df</span>, <span class="va">LOCATION</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 54 x 2</span>
 <span class="co">#&gt;    LOCATION     n</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;</span>
@@ -193,9 +196,28 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9 NOR         61</span>
 <span class="co">#&gt; 10 NZL         61</span>
 <span class="co">#&gt; # ... with 44 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<p>You can also use the pipe here[^It would not be a good solution to assign a new dataframe to each count table]</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> <span class="co"># %&gt;% = the 1st argument of count function is the fertility_df data.frame</span>
+  <span class="fu">count</span><span class="op">(</span><span class="va">LOCATION</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 54 x 2</span>
+<span class="co">#&gt;    LOCATION     n</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;int&gt;</span>
+<span class="co">#&gt;  1 ARG         60</span>
+<span class="co">#&gt;  2 AUS         60</span>
+<span class="co">#&gt;  3 AUT         61</span>
+<span class="co">#&gt;  4 BEL         60</span>
+<span class="co">#&gt;  5 BGR         60</span>
+<span class="co">#&gt;  6 BRA         60</span>
+<span class="co">#&gt;  7 CAN         60</span>
+<span class="co">#&gt;  8 CHE         61</span>
+<span class="co">#&gt;  9 CHL         60</span>
+<span class="co">#&gt; 10 CHN         60</span>
+<span class="co">#&gt; # ... with 44 more rows</span></code></pre></div>
+<p>You may specifiy multiple columns, this way the frequency of all value combinaton appears.</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">count</span><span class="op">(</span><span class="va">LOCATION</span>, <span class="va">TIME</span><span class="op">)</span>
+  <span class="fu">count</span><span class="op">(</span><span class="va">LOCATION</span>, <span class="va">TIME</span>, sort <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3,193 x 3</span>
 <span class="co">#&gt;    LOCATION  TIME     n</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;</span>
@@ -210,32 +232,129 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9 ARG       1968     1</span>
 <span class="co">#&gt; 10 ARG       1969     1</span>
 <span class="co">#&gt; # ... with 3,183 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<p>Now we see that we have only one observation for each country at a time, so this data frame was originally tidy (this is usually not the case). Let’s see for example the Q GDP data from the <a href="https://data.oecd.org/gdp/quarterly-gdp.htm">OECD webpage</a>.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"DP_LIVE_22092021163414835.csv"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<p>Using the <code>count</code> function, we may find that <code>MEASURE</code>, <code>SUBJECT</code> &amp; <code>FREQUENCY</code> columns have multiple levels.</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">count</span><span class="op">(</span><span class="va">MEASURE</span>, <span class="va">SUBJECT</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 3</span>
-<span class="co">#&gt;   MEASURE  SUBJECT     n</span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;int&gt;</span>
-<span class="co">#&gt; 1 IDX      VOLIDX   8891</span>
-<span class="co">#&gt; 2 PC_CHGPP TOT     11801</span>
-<span class="co">#&gt; 3 PC_CHGPY TOT      9385</span></code></pre></div>
+  <span class="fu">count</span><span class="op">(</span><span class="va">MEASURE</span>, <span class="va">SUBJECT</span>, <span class="va">FREQUENCY</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 5 x 4</span>
+<span class="co">#&gt;   MEASURE  SUBJECT FREQUENCY     n</span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 IDX      VOLIDX  A          1764</span>
+<span class="co">#&gt; 2 IDX      VOLIDX  Q          7127</span>
+<span class="co">#&gt; 3 PC_CHGPP TOT     A          2329</span>
+<span class="co">#&gt; 4 PC_CHGPP TOT     Q          9472</span>
+<span class="co">#&gt; 5 PC_CHGPY TOT     Q          9385</span></code></pre></div>
+<p>Let’s say we are interested only in the observations where the <code>SUBJECT</code> is equal to TOT (total), <code>MEASURE</code> is equal to PC_CHGPY (percentage change to previous value) and the <code>FREQUENCY</code> is not equal to A (only quarterly observations). <em>You can select rows by using the</em> <code>filter</code> function. Its 1st argument is the dataframe you want to modify, and the other arguments are conditional statements. If all the statements are TRUE, then the row will be selected.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">gdp_df</span>, <span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span>, <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span>, <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 9,385 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME     Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q1  7.45  E           </span>
+<span class="co">#&gt;  2 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q2  5.00  E           </span>
+<span class="co">#&gt;  3 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q3  3.58  E           </span>
+<span class="co">#&gt;  4 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q4  3.00  E           </span>
+<span class="co">#&gt;  5 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q1  3.47  E           </span>
+<span class="co">#&gt;  6 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q2  5.11  E           </span>
+<span class="co">#&gt;  7 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q3  5.47  E           </span>
+<span class="co">#&gt;  8 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q4  4.76  E           </span>
+<span class="co">#&gt;  9 DEU      QGDP      TOT     PC_CHGPY Q         1963-Q1 -0.372 E           </span>
+<span class="co">#&gt; 10 DEU      QGDP      TOT     PC_CHGPY Q         1963-Q2  3.02  E           </span>
+<span class="co">#&gt; # ... with 9,375 more rows</span></code></pre></div>
+<p>Just like the <code>count</code>, we use this function with <code>%&gt;%</code> operator, and use <code><a href="https://rdrr.io/r/base/Logic.html">&amp;</a></code> instead of <code>,</code>, but if you wish to use <em>“OR”</em>, then you can use <code><a href="https://rdrr.io/r/base/Logic.html">|</a></code> between two statement.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">count</span><span class="op">(</span><span class="va">FREQUENCY</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 2</span>
-<span class="co">#&gt;   FREQUENCY     n</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 A          4093</span>
-<span class="co">#&gt; 2 Q         25984</span></code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span> <span class="op">&amp;</span> <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span> <span class="op">&amp;</span> <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 9,385 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME     Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q1  7.45  E           </span>
+<span class="co">#&gt;  2 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q2  5.00  E           </span>
+<span class="co">#&gt;  3 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q3  3.58  E           </span>
+<span class="co">#&gt;  4 DEU      QGDP      TOT     PC_CHGPY Q         1961-Q4  3.00  E           </span>
+<span class="co">#&gt;  5 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q1  3.47  E           </span>
+<span class="co">#&gt;  6 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q2  5.11  E           </span>
+<span class="co">#&gt;  7 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q3  5.47  E           </span>
+<span class="co">#&gt;  8 DEU      QGDP      TOT     PC_CHGPY Q         1962-Q4  4.76  E           </span>
+<span class="co">#&gt;  9 DEU      QGDP      TOT     PC_CHGPY Q         1963-Q1 -0.372 E           </span>
+<span class="co">#&gt; 10 DEU      QGDP      TOT     PC_CHGPY Q         1963-Q2  3.02  E           </span>
+<span class="co">#&gt; # ... with 9,375 more rows</span></code></pre></div>
+</div>
+<div id="mutate" class="section level3" number="4.4.3">
+<h3>
+<span class="header-section-number">4.4.3</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the <code>gdp_df</code> dataframe you can find the <code>TIME</code> column and that its class character. Lets say we want to change this to date. Functions related to date are in the <code>lubridate</code> package. Since the values of the <code>TIME</code> column consist of a <em>y</em>ear and a <em>q</em>uarter, we will use the <code>yq</code> function to change it into date. But we should not forget that this will work only with the datapoints where the <code>FREQUENCY</code> is not annual. So let’s keep the previous filter. If we want to modify a given column of a dataframe we should use the <code>mutate</code> function. With the pipe operator we now combine the <code>filter</code> and the <code>mutate</code> command.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span> <span class="op">&amp;</span> <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span> <span class="op">&amp;</span> <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 9,385 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME        Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;      &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 DEU      QGDP      TOT     PC_CHGPY Q         1961-01-01  7.45  E           </span>
+<span class="co">#&gt;  2 DEU      QGDP      TOT     PC_CHGPY Q         1961-04-01  5.00  E           </span>
+<span class="co">#&gt;  3 DEU      QGDP      TOT     PC_CHGPY Q         1961-07-01  3.58  E           </span>
+<span class="co">#&gt;  4 DEU      QGDP      TOT     PC_CHGPY Q         1961-10-01  3.00  E           </span>
+<span class="co">#&gt;  5 DEU      QGDP      TOT     PC_CHGPY Q         1962-01-01  3.47  E           </span>
+<span class="co">#&gt;  6 DEU      QGDP      TOT     PC_CHGPY Q         1962-04-01  5.11  E           </span>
+<span class="co">#&gt;  7 DEU      QGDP      TOT     PC_CHGPY Q         1962-07-01  5.47  E           </span>
+<span class="co">#&gt;  8 DEU      QGDP      TOT     PC_CHGPY Q         1962-10-01  4.76  E           </span>
+<span class="co">#&gt;  9 DEU      QGDP      TOT     PC_CHGPY Q         1963-01-01 -0.372 E           </span>
+<span class="co">#&gt; 10 DEU      QGDP      TOT     PC_CHGPY Q         1963-04-01  3.02  E           </span>
+<span class="co">#&gt; # ... with 9,375 more rows</span></code></pre></div>
+<p>Now that <code>TIME</code> is already a date column, we can add an additional condition: we want to analyze only the latest valuse (where the value of <code>TIME</code> is maximum).</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span> <span class="op">&amp;</span> <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span> <span class="op">&amp;</span> <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 49 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME       Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 DEU      QGDP      TOT     PC_CHGPY Q         2021-04-01  9.41 P           </span>
+<span class="co">#&gt;  2 IND      QGDP      TOT     PC_CHGPY Q         2021-04-01 20.9  &lt;NA&gt;        </span>
+<span class="co">#&gt;  3 TUR      QGDP      TOT     PC_CHGPY Q         2021-04-01 21.4  &lt;NA&gt;        </span>
+<span class="co">#&gt;  4 IDN      QGDP      TOT     PC_CHGPY Q         2021-04-01  7.19 &lt;NA&gt;        </span>
+<span class="co">#&gt;  5 LVA      QGDP      TOT     PC_CHGPY Q         2021-04-01 10.8  &lt;NA&gt;        </span>
+<span class="co">#&gt;  6 CZE      QGDP      TOT     PC_CHGPY Q         2021-04-01  8.18 &lt;NA&gt;        </span>
+<span class="co">#&gt;  7 BRA      QGDP      TOT     PC_CHGPY Q         2021-04-01 12.4  &lt;NA&gt;        </span>
+<span class="co">#&gt;  8 POL      QGDP      TOT     PC_CHGPY Q         2021-04-01 11.0  &lt;NA&gt;        </span>
+<span class="co">#&gt;  9 MEX      QGDP      TOT     PC_CHGPY Q         2021-04-01 19.5  P           </span>
+<span class="co">#&gt; 10 CAN      QGDP      TOT     PC_CHGPY Q         2021-04-01 12.7  &lt;NA&gt;        </span>
+<span class="co">#&gt; # ... with 39 more rows</span></code></pre></div>
+<p>Let’s where we find the highest values. We have to change the order of the rows with the <code>arrange</code> function. If you want to set decreasing order, then you should put the columns name into the <code>desc</code> command.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span> <span class="op">&amp;</span> <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span> <span class="op">&amp;</span> <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Value</span><span class="op">)</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 49 x 8</span>
+<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME       Value `Flag Codes`</span>
+<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       </span>
+<span class="co">#&gt;  1 GBR      QGDP      TOT     PC_CHGPY Q         2021-04-01  22.2 &lt;NA&gt;        </span>
+<span class="co">#&gt;  2 TUR      QGDP      TOT     PC_CHGPY Q         2021-04-01  21.4 &lt;NA&gt;        </span>
+<span class="co">#&gt;  3 IRL      QGDP      TOT     PC_CHGPY Q         2021-04-01  21.1 &lt;NA&gt;        </span>
+<span class="co">#&gt;  4 IND      QGDP      TOT     PC_CHGPY Q         2021-04-01  20.9 &lt;NA&gt;        </span>
+<span class="co">#&gt;  5 ESP      QGDP      TOT     PC_CHGPY Q         2021-04-01  19.8 P           </span>
+<span class="co">#&gt;  6 MEX      QGDP      TOT     PC_CHGPY Q         2021-04-01  19.5 P           </span>
+<span class="co">#&gt;  7 FRA      QGDP      TOT     PC_CHGPY Q         2021-04-01  18.7 &lt;NA&gt;        </span>
+<span class="co">#&gt;  8 HUN      QGDP      TOT     PC_CHGPY Q         2021-04-01  17.7 &lt;NA&gt;        </span>
+<span class="co">#&gt;  9 NZL      QGDP      TOT     PC_CHGPY Q         2021-04-01  17.4 &lt;NA&gt;        </span>
+<span class="co">#&gt; 10 ITA      QGDP      TOT     PC_CHGPY Q         2021-04-01  17.3 &lt;NA&gt;        </span>
+<span class="co">#&gt; # ... with 39 more rows</span></code></pre></div>
+<p>And we want to remove the unused columns. You can select columns with the <code>select</code> function.</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">SUBJECT</span> <span class="op">==</span> <span class="st">"TOT"</span> <span class="op">&amp;</span> <span class="va">MEASURE</span> <span class="op">==</span> <span class="st">"PC_CHGPY"</span> <span class="op">&amp;</span> <span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">Value</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, gdp_change <span class="op">=</span> <span class="va">Value</span><span class="op">)</span>
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, gdp_change <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="co"># select the LOCATION &amp; gdp_change columns</span>
 <span class="co">#&gt; # A tibble: 49 x 2</span>
 <span class="co">#&gt;    geo   gdp_change</span>
 <span class="co">#&gt;    &lt;chr&gt;      &lt;dbl&gt;</span>
@@ -250,10 +369,10 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9 NZL         17.4</span>
 <span class="co">#&gt; 10 ITA         17.3</span>
 <span class="co">#&gt; # ... with 39 more rows</span></code></pre></div>
-<p><code>filter</code>: filter the rows, where the condition(s) are TRUE <code>select</code>: select the specified columns <code>mutate</code>: specify a new column or change an existing one</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<p>Alternative notation with select:</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+  <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># select the 1st column</span>
 <span class="co">#&gt; # A tibble: 30,077 x 1</span>
 <span class="co">#&gt;    LOCATION</span>
 <span class="co">#&gt;    &lt;chr&gt;   </span>
@@ -270,7 +389,7 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt; # ... with 30,067 more rows</span>
 
 <span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="co"># omit the 1st column</span>
 <span class="co">#&gt; # A tibble: 30,077 x 7</span>
 <span class="co">#&gt;    INDICATOR SUBJECT MEASURE  FREQUENCY TIME  Value `Flag Codes`</span>
 <span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;       </span>
@@ -287,7 +406,7 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt; # ... with 30,067 more rows</span>
 
 <span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
+  <span class="fu">select</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="co"># select all the columns between the 1st and the 2nd</span>
 <span class="co">#&gt; # A tibble: 30,077 x 2</span>
 <span class="co">#&gt;    LOCATION INDICATOR</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;    </span>
@@ -304,7 +423,7 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt; # ... with 30,067 more rows</span>
 
 <span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="va">LOCATION</span><span class="op">:</span><span class="va">TIME</span><span class="op">)</span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">LOCATION</span><span class="op">:</span><span class="va">TIME</span><span class="op">)</span> <span class="co"># select all the columns between the LOCATION and the TIME column</span>
 <span class="co">#&gt; # A tibble: 30,077 x 6</span>
 <span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME </span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;</span>
@@ -321,7 +440,7 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt; # ... with 30,067 more rows</span>
 
 <span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="va">TIME</span>, <span class="va">LOCATION</span>, <span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">TIME</span>, <span class="va">LOCATION</span>, <span class="fu">everything</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> 
 <span class="co">#&gt; # A tibble: 30,077 x 8</span>
 <span class="co">#&gt;    TIME  LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY Value `Flag Codes`</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;       </span>
@@ -335,64 +454,16 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  8 1969  OECD     QGDP      TOT     PC_CHGPP A          5.57 &lt;NA&gt;        </span>
 <span class="co">#&gt;  9 1970  OECD     QGDP      TOT     PC_CHGPP A          3.94 &lt;NA&gt;        </span>
 <span class="co">#&gt; 10 1971  OECD     QGDP      TOT     PC_CHGPP A          3.70 &lt;NA&gt;        </span>
-<span class="co">#&gt; # ... with 30,067 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>g <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Value</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 30,077 x 9</span>
-<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME  Value `Flag Codes`     g</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 OECD     QGDP      TOT     PC_CHGPP A         1962   5.70 &lt;NA&gt;          1.06</span>
-<span class="co">#&gt;  2 OECD     QGDP      TOT     PC_CHGPP A         1963   5.20 &lt;NA&gt;          1.05</span>
-<span class="co">#&gt;  3 OECD     QGDP      TOT     PC_CHGPP A         1964   6.38 &lt;NA&gt;          1.06</span>
-<span class="co">#&gt;  4 OECD     QGDP      TOT     PC_CHGPP A         1965   5.35 &lt;NA&gt;          1.05</span>
-<span class="co">#&gt;  5 OECD     QGDP      TOT     PC_CHGPP A         1966   5.75 &lt;NA&gt;          1.06</span>
-<span class="co">#&gt;  6 OECD     QGDP      TOT     PC_CHGPP A         1967   3.96 &lt;NA&gt;          1.04</span>
-<span class="co">#&gt;  7 OECD     QGDP      TOT     PC_CHGPP A         1968   5.92 &lt;NA&gt;          1.06</span>
-<span class="co">#&gt;  8 OECD     QGDP      TOT     PC_CHGPP A         1969   5.57 &lt;NA&gt;          1.06</span>
-<span class="co">#&gt;  9 OECD     QGDP      TOT     PC_CHGPP A         1970   3.94 &lt;NA&gt;          1.04</span>
-<span class="co">#&gt; 10 OECD     QGDP      TOT     PC_CHGPP A         1971   3.70 &lt;NA&gt;          1.04</span>
 <span class="co">#&gt; # ... with 30,067 more rows</span>
-
-<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>Value <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Value</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 30,077 x 8</span>
-<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME  Value `Flag Codes`</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;       </span>
-<span class="co">#&gt;  1 OECD     QGDP      TOT     PC_CHGPP A         1962   1.06 &lt;NA&gt;        </span>
-<span class="co">#&gt;  2 OECD     QGDP      TOT     PC_CHGPP A         1963   1.05 &lt;NA&gt;        </span>
-<span class="co">#&gt;  3 OECD     QGDP      TOT     PC_CHGPP A         1964   1.06 &lt;NA&gt;        </span>
-<span class="co">#&gt;  4 OECD     QGDP      TOT     PC_CHGPP A         1965   1.05 &lt;NA&gt;        </span>
-<span class="co">#&gt;  5 OECD     QGDP      TOT     PC_CHGPP A         1966   1.06 &lt;NA&gt;        </span>
-<span class="co">#&gt;  6 OECD     QGDP      TOT     PC_CHGPP A         1967   1.04 &lt;NA&gt;        </span>
-<span class="co">#&gt;  7 OECD     QGDP      TOT     PC_CHGPP A         1968   1.06 &lt;NA&gt;        </span>
-<span class="co">#&gt;  8 OECD     QGDP      TOT     PC_CHGPP A         1969   1.06 &lt;NA&gt;        </span>
-<span class="co">#&gt;  9 OECD     QGDP      TOT     PC_CHGPP A         1970   1.04 &lt;NA&gt;        </span>
-<span class="co">#&gt; 10 OECD     QGDP      TOT     PC_CHGPP A         1971   1.04 &lt;NA&gt;        </span>
-<span class="co">#&gt; # ... with 30,067 more rows</span>
-
-<span class="va">gdp_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">FREQUENCY</span> <span class="op">!=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>
-    TIME <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="http://lubridate.tidyverse.org/reference/ymd.html">yq</a></span><span class="op">(</span><span class="va">TIME</span><span class="op">)</span>,
-    Value <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Value</span><span class="op">/</span><span class="fl">100</span>
-  <span class="op">)</span>
-<span class="co">#&gt; # A tibble: 25,984 x 8</span>
-<span class="co">#&gt;    LOCATION INDICATOR SUBJECT MEASURE  FREQUENCY TIME       Value `Flag Codes`</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;       </span>
-<span class="co">#&gt;  1 DEU      QGDP      TOT     PC_CHGPY Q         1961-01-01 1.07  E           </span>
-<span class="co">#&gt;  2 DEU      QGDP      TOT     PC_CHGPY Q         1961-04-01 1.05  E           </span>
-<span class="co">#&gt;  3 DEU      QGDP      TOT     PC_CHGPY Q         1961-07-01 1.04  E           </span>
-<span class="co">#&gt;  4 DEU      QGDP      TOT     PC_CHGPY Q         1961-10-01 1.03  E           </span>
-<span class="co">#&gt;  5 DEU      QGDP      TOT     PC_CHGPY Q         1962-01-01 1.03  E           </span>
-<span class="co">#&gt;  6 DEU      QGDP      TOT     PC_CHGPY Q         1962-04-01 1.05  E           </span>
-<span class="co">#&gt;  7 DEU      QGDP      TOT     PC_CHGPY Q         1962-07-01 1.05  E           </span>
-<span class="co">#&gt;  8 DEU      QGDP      TOT     PC_CHGPY Q         1962-10-01 1.05  E           </span>
-<span class="co">#&gt;  9 DEU      QGDP      TOT     PC_CHGPY Q         1963-01-01 0.996 E           </span>
-<span class="co">#&gt; 10 DEU      QGDP      TOT     PC_CHGPY Q         1963-04-01 1.03  E           </span>
-<span class="co">#&gt; # ... with 25,974 more rows</span></code></pre></div>
-<p><code>summary</code></p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+  <span class="co"># select all the columns, but TIME &amp; LOCATION to the first place</span></code></pre></div>
+</div>
+</div>
+<div id="group_by-summary" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> <code>Group_by</code>, <code>Summary</code><a class="anchor" aria-label="anchor" href="#group_by-summary"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let’s see another source for data. You can easily access Eurostat tables with the <code>eurostat</code> package.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/search_eurostat.html">search_eurostat</a></span><span class="op">(</span><span class="st">"birth"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 275 x 8</span>
 <span class="co">#&gt;    title   code  type  `last update of~ `last table str~ `data start` `data end`</span>
@@ -408,43 +479,730 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9 Popula~ lfst~ data~ 10.09.2021       27.04.2021       1999         2020      </span>
 <span class="co">#&gt; 10 Activi~ lfst~ data~ 10.09.2021       27.04.2021       1999         2020      </span>
 <span class="co">#&gt; # ... with 265 more rows, and 1 more variable: values &lt;chr&gt;</span></code></pre></div>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">&lt;-</span> <span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">get_eurostat</a></span><span class="op">(</span><span class="st">"demo_r_fagec"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<p>Let’s choose the “Live births by mother’s age and NUTS 2 region” dataset.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">&lt;-</span> <span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">get_eurostat</a></span><span class="op">(</span><span class="st">"demo_r_fagec"</span><span class="op">)</span>
+
+<span class="va">livebirth_eu_df</span>
+<span class="co">#&gt; # A tibble: 456,956 x 5</span>
+<span class="co">#&gt;    unit  age   geo   time       values</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 NR    TOTAL AL    2019-01-01  28561</span>
+<span class="co">#&gt;  2 NR    TOTAL AL0   2019-01-01  28438</span>
+<span class="co">#&gt;  3 NR    TOTAL AL01  2019-01-01   8909</span>
+<span class="co">#&gt;  4 NR    TOTAL AL02  2019-01-01  12089</span>
+<span class="co">#&gt;  5 NR    TOTAL AL03  2019-01-01   7440</span>
+<span class="co">#&gt;  6 NR    TOTAL ALX   2019-01-01    123</span>
+<span class="co">#&gt;  7 NR    TOTAL ALXX  2019-01-01    123</span>
+<span class="co">#&gt;  8 NR    TOTAL AT    2019-01-01  84952</span>
+<span class="co">#&gt;  9 NR    TOTAL AT1   2019-01-01  36819</span>
+<span class="co">#&gt; 10 NR    TOTAL AT11  2019-01-01   2232</span>
+<span class="co">#&gt; # ... with 456,946 more rows</span></code></pre></div>
+<p>First of all, we are interested in NUTS 2 reginal data. But in this dataset national aggregated values are also published (where the geo codes length is only 2 characters). Let’s remove these.</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_length</span><span class="op">(</span><span class="va">geo</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 416,961 x 5</span>
+<span class="co">#&gt;    unit  age   geo   time       values</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 NR    TOTAL AL0   2019-01-01  28438</span>
+<span class="co">#&gt;  2 NR    TOTAL AL01  2019-01-01   8909</span>
+<span class="co">#&gt;  3 NR    TOTAL AL02  2019-01-01  12089</span>
+<span class="co">#&gt;  4 NR    TOTAL AL03  2019-01-01   7440</span>
+<span class="co">#&gt;  5 NR    TOTAL ALX   2019-01-01    123</span>
+<span class="co">#&gt;  6 NR    TOTAL ALXX  2019-01-01    123</span>
+<span class="co">#&gt;  7 NR    TOTAL AT1   2019-01-01  36819</span>
+<span class="co">#&gt;  8 NR    TOTAL AT11  2019-01-01   2232</span>
+<span class="co">#&gt;  9 NR    TOTAL AT12  2019-01-01  14652</span>
+<span class="co">#&gt; 10 NR    TOTAL AT13  2019-01-01  19935</span>
+<span class="co">#&gt; # ... with 416,951 more rows</span></code></pre></div>
+<p>We also should remove the aggregated values and keep only the latest one.</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_length</span><span class="op">(</span><span class="va">geo</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">age</span> <span class="op">!=</span> <span class="st">"TOTAL"</span> <span class="op">&amp;</span> <span class="va">time</span> <span class="op">==</span> <span class="st">"2019-01-01"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">age</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UNK"</span>, <span class="st">"Y_GE45"</span>, <span class="st">"Y_GE48"</span>, <span class="st">"Y_GE50"</span>, <span class="st">"Y_LT16"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 14,309 x 5</span>
+<span class="co">#&gt;    unit  age    geo   time       values</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 NR    Y10-14 AL0   2019-01-01     24</span>
+<span class="co">#&gt;  2 NR    Y10-14 AL01  2019-01-01      4</span>
+<span class="co">#&gt;  3 NR    Y10-14 AL02  2019-01-01     13</span>
+<span class="co">#&gt;  4 NR    Y10-14 AL03  2019-01-01      7</span>
+<span class="co">#&gt;  5 NR    Y10-14 ALX   2019-01-01      0</span>
+<span class="co">#&gt;  6 NR    Y10-14 ALXX  2019-01-01      0</span>
+<span class="co">#&gt;  7 NR    Y10-14 AT1   2019-01-01      1</span>
+<span class="co">#&gt;  8 NR    Y10-14 AT11  2019-01-01      0</span>
+<span class="co">#&gt;  9 NR    Y10-14 AT12  2019-01-01      0</span>
+<span class="co">#&gt; 10 NR    Y10-14 AT13  2019-01-01      1</span>
+<span class="co">#&gt; # ... with 14,299 more rows</span></code></pre></div>
+<p>Now our dataset is clean: we have one observation to each geo and age category. Let’s suppose we are interested in the total number of birth by the mothers age in EU (I know we would found a table for this). For this we want to sum the values in the <code>values</code> column by age category.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">livebirth_eu_df</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_length</span><span class="op">(</span><span class="va">geo</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">age</span> <span class="op">!=</span> <span class="st">"TOTAL"</span> <span class="op">&amp;</span> <span class="va">time</span> <span class="op">==</span> <span class="st">"2019-01-01"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">age</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UNK"</span>, <span class="st">"Y_GE45"</span>, <span class="st">"Y_GE48"</span>, <span class="st">"Y_GE50"</span>, <span class="st">"Y_LT16"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">summarise</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 36 x 2</span>
-<span class="co">#&gt;    age    values</span>
-<span class="co">#&gt;    &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Y10-14   5337</span>
-<span class="co">#&gt;  2 Y15     13440</span>
-<span class="co">#&gt;  3 Y16     30049</span>
-<span class="co">#&gt;  4 Y17     60282</span>
-<span class="co">#&gt;  5 Y18    106563</span>
-<span class="co">#&gt;  6 Y19    172655</span>
-<span class="co">#&gt;  7 Y20    244849</span>
-<span class="co">#&gt;  8 Y21    308539</span>
-<span class="co">#&gt;  9 Y22    378984</span>
-<span class="co">#&gt; 10 Y23    450972</span>
-<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">107</span>, <span class="fl">105</span>, <span class="fl">110</span><span class="op">)</span>
-<span class="fu">chain_index</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; Error in chain_index(x): could not find function "chain_index"</span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">age</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">summarise</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">age</th>
+<th align="right">values</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Y10-14</td>
+<td align="right">5337</td>
+</tr>
+<tr class="even">
+<td align="left">Y15</td>
+<td align="right">13440</td>
+</tr>
+<tr class="odd">
+<td align="left">Y16</td>
+<td align="right">30049</td>
+</tr>
+<tr class="even">
+<td align="left">Y17</td>
+<td align="right">60282</td>
+</tr>
+<tr class="odd">
+<td align="left">Y18</td>
+<td align="right">106563</td>
+</tr>
+<tr class="even">
+<td align="left">Y19</td>
+<td align="right">172655</td>
+</tr>
+<tr class="odd">
+<td align="left">Y20</td>
+<td align="right">244849</td>
+</tr>
+<tr class="even">
+<td align="left">Y21</td>
+<td align="right">308539</td>
+</tr>
+<tr class="odd">
+<td align="left">Y22</td>
+<td align="right">378984</td>
+</tr>
+<tr class="even">
+<td align="left">Y23</td>
+<td align="right">450972</td>
+</tr>
+<tr class="odd">
+<td align="left">Y24</td>
+<td align="right">542341</td>
+</tr>
+<tr class="even">
+<td align="left">Y25</td>
+<td align="right">649112</td>
+</tr>
+<tr class="odd">
+<td align="left">Y26</td>
+<td align="right">757241</td>
+</tr>
+<tr class="even">
+<td align="left">Y27</td>
+<td align="right">867143</td>
+</tr>
+<tr class="odd">
+<td align="left">Y28</td>
+<td align="right">971229</td>
+</tr>
+<tr class="even">
+<td align="left">Y29</td>
+<td align="right">1053152</td>
+</tr>
+<tr class="odd">
+<td align="left">Y30</td>
+<td align="right">1089894</td>
+</tr>
+<tr class="even">
+<td align="left">Y31</td>
+<td align="right">1099205</td>
+</tr>
+<tr class="odd">
+<td align="left">Y32</td>
+<td align="right">1044856</td>
+</tr>
+<tr class="even">
+<td align="left">Y33</td>
+<td align="right">979962</td>
+</tr>
+<tr class="odd">
+<td align="left">Y34</td>
+<td align="right">903304</td>
+</tr>
+<tr class="even">
+<td align="left">Y35</td>
+<td align="right">811897</td>
+</tr>
+<tr class="odd">
+<td align="left">Y36</td>
+<td align="right">707466</td>
+</tr>
+<tr class="even">
+<td align="left">Y37</td>
+<td align="right">597897</td>
+</tr>
+<tr class="odd">
+<td align="left">Y38</td>
+<td align="right">489777</td>
+</tr>
+<tr class="even">
+<td align="left">Y39</td>
+<td align="right">385349</td>
+</tr>
+<tr class="odd">
+<td align="left">Y40</td>
+<td align="right">281512</td>
+</tr>
+<tr class="even">
+<td align="left">Y41</td>
+<td align="right">192645</td>
+</tr>
+<tr class="odd">
+<td align="left">Y42</td>
+<td align="right">124356</td>
+</tr>
+<tr class="even">
+<td align="left">Y43</td>
+<td align="right">73296</td>
+</tr>
+<tr class="odd">
+<td align="left">Y44</td>
+<td align="right">43848</td>
+</tr>
+<tr class="even">
+<td align="left">Y45</td>
+<td align="right">23717</td>
+</tr>
+<tr class="odd">
+<td align="left">Y46</td>
+<td align="right">12628</td>
+</tr>
+<tr class="even">
+<td align="left">Y47</td>
+<td align="right">7172</td>
+</tr>
+<tr class="odd">
+<td align="left">Y48</td>
+<td align="right">4354</td>
+</tr>
+<tr class="even">
+<td align="left">Y49</td>
+<td align="right">2922</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="pivot-longerwider" class="section level2" number="4.6">
+<h2>
+<span class="header-section-number">4.6</span> Pivot longer/wider<a class="anchor" aria-label="anchor" href="#pivot-longerwider"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let’s assume we are interested in the growth rate of fertility in each country. First, we should write a function to calculate growth rates (chain index).</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chain_index</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">(</span><span class="va">x</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span>, accuracy <span class="op">=</span> <span class="fl">.01</span><span class="op">)</span>
+  <span class="co"># lag: previous observation</span>
 <span class="op">}</span></code></pre></div>
-</div>
-<div id="pivot-longerwider" class="section level2" number="4.4">
-<h2>
-<span class="header-section-number">4.4</span> Pivot longer/wider<a class="anchor" aria-label="anchor" href="#pivot-longerwider"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<p>Example:</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">107</span>, <span class="fl">105</span>, <span class="fl">110</span><span class="op">)</span>
+
+<span class="fu">chain_index</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; [1] NA       "7.00%"  "-1.87%" "4.76%"</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">LOCATION</span>, <span class="va">TIME</span>, <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>GrowthRate <span class="op">=</span> <span class="fu">chain_index</span><span class="op">(</span><span class="va">Value</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>(I hided the rest of the table)</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">LOCATION</th>
+<th align="right">TIME</th>
+<th align="right">Value</th>
+<th align="left">GrowthRate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1960</td>
+<td align="right">3.45</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1961</td>
+<td align="right">3.55</td>
+<td align="left">2.90%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1962</td>
+<td align="right">3.43</td>
+<td align="left">-3.38%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1963</td>
+<td align="right">3.34</td>
+<td align="left">-2.62%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1964</td>
+<td align="right">3.15</td>
+<td align="left">-5.69%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1965</td>
+<td align="right">2.97</td>
+<td align="left">-5.71%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1966</td>
+<td align="right">2.89</td>
+<td align="left">-2.69%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1967</td>
+<td align="right">2.85</td>
+<td align="left">-1.38%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1968</td>
+<td align="right">2.89</td>
+<td align="left">1.40%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1969</td>
+<td align="right">2.89</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1970</td>
+<td align="right">2.86</td>
+<td align="left">-1.04%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1971</td>
+<td align="right">2.95</td>
+<td align="left">3.15%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1972</td>
+<td align="right">2.74</td>
+<td align="left">-7.12%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1973</td>
+<td align="right">2.49</td>
+<td align="left">-9.12%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1974</td>
+<td align="right">2.32</td>
+<td align="left">-6.83%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1975</td>
+<td align="right">2.15</td>
+<td align="left">-7.33%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1976</td>
+<td align="right">2.06</td>
+<td align="left">-4.19%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1977</td>
+<td align="right">2.01</td>
+<td align="left">-2.43%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1978</td>
+<td align="right">1.95</td>
+<td align="left">-2.99%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1979</td>
+<td align="right">1.91</td>
+<td align="left">-2.05%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1980</td>
+<td align="right">1.89</td>
+<td align="left">-1.05%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1981</td>
+<td align="right">1.94</td>
+<td align="left">2.65%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1982</td>
+<td align="right">1.93</td>
+<td align="left">-0.52%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1983</td>
+<td align="right">1.92</td>
+<td align="left">-0.52%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1984</td>
+<td align="right">1.84</td>
+<td align="left">-4.17%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1985</td>
+<td align="right">1.92</td>
+<td align="left">4.35%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1986</td>
+<td align="right">1.87</td>
+<td align="left">-2.60%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1987</td>
+<td align="right">1.85</td>
+<td align="left">-1.07%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1988</td>
+<td align="right">1.83</td>
+<td align="left">-1.08%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1989</td>
+<td align="right">1.84</td>
+<td align="left">0.55%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1990</td>
+<td align="right">1.90</td>
+<td align="left">3.26%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1991</td>
+<td align="right">1.85</td>
+<td align="left">-2.63%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1992</td>
+<td align="right">1.89</td>
+<td align="left">2.16%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1993</td>
+<td align="right">1.86</td>
+<td align="left">-1.59%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1994</td>
+<td align="right">1.84</td>
+<td align="left">-1.08%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1995</td>
+<td align="right">1.82</td>
+<td align="left">-1.09%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1996</td>
+<td align="right">1.80</td>
+<td align="left">-1.10%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1997</td>
+<td align="right">1.78</td>
+<td align="left">-1.11%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1998</td>
+<td align="right">1.76</td>
+<td align="left">-1.12%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1999</td>
+<td align="right">1.76</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2000</td>
+<td align="right">1.76</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2001</td>
+<td align="right">1.73</td>
+<td align="left">-1.70%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2002</td>
+<td align="right">1.77</td>
+<td align="left">2.31%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2003</td>
+<td align="right">1.77</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2004</td>
+<td align="right">1.78</td>
+<td align="left">0.56%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2005</td>
+<td align="right">1.85</td>
+<td align="left">3.93%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2006</td>
+<td align="right">1.88</td>
+<td align="left">1.62%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2007</td>
+<td align="right">1.99</td>
+<td align="left">5.85%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2008</td>
+<td align="right">2.02</td>
+<td align="left">1.51%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2009</td>
+<td align="right">1.97</td>
+<td align="left">-2.48%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2010</td>
+<td align="right">1.95</td>
+<td align="left">-1.02%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2011</td>
+<td align="right">1.92</td>
+<td align="left">-1.54%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2012</td>
+<td align="right">1.93</td>
+<td align="left">0.52%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2013</td>
+<td align="right">1.88</td>
+<td align="left">-2.59%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2014</td>
+<td align="right">1.79</td>
+<td align="left">-4.79%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2015</td>
+<td align="right">1.79</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2016</td>
+<td align="right">1.79</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2017</td>
+<td align="right">1.74</td>
+<td align="left">-2.79%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">2018</td>
+<td align="right">1.74</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">2019</td>
+<td align="right">1.66</td>
+<td align="left">-4.60%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUT</td>
+<td align="right">1960</td>
+<td align="right">2.69</td>
+<td align="left">62.05%</td>
+</tr>
+<tr class="even">
+<td align="left">AUT</td>
+<td align="right">1961</td>
+<td align="right">2.78</td>
+<td align="left">3.35%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUT</td>
+<td align="right">1962</td>
+<td align="right">2.80</td>
+<td align="left">0.72%</td>
+</tr>
+<tr class="even">
+<td align="left">AUT</td>
+<td align="right">1963</td>
+<td align="right">2.82</td>
+<td align="left">0.71%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUT</td>
+<td align="right">1964</td>
+<td align="right">2.79</td>
+<td align="left">-1.06%</td>
+</tr>
+<tr class="even">
+<td align="left">AUT</td>
+<td align="right">1965</td>
+<td align="right">2.70</td>
+<td align="left">-3.23%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUT</td>
+<td align="right">1966</td>
+<td align="right">2.66</td>
+<td align="left">-1.48%</td>
+</tr>
+<tr class="even">
+<td align="left">AUT</td>
+<td align="right">1967</td>
+<td align="right">2.62</td>
+<td align="left">-1.50%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUT</td>
+<td align="right">1968</td>
+<td align="right">2.58</td>
+<td align="left">-1.53%</td>
+</tr>
+<tr class="even">
+<td align="left">AUT</td>
+<td align="right">1969</td>
+<td align="right">2.49</td>
+<td align="left">-3.49%</td>
+</tr>
+</tbody>
+</table></div>
+<p>But the problem comes at the <code>GrowthRate</code> at AUT in 1960, since now (check in the table):</p>
+<p><span class="math display">\[\text{Growth}_{\text{AUT}, 1960} = \frac{\text{AUS}_{2019}}{\text{AUT}_{1960}}\]</span></p>
+<p>We can easily solve this by transforming the structure of the table. We need to make the table <strong>wider</strong> in this case, with the <code>pivot_wider</code>. this function will create a new column to each level of a seleceted variable.</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, time <span class="op">=</span> <span class="va">TIME</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"geo"</span>, values_from <span class="op">=</span> <span class="st">"fertility"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 61 x 55</span>
+<span class="co">#&gt;     time   AUS   AUT   BEL   CAN   CZE   DNK   FIN   FRA   DEU   GRC   HUN   ISL</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  1960  3.45  2.69  2.54  3.9   2.11  2.54  2.71  2.74  2.37  2.23  2.02  4.26</span>
+<span class="co">#&gt;  2  1961  3.55  2.78  2.63  3.84  2.13  2.55  2.65  2.82  2.44  2.13  1.94  3.88</span>
+<span class="co">#&gt;  3  1962  3.43  2.8   2.59  3.76  2.14  2.54  2.66  2.8   2.44  2.16  1.79  3.98</span>
+<span class="co">#&gt;  4  1963  3.34  2.82  2.68  3.67  2.33  2.64  2.66  2.9   2.51  2.14  1.82  3.98</span>
+<span class="co">#&gt;  5  1964  3.15  2.79  2.72  3.5   2.36  2.6   2.58  2.91  2.53  2.24  1.8   3.86</span>
+<span class="co">#&gt;  6  1965  2.97  2.7   2.62  3.15  2.18  2.61  2.46  2.85  2.5   2.25  1.81  3.71</span>
+<span class="co">#&gt;  7  1966  2.89  2.66  2.52  2.81  2.01  2.62  2.4   2.8   2.51  2.32  1.88  3.58</span>
+<span class="co">#&gt;  8  1967  2.85  2.62  2.41  2.6   1.9   2.35  2.32  2.67  2.45  2.45  2.01  3.28</span>
+<span class="co">#&gt;  9  1968  2.89  2.58  2.31  2.45  1.83  2.12  2.15  2.59  2.36  2.42  2.06  3.07</span>
+<span class="co">#&gt; 10  1969  2.89  2.49  2.28  2.4   1.86  2     1.94  2.53  2.21  2.36  2.04  2.99</span>
+<span class="co">#&gt; # ... with 51 more rows, and 42 more variables: IRL &lt;dbl&gt;, ITA &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   JPN &lt;dbl&gt;, KOR &lt;dbl&gt;, LUX &lt;dbl&gt;, MEX &lt;dbl&gt;, NLD &lt;dbl&gt;, NZL &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   NOR &lt;dbl&gt;, POL &lt;dbl&gt;, PRT &lt;dbl&gt;, SVK &lt;dbl&gt;, ESP &lt;dbl&gt;, SWE &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   CHE &lt;dbl&gt;, TUR &lt;dbl&gt;, GBR &lt;dbl&gt;, USA &lt;dbl&gt;, BRA &lt;dbl&gt;, CHL &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   CHN &lt;dbl&gt;, EST &lt;dbl&gt;, IND &lt;dbl&gt;, IDN &lt;dbl&gt;, ISR &lt;dbl&gt;, RUS &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   SVN &lt;dbl&gt;, ZAF &lt;dbl&gt;, COL &lt;dbl&gt;, LVA &lt;dbl&gt;, LTU &lt;dbl&gt;, ARG &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   BGR &lt;dbl&gt;, HRV &lt;dbl&gt;, CYP &lt;dbl&gt;, MLT &lt;dbl&gt;, ROU &lt;dbl&gt;, SAU &lt;dbl&gt;, ...</span></code></pre></div>
+<p>If we use the <code>chain_index</code> function now on all the columns, then we can avoid the previous bug. You can use a function on all columns (except on the first) with the <code>mutate_at</code> function.</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, time <span class="op">=</span> <span class="va">TIME</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"geo"</span>, values_from <span class="op">=</span> <span class="st">"fertility"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate_at</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="va">chain_index</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 61 x 55</span>
+<span class="co">#&gt;     time AUS   AUT   BEL   CAN   CZE   DNK   FIN   FRA   DEU   GRC   HUN   ISL  </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1  1960 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt;  2  1961 2.90% 3.35% 3.54% -1.5~ 0.95% 0.39% -2.2~ 2.92% 2.95% -4.4~ -3.9~ -8.9~</span>
+<span class="co">#&gt;  3  1962 -3.3~ 0.72% -1.5~ -2.0~ 0.47% -0.3~ 0.38% -0.7~ 0.00% 1.41% -7.7~ 2.58%</span>
+<span class="co">#&gt;  4  1963 -2.6~ 0.71% 3.47% -2.3~ 8.88% 3.94% 0.00% 3.57% 2.87% -0.9~ 1.68% 0.00%</span>
+<span class="co">#&gt;  5  1964 -5.6~ -1.0~ 1.49% -4.6~ 1.29% -1.5~ -3.0~ 0.34% 0.80% 4.67% -1.1~ -3.0~</span>
+<span class="co">#&gt;  6  1965 -5.7~ -3.2~ -3.6~ -10.~ -7.6~ 0.38% -4.6~ -2.0~ -1.1~ 0.45% 0.56% -3.8~</span>
+<span class="co">#&gt;  7  1966 -2.6~ -1.4~ -3.8~ -10.~ -7.8~ 0.38% -2.4~ -1.7~ 0.40% 3.11% 3.87% -3.5~</span>
+<span class="co">#&gt;  8  1967 -1.3~ -1.5~ -4.3~ -7.4~ -5.4~ -10.~ -3.3~ -4.6~ -2.3~ 5.60% 6.91% -8.3~</span>
+<span class="co">#&gt;  9  1968 1.40% -1.5~ -4.1~ -5.7~ -3.6~ -9.7~ -7.3~ -3.0~ -3.6~ -1.2~ 2.49% -6.4~</span>
+<span class="co">#&gt; 10  1969 0.00% -3.4~ -1.3~ -2.0~ 1.64% -5.6~ -9.7~ -2.3~ -6.3~ -2.4~ -0.9~ -2.6~</span>
+<span class="co">#&gt; # ... with 51 more rows, and 42 more variables: IRL &lt;chr&gt;, ITA &lt;chr&gt;,</span>
+<span class="co">#&gt; #   JPN &lt;chr&gt;, KOR &lt;chr&gt;, LUX &lt;chr&gt;, MEX &lt;chr&gt;, NLD &lt;chr&gt;, NZL &lt;chr&gt;,</span>
+<span class="co">#&gt; #   NOR &lt;chr&gt;, POL &lt;chr&gt;, PRT &lt;chr&gt;, SVK &lt;chr&gt;, ESP &lt;chr&gt;, SWE &lt;chr&gt;,</span>
+<span class="co">#&gt; #   CHE &lt;chr&gt;, TUR &lt;chr&gt;, GBR &lt;chr&gt;, USA &lt;chr&gt;, BRA &lt;chr&gt;, CHL &lt;chr&gt;,</span>
+<span class="co">#&gt; #   CHN &lt;chr&gt;, EST &lt;chr&gt;, IND &lt;chr&gt;, IDN &lt;chr&gt;, ISR &lt;chr&gt;, RUS &lt;chr&gt;,</span>
+<span class="co">#&gt; #   SVN &lt;chr&gt;, ZAF &lt;chr&gt;, COL &lt;chr&gt;, LVA &lt;chr&gt;, LTU &lt;chr&gt;, ARG &lt;chr&gt;,</span>
+<span class="co">#&gt; #   BGR &lt;chr&gt;, HRV &lt;chr&gt;, CYP &lt;chr&gt;, MLT &lt;chr&gt;, ROU &lt;chr&gt;, SAU &lt;chr&gt;, ...</span></code></pre></div>
+<p>And now let’s transform the table to its original structure. You can do this with the <code>pivot_longer</code> column.</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, time <span class="op">=</span> <span class="va">TIME</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"geo"</span>, values_from <span class="op">=</span> <span class="st">"fertility"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -464,62 +1222,497 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <span class="co">#&gt;  9  1960 DEU   &lt;NA&gt;     </span>
 <span class="co">#&gt; 10  1960 GRC   &lt;NA&gt;     </span>
 <span class="co">#&gt; # ... with 3,284 more rows</span></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+</div>
+<div id="group_modify" class="section level2" number="4.7">
+<h2>
+<span class="header-section-number">4.7</span> <code>Group_modify</code><a class="anchor" aria-label="anchor" href="#group_modify"><i class="fas fa-link"></i></a>
+</h2>
+<p>Alternativly, we could solve this problem if we split the data frame into 63 individual data frames (one for each country). If you use the following syntax, you will get the correct results:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, time <span class="op">=</span> <span class="va">TIME</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">arrange</span><span class="op">(</span><span class="va">time</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">geo</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">group_modify</span><span class="op">(</span><span class="op">~</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">.x</span>, fertility_growth <span class="op">=</span> <span class="fu">chain_index</span><span class="op">(</span><span class="va">fertility</span><span class="op">)</span><span class="op">)</span>, .keep <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3,193 x 4</span>
-<span class="co">#&gt; # Groups:   geo [54]</span>
-<span class="co">#&gt;    geo    time fertility fertility_growth</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;           </span>
-<span class="co">#&gt;  1 ARG    1960      3.11 &lt;NA&gt;            </span>
-<span class="co">#&gt;  2 ARG    1961      3.1  -0.32%          </span>
-<span class="co">#&gt;  3 ARG    1962      3.09 -0.32%          </span>
-<span class="co">#&gt;  4 ARG    1963      3.08 -0.32%          </span>
-<span class="co">#&gt;  5 ARG    1964      3.07 -0.32%          </span>
-<span class="co">#&gt;  6 ARG    1965      3.06 -0.33%          </span>
-<span class="co">#&gt;  7 ARG    1966      3.05 -0.33%          </span>
-<span class="co">#&gt;  8 ARG    1967      3.05 0.00%           </span>
-<span class="co">#&gt;  9 ARG    1968      3.05 0.00%           </span>
-<span class="co">#&gt; 10 ARG    1969      3.06 0.33%           </span>
-<span class="co">#&gt; # ... with 3,183 more rows</span></code></pre></div>
-<p>ggplot(data, mapping) + geom</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df_to_plot</span> <span class="op">&lt;-</span> <span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span> <span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_to_plot</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">fertility</span>, y <span class="op">=</span> <span class="va">geo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-65-1.png" width="70%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df_to_plot2</span> <span class="op">&lt;-</span><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span><span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>continent <span class="op">=</span> <span class="fu">countrycode</span><span class="fu">::</span><span class="fu"><a href="https://vincentarelbundock.github.io/countrycode/reference/countrycode.html">countrycode</a></span><span class="op">(</span>sourcevar <span class="op">=</span> <span class="va">geo</span>, origin  <span class="op">=</span> <span class="st">"iso3c"</span>,
-                                              destination <span class="op">=</span> <span class="st">"continent"</span><span class="op">)</span>,
-         geo <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">geo</span>, <span class="va">fertility</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Europe"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">df_to_plot2</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">fertility</span>, y <span class="op">=</span> <span class="va">geo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-67-1.png" width="70%" style="display: block; margin: auto;"></div>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">fertility_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">TIME</span> <span class="op">==</span><span class="fl">2018</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span>geo <span class="op">=</span> <span class="va">LOCATION</span>, fertility <span class="op">=</span> <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>continent <span class="op">=</span> <span class="fu">countrycode</span><span class="fu">::</span><span class="fu"><a href="https://vincentarelbundock.github.io/countrycode/reference/countrycode.html">countrycode</a></span><span class="op">(</span>sourcevar <span class="op">=</span> <span class="va">geo</span>, origin  <span class="op">=</span> <span class="st">"iso3c"</span>,
-                                              destination <span class="op">=</span> <span class="st">"continent"</span><span class="op">)</span>,
-         geo <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">geo</span>, <span class="va">fertility</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">continent</span> <span class="op">==</span> <span class="st">"Europe"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">fertility</span>, y <span class="op">=</span> <span class="va">geo</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">geom_col</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-68-1.png" width="70%" style="display: block; margin: auto;"></div>
+  <span class="fu">group_modify</span><span class="op">(</span><span class="op">~</span> <span class="fu">mutate</span><span class="op">(</span><span class="va">.x</span>, fertility_growth <span class="op">=</span> <span class="fu">chain_index</span><span class="op">(</span><span class="va">fertility</span><span class="op">)</span><span class="op">)</span>, .keep <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">geo</th>
+<th align="right">time</th>
+<th align="right">fertility</th>
+<th align="left">fertility_growth</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1960</td>
+<td align="right">3.11</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1961</td>
+<td align="right">3.10</td>
+<td align="left">-0.32%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1962</td>
+<td align="right">3.09</td>
+<td align="left">-0.32%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1963</td>
+<td align="right">3.08</td>
+<td align="left">-0.32%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1964</td>
+<td align="right">3.07</td>
+<td align="left">-0.32%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1965</td>
+<td align="right">3.06</td>
+<td align="left">-0.33%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1966</td>
+<td align="right">3.05</td>
+<td align="left">-0.33%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1967</td>
+<td align="right">3.05</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1968</td>
+<td align="right">3.05</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1969</td>
+<td align="right">3.06</td>
+<td align="left">0.33%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1970</td>
+<td align="right">3.08</td>
+<td align="left">0.65%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1971</td>
+<td align="right">3.11</td>
+<td align="left">0.97%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1972</td>
+<td align="right">3.15</td>
+<td align="left">1.29%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1973</td>
+<td align="right">3.20</td>
+<td align="left">1.59%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1974</td>
+<td align="right">3.25</td>
+<td align="left">1.56%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1975</td>
+<td align="right">3.30</td>
+<td align="left">1.54%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1976</td>
+<td align="right">3.34</td>
+<td align="left">1.21%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1977</td>
+<td align="right">3.36</td>
+<td align="left">0.60%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1978</td>
+<td align="right">3.36</td>
+<td align="left">0.00%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1979</td>
+<td align="right">3.34</td>
+<td align="left">-0.60%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1980</td>
+<td align="right">3.30</td>
+<td align="left">-1.20%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1981</td>
+<td align="right">3.25</td>
+<td align="left">-1.52%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1982</td>
+<td align="right">3.20</td>
+<td align="left">-1.54%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1983</td>
+<td align="right">3.16</td>
+<td align="left">-1.25%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1984</td>
+<td align="right">3.12</td>
+<td align="left">-1.27%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1985</td>
+<td align="right">3.10</td>
+<td align="left">-0.64%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1986</td>
+<td align="right">3.08</td>
+<td align="left">-0.65%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1987</td>
+<td align="right">3.06</td>
+<td align="left">-0.65%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1988</td>
+<td align="right">3.04</td>
+<td align="left">-0.65%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1989</td>
+<td align="right">3.02</td>
+<td align="left">-0.66%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1990</td>
+<td align="right">3.00</td>
+<td align="left">-0.66%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1991</td>
+<td align="right">2.97</td>
+<td align="left">-1.00%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1992</td>
+<td align="right">2.93</td>
+<td align="left">-1.35%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1993</td>
+<td align="right">2.88</td>
+<td align="left">-1.71%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1994</td>
+<td align="right">2.83</td>
+<td align="left">-1.74%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1995</td>
+<td align="right">2.77</td>
+<td align="left">-2.12%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1996</td>
+<td align="right">2.72</td>
+<td align="left">-1.81%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1997</td>
+<td align="right">2.67</td>
+<td align="left">-1.84%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">1998</td>
+<td align="right">2.62</td>
+<td align="left">-1.87%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">1999</td>
+<td align="right">2.58</td>
+<td align="left">-1.53%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2000</td>
+<td align="right">2.54</td>
+<td align="left">-1.55%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2001</td>
+<td align="right">2.51</td>
+<td align="left">-1.18%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2002</td>
+<td align="right">2.49</td>
+<td align="left">-0.80%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2003</td>
+<td align="right">2.46</td>
+<td align="left">-1.20%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2004</td>
+<td align="right">2.44</td>
+<td align="left">-0.81%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2005</td>
+<td align="right">2.42</td>
+<td align="left">-0.82%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2006</td>
+<td align="right">2.40</td>
+<td align="left">-0.83%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2007</td>
+<td align="right">2.38</td>
+<td align="left">-0.83%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2008</td>
+<td align="right">2.37</td>
+<td align="left">-0.42%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2009</td>
+<td align="right">2.36</td>
+<td align="left">-0.42%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2010</td>
+<td align="right">2.35</td>
+<td align="left">-0.42%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2011</td>
+<td align="right">2.34</td>
+<td align="left">-0.43%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2012</td>
+<td align="right">2.33</td>
+<td align="left">-0.43%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2013</td>
+<td align="right">2.32</td>
+<td align="left">-0.43%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2014</td>
+<td align="right">2.31</td>
+<td align="left">-0.43%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2015</td>
+<td align="right">2.30</td>
+<td align="left">-0.43%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2016</td>
+<td align="right">2.29</td>
+<td align="left">-0.43%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2017</td>
+<td align="right">2.28</td>
+<td align="left">-0.44%</td>
+</tr>
+<tr class="odd">
+<td align="left">ARG</td>
+<td align="right">2018</td>
+<td align="right">2.26</td>
+<td align="left">-0.88%</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="right">2019</td>
+<td align="right">2.25</td>
+<td align="left">-0.44%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1960</td>
+<td align="right">3.45</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1961</td>
+<td align="right">3.55</td>
+<td align="left">2.90%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1962</td>
+<td align="right">3.43</td>
+<td align="left">-3.38%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1963</td>
+<td align="right">3.34</td>
+<td align="left">-2.62%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1964</td>
+<td align="right">3.15</td>
+<td align="left">-5.69%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1965</td>
+<td align="right">2.97</td>
+<td align="left">-5.71%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1966</td>
+<td align="right">2.89</td>
+<td align="left">-2.69%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1967</td>
+<td align="right">2.85</td>
+<td align="left">-1.38%</td>
+</tr>
+<tr class="odd">
+<td align="left">AUS</td>
+<td align="right">1968</td>
+<td align="right">2.89</td>
+<td align="left">1.40%</td>
+</tr>
+<tr class="even">
+<td align="left">AUS</td>
+<td align="right">1969</td>
+<td align="right">2.89</td>
+<td align="left">0.00%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="exercise" class="section level2" number="4.8">
+<h2>
+<span class="header-section-number">4.8</span> Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
+</h2>
+<p>You have to get to know your classmates to solve this exercise.</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a new .Rmd file</p></li>
+<li><p>Import the da_q.csv data into R with relative referencing (see Chapter <a href="seminar1.html#data-import">2.5.1</a>)</p></li>
+<li><p>Write down the information you know about at least 3 of your teammates (Names are neccesary) as text in the <code>.Rmd</code>.</p></li>
+<li><p>Write R codes to find the teammates (write also comments in the code<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;“A comment always writes down the why, not the what”&lt;/p&gt;"><sup>3</sup></a>) using only base R function (tools you have learned in the 1st seminar).</p></li>
+<li><p>Write R codes to find the teammates using dplyr function (tools you have learned in the 2nd seminar)</p></li>
+</ol>
+<p><strong>You found your teammate if the output of an R code is correct ID number of the person.</strong></p>
+<p>Example:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span>
+<span class="co">#&gt; # A tibble: 21 x 11</span>
+<span class="co">#&gt;       ID `What is your zod~ `Do you prefer ~ `What experience~ `How many slices~</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;            &lt;chr&gt;             &lt;chr&gt;            </span>
+<span class="co">#&gt;  1     1 leo                dogs             I am familier wi~ 8                </span>
+<span class="co">#&gt;  2     2 taurus             Dogd             I have some expe~ 12               </span>
+<span class="co">#&gt;  3     3 pisces             Both             I do not have an~ Depends on size.~</span>
+<span class="co">#&gt;  4     4 taurus             neither          I do not have an~ 2                </span>
+<span class="co">#&gt;  5     5 aquarius           dogs             I have some expe~ 3                </span>
+<span class="co">#&gt;  6     6 leo                Cats             I am familier wi~ 4                </span>
+<span class="co">#&gt;  7     7 virgo              Cats             I am familier wi~ 4                </span>
+<span class="co">#&gt;  8     8 virgo              Dogs             I learnt R in un~ 4                </span>
+<span class="co">#&gt;  9     9 taurus             dogs             I learnt R in un~ 3                </span>
+<span class="co">#&gt; 10    10 cancer             dogs             I do not have an~ 2                </span>
+<span class="co">#&gt; # ... with 11 more rows, and 6 more variables: Do you wear glasses?2 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   How many countries have you been to so far? &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   How many instagram followers do you have? (zero, if you do not have an account) &lt;chr&gt;,</span>
+<span class="co">#&gt; #   How many brothers and sisters do you have? &lt;chr&gt;,</span>
+<span class="co">#&gt; #   What is your batteries current charge level? (0-100) &lt;chr&gt;,</span>
+<span class="co">#&gt; #   What is the traditional food in your country? (you can mention more, if you wish) &lt;chr&gt;</span></code></pre></div>
+<p><em>I am from Hungary, and the national food in Hungary is gulash.</em></p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">`What is the traditional food in your country? (you can mention more, if you wish)`</span>, <span class="st">"gulash"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pull</span><span class="op">(</span><span class="va">ID</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1</span></code></pre></div>
+<p><em>So my ID number is 1.</em></p>
+<p>Of course, you can not choose me. :)</p>
 
 </div>
 </div>
+
+
 
 
 
@@ -537,7 +1730,17 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
 <li><a class="nav-link" href="#markdown"><span class="header-section-number">4.1</span> Markdown</a></li>
 <li><a class="nav-link" href="#introduction-to-the-tidyverse"><span class="header-section-number">4.2</span> Introduction to the tidyverse</a></li>
 <li><a class="nav-link" href="#the-operator"><span class="header-section-number">4.3</span> The %&gt;% operator</a></li>
-<li><a class="nav-link" href="#pivot-longerwider"><span class="header-section-number">4.4</span> Pivot longer/wider</a></li>
+<li>
+<a class="nav-link" href="#tibble-count-filter-select-arrange"><span class="header-section-number">4.4</span> Tibble, count, filter, select, arrange</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tibble"><span class="header-section-number">4.4.1</span> Tibble</a></li>
+<li><a class="nav-link" href="#count"><span class="header-section-number">4.4.2</span> Count</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">4.4.3</span> Mutate</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#group_by-summary"><span class="header-section-number">4.5</span> Group_by, Summary</a></li>
+<li><a class="nav-link" href="#pivot-longerwider"><span class="header-section-number">4.6</span> Pivot longer/wider</a></li>
+<li><a class="nav-link" href="#group_modify"><span class="header-section-number">4.7</span> Group_modify</a></li>
+<li><a class="nav-link" href="#exercise"><span class="header-section-number">4.8</span> Exercise</a></li>
 </ul>
 
       <div class="book-extra">
@@ -563,6 +1766,34 @@ Figure 4.2: Histogram of standard normal distribution using the pipe
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

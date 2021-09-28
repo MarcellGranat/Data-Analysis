@@ -15,7 +15,7 @@ our-first-meet-with-r
 data-types
 vectors
 data-manipulation
-import-data-into-r
+data-import
 conditional-statements
 loops
 while
@@ -27,4 +27,11 @@ seminar2
 markdown
 introduction-to-the-tidyverse
 the-operator
+tibble-count-filter-select-arrange
+tibble
+count
+mutate
+group_by-summary
 pivot-longerwider
+group_modify
+exercise

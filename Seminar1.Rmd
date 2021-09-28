@@ -179,7 +179,7 @@ mylist[[1]]
 
 ## Data manipulation
 
-### Import data into R
+### Import data into R {#data-import}
 
 We mentioned formely that the easiest way to import your data is to click on it in the files pane. However, this manual step is useful if you have to import and analyse the data once, but probably you want to use your data next time as well. That is way it is a good idea to copy and paste the code for importing the data into your script.
 
