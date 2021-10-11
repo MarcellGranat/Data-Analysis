@@ -10,9 +10,28 @@
 \contentsline {section}{\numberline {2}Introduction to R}{3}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Why R?}{3}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Setup}{4}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Our first meet with R}{6}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Data types}{7}{subsection.2.4}%
-\contentsline {subsubsection}{\numberline {2.4.1}vectors}{8}{subsubsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.5}Data manipulation}{9}{subsection.2.5}%
-\contentsline {subsubsection}{\numberline {2.5.1}Import data into R}{9}{subsubsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.6}Conditional statements}{11}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.3}Our first meet with R}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Data types}{6}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}vectors}{7}{subsubsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.5}Data manipulation}{8}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Import data into R}{8}{subsubsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.6}Conditional statements}{9}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Loops}{10}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}While}{10}{subsubsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.2}For}{11}{subsubsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.8}Functions}{11}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Apply family}{12}{subsection.2.9}%
+\contentsline {part}{Week 2}{13}{part*.5}%
+\contentsline {section}{\numberline {3}Lecture 2}{13}{section.3}%
+\contentsline {section}{\numberline {4}Markdown \& Tidyverse}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Markdown}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Introduction to the tidyverse}{13}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}The \texttt {\%\textgreater {}\%} operator}{14}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Tibble, count, filter, select, arrange}{15}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Tibble}{15}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Count}{16}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Mutate}{18}{subsubsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.5}\texttt {Group\_by}, \texttt {Summary}}{22}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Pivot longer/wider}{24}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}\texttt {Group\_modify}}{28}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Exercise}{30}{subsection.4.8}%
