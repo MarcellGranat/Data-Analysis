@@ -2,13 +2,13 @@
 
 ## Motiváció a ggplot package használatához
 
-Bár maga a base R [értve itt ilyenkor mindig a `plot` paranccsal készült ábrákat] segítségével is lehet ábrákat készíteni, ez az egyszerűségét leszámítva nagyon ritkán ajánlott. Helyette érdemes a ggplot2-t alkalmazni, amely bár komplexebb, mint a base R, a személyre szabhatóságának szinte nincs felső határa.
+Although base R itself [including diagrams made with the `plot` command here] can be used to create diagrams, it is very rarely recommended except for its simplicity. Instead, you might want to use `{ggplot2}`, which, although more complex than base R, has almost no upper limit on its customizability.
 
 ![](images/plot_ggplot.jpg){width="400"}
 
-Ám amelett, hogy szebb ábráink lesznek van egy sokkal fontosabb ok, amiért a ggplotot használjuk. A csomag a nevét Leland Wilkinson **Grammar of Graphics** c. munkája után kapta (innen a *gg*), amelyben megfogalmazásra került lényegében az ideális ábrakészítő algoritmus struktúrája. Mivel a ggplot2 ezt az elvet követi, így meglátjátok majd, hogy bár sok dolgot kell fejben tartani, minden logikus benne. Miután sikerül elsajátítani ezt az anyagot (és némi utána olvasás után) bármilyen szükséges ábrát el fogtok tudni készíteni.
+But in addition to having nicer graphics, there is a much more important reason why we use ggplot. The package is named after Leland Wilkinson **Grammar of Graphics**. after his work (hence *gg*) in which essentially the structure of the ideal graphing algorithm was formulated. Since ggplot2 follows this principle, you will see that while there are many things to keep in mind, everything makes sense in it. Once you have mastered this material (and after some reading after that) you will be able to make any necessary diagrams.
 
-## Bevezetés
+## Introduction
 
 A ggplot2 telepíthető önállóan is, illetve ez a csomag része egy "csomaggyűjteménynek", amit `tidyverse`-nek hívnak. Jelenleg mi csak a ggplot2-vel fogunk foglalkozni, így annak telepítése és betöltése is bőven elegendő lesz. Így annak függvényébne, hogy le van-e már töltve a package telepítsük [`install.packages("ggplot2")`], vagy ne, majd töltsük be [`library(ggplot2)`]. A ggplot2 helyett lehet egyből a `tidyverse`-t is betölteni, azonban jelenleg a többi package redundáns nekünk.
 
