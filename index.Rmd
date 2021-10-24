@@ -1,6 +1,6 @@
 ---
 title: "**Data Analysis** Coursebook"
-author: "Marcell Granat & Zoltan Madari"
+author: "Marcell Granat"
 site: bookdown::bookdown_site
 bibliography: references.bib
 suppress-bibliography: true

@@ -44,7 +44,8 @@ x %>%
 
 cars_df <- cars_df %>% 
   select(url = new_urls) %>% 
-  sample_n(50) %>% 
+  unique() %>% 
+  # sample_n(200) %>% 
   mutate(
     page = map(url, read_html),
     data = map(page, get_table)
@@ -53,15 +54,7 @@ cars_df <- cars_df %>%
   unnest(data) %>% 
   pivot_wider(names_from = "x", values_from = "y")
 
-cars_df <- cars_df %>% 
-  janitor::clean_names() %>%
-  mutate(
-    vetelar_eur = str_remove_all(vetelar_eur, "\\D"),
-    vetelar_eur = as.integer(vetelar_eur)
-    ) %>% 
-  select(vetelar_eur)
-
-write_csv(cars_df, "cars_df.csv")
+save(list = c("cars_df"), file = "cars_df.RData")
 
 
 

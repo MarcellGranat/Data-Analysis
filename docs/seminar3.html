@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Ggplot | Data Analysis Coursebook</title>
+<meta name="author" content="Marcell Granat">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Ggplot | Data Analysis Coursebook">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Ggplot | Data Analysis Coursebook">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="3.1 Motivation for GGplot Although you can use base R itself [including diagrams made with the plot command here], this is very rarely recommended, except for its simplicity. Instead, you might...">
+<meta property="og:description" content="3.1 Motivation for GGplot Although you can use base R itself [including diagrams made with the plot command here], this is very rarely recommended, except for its simplicity. Instead, you might...">
+<meta name="twitter:description" content="3.1 Motivation for GGplot Although you can use base R itself [including diagrams made with the plot command here], this is very rarely recommended, except for its simplicity. Instead, you might...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title=""><strong>Data Analysis</strong> Coursebook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="syllabus.html">Syllabus</a></li>
+<li><a class="" href="seminar1.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="seminar2.html"><span class="header-section-number">2</span> Markdown &amp; Tidyverse</a></li>
+<li><a class="active" href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></li>
+<li><a class="" href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/MarcellGranat/Data-Analysis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="seminar3" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Ggplot<a class="anchor" aria-label="anchor" href="#seminar3"><i class="fas fa-link"></i></a>
+</h1>
+<div id="motivation-for-ggplot" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Motivation for GGplot<a class="anchor" aria-label="anchor" href="#motivation-for-ggplot"><i class="fas fa-link"></i></a>
+</h2>
+<p>Although you can use base R itself [including diagrams made with the <code>plot</code> command here], this is very rarely recommended, except for its simplicity. Instead, you might want to use ggplot2, which, although more complex than base R, has almost no upper limit on its customizability.</p>
+<div class="inline-figure"><img src="images/plot_ggplot.jpg" width="400"></div>
+<p>But in addition to having nicer graphics, there is a much more important reason why we use ggplot. The package is named after Leland Wilkinsons work <em>Gramar of Graphics</em> (hence <code>gg</code>), in which the essential structure of the ideal graphing algorithm was formulated. Since <code>ggplot2</code> follows this principles, you will see that while there are many things to keep in mind, everything makes sense in it. Once you have mastered this material (and after some reading after that) you will be able to make any necessary diagrams[^My personal opinion is that creating simple and complex plots is the best way to understand your data and to make others watch your research.].</p>
+</div>
+<div id="intorduction-to-ggplot" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Intorduction to ggplot<a class="anchor" aria-label="anchor" href="#intorduction-to-ggplot"><i class="fas fa-link"></i></a>
+</h2>
+<p>Ggplot2 can be installed standalone, or this package is part of a “package collection” called <code>tidyverse</code>. I highly recommend you to always start your session with loading the tidyverse, since this collection contains many crucial function for data analyses. Thus, depending on whether the package is already downloaded, install <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages ("tidyverse")</a></code> or if this is not the first time you use tidyverse on your computer, then load the packages with <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code>[^Grading your homework I usually see that you type <code>install.packages</code> into the script and leave it there. This is probably the worst habbit you can have in R programming. In this way you will install the packages everytime you use that script. Remember, add <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> to the first line in your code, and use <code>install.packages</code>.].</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<p>With ggplot2 we get some additional data tables, for the sake of simplicity we now use <code>diamonds</code> of these. Let’s take a look at the structure of the nameplate:</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span>
+<span class="co">#&gt; # A tibble: 53,940 x 10</span>
+<span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43</span>
+<span class="co">#&gt;  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31</span>
+<span class="co">#&gt;  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31</span>
+<span class="co">#&gt;  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63</span>
+<span class="co">#&gt;  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75</span>
+<span class="co">#&gt;  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</span>
+<span class="co">#&gt;  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47</span>
+<span class="co">#&gt;  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53</span>
+<span class="co">#&gt;  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49</span>
+<span class="co">#&gt; 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39</span>
+<span class="co">#&gt; # ... with 53,930 more rows</span></code></pre></div>
+<p>Lets see our first plot with ggplot.</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-79"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-79-1.png" alt="our first plot with ggplot." width="70%"><p class="caption">
+Figure 3.1: our first plot with ggplot.
+</p>
+</div>
+<p>This is a typical syntax for creating a plot with ggplot. Each plot consist of 3 parts:</p>
+<ul>
+<li><p><code>ggplot</code> function with two inputs: which <code>data</code> to use and how (<code>mapping</code>)</p></li>
+<li><p><code>aesthetics</code>: this is offen inserted into the <code>ggplot</code> function (the mapping argument). The code above means that values of <code>depth</code> columns on the x-axis and values of <code>price</code> column on the y-axis</p></li>
+<li><p><code>geom</code>: specifies the plot type, currently we create a point graph (scatter plot). Type <code>geom</code> and hit <code>TAB</code> to see all the possibilities.</p></li>
+</ul>
+<p>We have many options to customise or plot. First, lets see what we can change inside the <code>geom</code> function.</p>
+<div id="color" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Color<a class="anchor" aria-label="anchor" href="#color"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-80"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-80-1.png" alt="Changing the color of points to blue." width="70%"><p class="caption">
+Figure 3.2: Changing the color of points to blue.
+</p>
+</div>
+</div>
+<div id="size" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Size<a class="anchor" aria-label="anchor" href="#size"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-81"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-81-1.png" alt="Changing the size of the points." width="70%"><p class="caption">
+Figure 3.3: Changing the size of the points.
+</p>
+</div>
+</div>
+<div id="shape" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Shape<a class="anchor" aria-label="anchor" href="#shape"><i class="fas fa-link"></i></a>
+</h3>
+<p>Only some <code>geom</code> functions have shape argument, but <code>geom_point</code> has. By that we can modify the shape type.</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># change the shape of the points</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-82"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-82-1.png" alt="Changing the shape." width="70%"><p class="caption">
+Figure 3.4: Changing the shape.
+</p>
+</div>
+<p>This is important because the default shape type has only <code>color</code> argument. If you want border to your points then you have to change the shape to 21.</p>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, color <span class="op">=</span> <span class="st">"blue"</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-83-1.png" width="70%" style="display: block; margin: auto;"></div>
+</div>
+<div id="aesthetics" class="section level3" number="3.2.4">
+<h3>
+<span class="header-section-number">3.2.4</span> Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"><i class="fas fa-link"></i></a>
+</h3>
+<p>In the examples above we used <code>color</code>, <code>size</code> and <code>shape</code> arguments in explicit way inside the <code>geom</code> function. But what if we want to add different colors based on the <code>cut</code> column or different <code>shape</code> (as this is usually required in academic papers). You have to add then these argument to the mapping with the <code>aes</code> function.</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span>, color <span class="op">=</span> <span class="va">cut</span>, shape <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-84-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Everything what is not <code>x</code> or <code>y</code> and is in the <code>aes</code> function appears on the legend. You can omit this by adding <code>show.legend = FALSE</code>:</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span>, color <span class="op">=</span> <span class="va">cut</span>, shape <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># hide legend</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-85-1.png" width="70%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="customizing" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> customizing<a class="anchor" aria-label="anchor" href="#customizing"><i class="fas fa-link"></i></a>
+</h2>
+<p>You have to use the <code>scale_</code> functions to specify the colors on the plot above. For academic work you must often use greyscale colors:</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span>, color <span class="op">=</span> <span class="va">cut</span>, shape <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_color_grey</span><span class="op">(</span><span class="op">)</span> <span class="co"># using greyscale colors</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-86-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>You also have to add labels to your plot by the <code>labs</code> function:</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span>, color <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>
+    x <span class="op">=</span> <span class="st">"Depth"</span>,
+    y <span class="op">=</span> <span class="st">"Price in dollar"</span>,
+    title <span class="op">=</span> <span class="st">"My awesome title"</span>,
+    color <span class="op">=</span> <span class="st">"My legend title"</span>,
+    subtitle <span class="op">=</span> <span class="st">"My awesome subtitle"</span>,
+    caption <span class="op">=</span> <span class="st">"Details about the source."</span>
+  <span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-87-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>We use <code>theme</code> for customizing how the plot looks.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span>, color <span class="op">=</span> <span class="va">cut</span>, shape <span class="op">=</span> <span class="va">cut</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># theme with white backgroung and no axis line</span>
+  <span class="fu">theme</span><span class="op">(</span>
+    axis.text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">30</span><span class="op">)</span> <span class="co"># increase text size to unreasonable high</span>
+  <span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-88-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Some available themes I recommend:</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-89"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-89-.gif" alt="Themes for ggplot" width="70%"><p class="caption">
+Figure 3.5: Themes for ggplot
+</p>
+</div>
+<p>You can install packages to find even more themes, like <code>{ggdark}</code> for dark themes. I also add some other options on this example:</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">depth</span>, y <span class="op">=</span> <span class="va">price</span>, color <span class="op">=</span> <span class="va">cut</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"X-axis"</span>, y <span class="op">=</span> <span class="st">"Y-axis"</span>, 
+       title <span class="op">=</span> <span class="st">"Nice title"</span>, 
+       color <span class="op">=</span> <span class="st">"New legend title"</span>,
+       subtitle <span class="op">=</span> <span class="st">"Unknown years"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_x_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">x</span>, <span class="st">"%"</span><span class="op">)</span>, <span class="co"># percentage on x-axis</span>
+                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">70</span><span class="op">)</span>, 
+                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span> <span class="co"># axis line at the last observation</span>
+                     <span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_color_manual</span><span class="op">(</span> <span class="co"># modify colors</span>
+    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"orange"</span>, <span class="st">"green"</span>, <span class="st">"grey"</span><span class="op">)</span>
+    <span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggdark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdark/man/ggdarktheme.html">dark_theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># dark theme</span>
+  <span class="fu">theme</span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span> <span class="co"># change title style</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-90-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>If you want to use the same theme, then you can make it as default:</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">depth</span>, <span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-93-1.png" width="70%" style="display: block; margin: auto;"></div>
+</div>
+<div id="geom" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Geom<a class="anchor" aria-label="anchor" href="#geom"><i class="fas fa-link"></i></a>
+</h2>
+<p>Lets see what other type of charts exist. For univariate continues data I recommend density, histogram and boxplot.</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_density</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, fill <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-94"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-94-1.png" alt="Density plot" width="70%"><p class="caption">
+Figure 3.6: Density plot
+</p>
+</div>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-95"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-95-1.png" alt="Histogram" width="70%"><p class="caption">
+Figure 3.7: Histogram
+</p>
+</div>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-96"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-96-1.png" alt="Boxplot" width="70%"><p class="caption">
+Figure 3.8: Boxplot
+</p>
+</div>
+<p>What do we see on a boxplot?</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-97"></span>
+<img src="https://miro.medium.com/max/8000/1*0MPDTLn8KoLApoFvI0P2vQ.png" alt="Structure of a boxplot" width="70%"><p class="caption">
+Figure 3.9: Structure of a boxplot
+</p>
+</div>
+<p>If we are interested in the outlier, and our plan is to remove them, then it is a good idea to use the base R <code>boxplot</code> function.</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">price</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-98"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-98-1.png" alt="Boxplot with basea R command." width="70%"><p class="caption">
+Figure 3.10: Boxplot with basea R command.
+</p>
+</div>
+<p>This function has an advantage. Lets assign its output as <code>bplot_output</code> instead of simply plot it, while turning its <code>plot</code> argument to <code>FALSE</code>.</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bplot_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">$</span><span class="va">price</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># hide the plot</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bplot_output</span>
+<span class="co">#&gt; $stats</span>
+<span class="co">#&gt;         [,1]</span>
+<span class="co">#&gt; [1,]   326.0</span>
+<span class="co">#&gt; [2,]   950.0</span>
+<span class="co">#&gt; [3,]  2401.0</span>
+<span class="co">#&gt; [4,]  5324.5</span>
+<span class="co">#&gt; [5,] 11886.0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $n</span>
+<span class="co">#&gt; [1] 53940</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $conf</span>
+<span class="co">#&gt;         [,1]</span>
+<span class="co">#&gt; [1,] 2371.24</span>
+<span class="co">#&gt; [2,] 2430.76</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $out</span>
+<span class="co">#&gt;    [1] 11888 11888 11888 11897 11899 11899 11901 11903 11904 11905 11906 11912</span>
+<span class="co">#&gt;   [13] 11913 11917 11917 11921 11922 11923 11923 11923 11924 11925 11926 11927</span>
+<span class="co">#&gt;   [25] 11927 11933 11934 11935 11939 11942 11943 11946 11946 11946 11946 11948</span>
+<span class="co">#&gt;   [37] 11948 11950 11951 11954 11955 11956 11957 11957 11957 11958 11962 11963</span>
+<span class="co">#&gt;   [49] 11965 11966 11966 11967 11968 11968 11969 11970 11971 11971 11973 11975</span>
+<span class="co">#&gt;   [61] 11975 11975 11976 11979 11982 11985 11986 11988 11988 11988 11988 11990</span>
+<span class="co">#&gt;   [73] 11998 11999 12000 12004 12005 12008 12009 12012 12013 12014 12016 12021</span>
+<span class="co">#&gt;   [85] 12028 12030 12030 12030 12030 12030 12030 12031 12032 12035 12036 12038</span>
+<span class="co">#&gt;   [97] 12044 12047 12047 12048 12048 12048 12048 12052 12053 12055 12058 12059</span>
+<span class="co">#&gt;  [109] 12060 12061 12061 12063 12063 12066 12068 12069 12071 12071 12071 12075</span>
+<span class="co">#&gt;  [121] 12078 12078 12079 12081 12081 12082 12084 12084 12084 12085 12085 12087</span>
+<span class="co">#&gt;  [133] 12089 12092 12093 12094 12094 12095 12095 12098 12098 12098 12099 12099</span>
+<span class="co">#&gt;  [145] 12100 12100 12100 12100 12105 12108 12108 12109 12111 12112 12117 12119</span>
+<span class="co">#&gt;  [157] 12121 12121 12123 12127 12140 12141 12146 12148 12148 12150 12150 12151</span>
+<span class="co">#&gt;  [169] 12152 12152 12152 12153 12154 12155 12156 12156 12157 12161 12165 12168</span>
+<span class="co">#&gt;  [181] 12168 12168 12170 12171 12174 12175 12179 12179 12179 12179 12182 12182</span>
+<span class="co">#&gt;  [193] 12183 12185 12186 12190 12193 12195 12196 12196 12196 12196 12196 12196</span>
+<span class="co">#&gt;  [205] 12196 12199 12200 12202 12206 12207 12207 12209 12209 12209 12209 12210</span>
+<span class="co">#&gt;  [217] 12210 12210 12210 12210 12215 12215 12219 12220 12221 12224 12224 12224</span>
+<span class="co">#&gt;  [229] 12225 12226 12226 12228 12228 12229 12229 12230 12231 12232 12236 12237</span>
+<span class="co">#&gt;  [241] 12238 12238 12242 12244 12244 12247 12248 12252 12253 12255 12257 12257</span>
+<span class="co">#&gt;  [253] 12257 12260 12261 12261 12261 12261 12265 12267 12268 12268 12269 12271</span>
+<span class="co">#&gt;  [265] 12271 12271 12273 12282 12283 12284 12284 12285 12286 12288 12291 12291</span>
+<span class="co">#&gt;  [277] 12295 12295 12297 12300 12304 12305 12308 12308 12308 12308 12308 12308</span>
+<span class="co">#&gt;  [289] 12308 12308 12308 12311 12311 12314 12315 12316 12317 12319 12319 12320</span>
+<span class="co">#&gt;  [301] 12321 12327 12327 12332 12334 12336 12336 12338 12338 12338 12338 12338</span>
+<span class="co">#&gt;  [313] 12339 12341 12342 12342 12342 12342 12342 12342 12343 12345 12349 12356</span>
+<span class="co">#&gt;  [325] 12359 12360 12361 12361 12364 12364 12369 12369 12369 12369 12373 12375</span>
+<span class="co">#&gt;  [337] 12377 12377 12377 12378 12378 12379 12379 12380 12380 12381 12386 12386</span>
+<span class="co">#&gt;  [349] 12388 12389 12390 12392 12392 12392 12392 12394 12394 12396 12400 12401</span>
+<span class="co">#&gt;  [361] 12401 12401 12401 12403 12406 12407 12407 12409 12415 12416 12416 12417</span>
+<span class="co">#&gt;  [373] 12417 12418 12423 12423 12423 12429 12430 12431 12431 12432 12433 12437</span>
+<span class="co">#&gt;  [385] 12437 12440 12440 12443 12447 12450 12451 12454 12454 12454 12455 12458</span>
+<span class="co">#&gt;  [397] 12458 12459 12459 12459 12462 12465 12466 12467 12467 12468 12468 12474</span>
+<span class="co">#&gt;  [409] 12477 12483 12485 12489 12490 12492 12492 12493 12494 12494 12495 12498</span>
+<span class="co">#&gt;  [421] 12499 12499 12499 12500 12502 12506 12508 12509 12512 12515 12521 12522</span>
+<span class="co">#&gt;  [433] 12526 12529 12530 12530 12531 12531 12539 12539 12541 12542 12543 12545</span>
+<span class="co">#&gt;  [445] 12545 12545 12546 12547 12547 12549 12551 12551 12551 12551 12554 12554</span>
+<span class="co">#&gt;  [457] 12554 12554 12554 12554 12555 12556 12559 12561 12565 12566 12571 12573</span>
+<span class="co">#&gt;  [469] 12576 12576 12576 12581 12581 12581 12584 12587 12587 12587 12591 12592</span>
+<span class="co">#&gt;  [481] 12592 12596 12598 12602 12603 12605 12606 12606 12607 12607 12608 12610</span>
+<span class="co">#&gt;  [493] 12610 12612 12613 12614 12615 12616 12616 12617 12617 12617 12617 12618</span>
+<span class="co">#&gt;  [505] 12620 12621 12621 12621 12622 12622 12626 12629 12631 12633 12633 12637</span>
+<span class="co">#&gt;  [517] 12639 12641 12641 12642 12644 12644 12645 12646 12647 12648 12648 12648</span>
+<span class="co">#&gt;  [529] 12654 12654 12654 12654 12655 12655 12655 12657 12670 12671 12671 12672</span>
+<span class="co">#&gt;  [541] 12674 12674 12677 12677 12680 12680 12681 12681 12681 12681 12683 12686</span>
+<span class="co">#&gt;  [553] 12687 12688 12690 12693 12693 12696 12696 12696 12697 12698 12700 12702</span>
+<span class="co">#&gt;  [565] 12707 12707 12709 12712 12713 12713 12714 12716 12717 12717 12717 12720</span>
+<span class="co">#&gt;  [577] 12720 12722 12723 12725 12725 12730 12731 12734 12736 12736 12737 12737</span>
+<span class="co">#&gt;  [589] 12738 12738 12738 12738 12738 12743 12744 12745 12747 12748 12753 12754</span>
+<span class="co">#&gt;  [601] 12755 12755 12756 12756 12756 12756 12762 12764 12765 12765 12766 12768</span>
+<span class="co">#&gt;  [613] 12770 12770 12771 12773 12776 12778 12779 12779 12779 12787 12787 12787</span>
+<span class="co">#&gt;  [625] 12787 12787 12787 12788 12791 12791 12792 12794 12795 12798 12798 12799</span>
+<span class="co">#&gt;  [637] 12799 12800 12800 12809 12810 12811 12812 12814 12816 12818 12821 12821</span>
+<span class="co">#&gt;  [649] 12821 12822 12823 12823 12823 12825 12825 12828 12829 12829 12829 12829</span>
+<span class="co">#&gt;  [661] 12829 12830 12831 12831 12832 12832 12833 12839 12840 12840 12841 12842</span>
+<span class="co">#&gt;  [673] 12843 12844 12844 12845 12846 12846 12848 12848 12851 12853 12857 12857</span>
+<span class="co">#&gt;  [685] 12862 12862 12864 12865 12870 12870 12871 12872 12872 12872 12872 12874</span>
+<span class="co">#&gt;  [697] 12874 12880 12883 12883 12884 12891 12891 12895 12896 12897 12898 12899</span>
+<span class="co">#&gt;  [709] 12900 12905 12906 12906 12907 12907 12907 12907 12907 12910 12912 12915</span>
+<span class="co">#&gt;  [721] 12916 12918 12921 12923 12927 12929 12931 12931 12932 12937 12939 12939</span>
+<span class="co">#&gt;  [733] 12940 12943 12944 12945 12947 12948 12948 12951 12956 12956 12958 12958</span>
+<span class="co">#&gt;  [745] 12958 12961 12963 12964 12967 12968 12968 12968 12970 12970 12971 12978</span>
+<span class="co">#&gt;  [757] 12978 12979 12980 12981 12981 12981 12985 12985 12985 12987 12988 12989</span>
+<span class="co">#&gt;  [769] 12990 12991 12992 12992 12996 12996 12998 12998 13001 13001 13003 13006</span>
+<span class="co">#&gt;  [781] 13006 13007 13007 13007 13009 13010 13012 13014 13015 13016 13026 13027</span>
+<span class="co">#&gt;  [793] 13029 13034 13034 13034 13034 13037 13037 13037 13038 13043 13046 13047</span>
+<span class="co">#&gt;  [805] 13047 13049 13052 13060 13060 13061 13063 13063 13063 13065 13065 13068</span>
+<span class="co">#&gt;  [817] 13068 13068 13069 13069 13074 13075 13077 13078 13079 13080 13081 13084</span>
+<span class="co">#&gt;  [829] 13085 13088 13092 13092 13095 13096 13097 13097 13098 13099 13102 13104</span>
+<span class="co">#&gt;  [841] 13107 13109 13109 13109 13110 13111 13112 13113 13115 13117 13117 13119</span>
+<span class="co">#&gt;  [853] 13119 13120 13122 13127 13132 13132 13133 13134 13134 13134 13135 13135</span>
+<span class="co">#&gt;  [865] 13135 13140 13144 13148 13152 13153 13154 13155 13156 13157 13157 13160</span>
+<span class="co">#&gt;  [877] 13161 13162 13162 13163 13165 13168 13169 13171 13177 13178 13178 13182</span>
+<span class="co">#&gt;  [889] 13182 13182 13182 13187 13189 13190 13194 13194 13196 13196 13198 13199</span>
+<span class="co">#&gt;  [901] 13200 13200 13201 13203 13203 13205 13206 13206 13207 13211 13212 13214</span>
+<span class="co">#&gt;  [913] 13215 13219 13221 13221 13225 13228 13228 13228 13229 13229 13229 13230</span>
+<span class="co">#&gt;  [925] 13232 13233 13234 13239 13242 13247 13248 13248 13248 13248 13250 13250</span>
+<span class="co">#&gt;  [937] 13250 13253 13253 13254 13254 13256 13257 13261 13263 13263 13267 13275</span>
+<span class="co">#&gt;  [949] 13275 13278 13278 13278 13280 13282 13284 13286 13287 13287 13287 13288</span>
+<span class="co">#&gt;  [961] 13289 13291 13292 13293 13298 13298 13298 13298 13299 13307 13307 13312</span>
+<span class="co">#&gt;  [973] 13316 13317 13317 13317 13320 13320 13320 13320 13320 13321 13323 13324</span>
+<span class="co">#&gt;  [985] 13325 13325 13326 13329 13329 13329 13333 13334 13337 13338 13340 13342</span>
+<span class="co">#&gt;  [997] 13344 13348 13351 13355 13355 13357 13360 13363 13363 13365 13367 13367</span>
+<span class="co">#&gt; [1009] 13369 13369 13369 13370 13370 13372 13373 13375 13376 13377 13378 13379</span>
+<span class="co">#&gt; [1021] 13387 13387 13387 13387 13389 13393 13395 13397 13398 13398 13399 13400</span>
+<span class="co">#&gt; [1033] 13400 13403 13405 13406 13417 13420 13420 13421 13421 13423 13427 13428</span>
+<span class="co">#&gt; [1045] 13434 13437 13439 13442 13445 13445 13445 13445 13453 13453 13460 13462</span>
+<span class="co">#&gt; [1057] 13462 13464 13464 13465 13474 13474 13477 13477 13480 13483 13485 13485</span>
+<span class="co">#&gt; [1069] 13485 13486 13488 13495 13498 13499 13499 13499 13500 13500 13500 13502</span>
+<span class="co">#&gt; [1081] 13503 13506 13506 13508 13512 13513 13515 13528 13530 13530 13531 13532</span>
+<span class="co">#&gt; [1093] 13536 13537 13539 13540 13542 13542 13542 13543 13544 13550 13552 13553</span>
+<span class="co">#&gt; [1105] 13553 13553 13554 13554 13555 13556 13557 13560 13561 13563 13564 13572</span>
+<span class="co">#&gt; [1117] 13574 13574 13578 13579 13582 13587 13587 13587 13587 13588 13588 13588</span>
+<span class="co">#&gt; [1129] 13595 13595 13596 13596 13596 13597 13597 13598 13598 13599 13600 13603</span>
+<span class="co">#&gt; [1141] 13605 13606 13607 13609 13609 13609 13610 13615 13619 13621 13622 13622</span>
+<span class="co">#&gt; [1153] 13622 13622 13623 13623 13624 13626 13629 13629 13630 13631 13632 13638</span>
+<span class="co">#&gt; [1165] 13642 13642 13645 13646 13653 13653 13653 13654 13655 13659 13660 13661</span>
+<span class="co">#&gt; [1177] 13665 13666 13667 13669 13671 13675 13675 13675 13677 13678 13680 13681</span>
+<span class="co">#&gt; [1189] 13686 13686 13687 13691 13691 13693 13701 13701 13702 13703 13703 13710</span>
+<span class="co">#&gt; [1201] 13711 13711 13713 13714 13719 13720 13720 13720 13720 13721 13724 13725</span>
+<span class="co">#&gt; [1213] 13726 13728 13730 13731 13732 13733 13734 13735 13736 13737 13737 13744</span>
+<span class="co">#&gt; [1225] 13744 13746 13752 13753 13755 13756 13757 13757 13757 13760 13761 13761</span>
+<span class="co">#&gt; [1237] 13764 13764 13766 13767 13768 13768 13769 13771 13771 13777 13777 13779</span>
+<span class="co">#&gt; [1249] 13782 13782 13784 13786 13786 13786 13787 13790 13790 13790 13794 13796</span>
+<span class="co">#&gt; [1261] 13797 13799 13800 13803 13807 13809 13811 13811 13811 13811 13811 13812</span>
+<span class="co">#&gt; [1273] 13812 13813 13818 13818 13819 13820 13820 13823 13823 13824 13825 13825</span>
+<span class="co">#&gt; [1285] 13827 13828 13828 13828 13831 13833 13839 13844 13844 13846 13846 13846</span>
+<span class="co">#&gt; [1297] 13849 13849 13850 13853 13853 13853 13853 13858 13864 13865 13867 13869</span>
+<span class="co">#&gt; [1309] 13872 13872 13873 13873 13879 13880 13882 13884 13885 13887 13892 13892</span>
+<span class="co">#&gt; [1321] 13899 13903 13903 13904 13905 13907 13908 13908 13912 13912 13917 13919</span>
+<span class="co">#&gt; [1333] 13919 13919 13919 13921 13923 13926 13929 13929 13930 13931 13933 13938</span>
+<span class="co">#&gt; [1345] 13939 13940 13942 13945 13945 13945 13945 13948 13949 13950 13951 13953</span>
+<span class="co">#&gt; [1357] 13956 13963 13963 13965 13968 13970 13976 13978 13983 13986 13986 13986</span>
+<span class="co">#&gt; [1369] 13991 13991 13993 13993 13994 13994 13995 13995 13996 13996 13998 14014</span>
+<span class="co">#&gt; [1381] 14017 14022 14024 14026 14027 14027 14028 14031 14032 14032 14033 14033</span>
+<span class="co">#&gt; [1393] 14037 14038 14039 14040 14042 14042 14042 14044 14047 14057 14058 14061</span>
+<span class="co">#&gt; [1405] 14065 14065 14066 14067 14067 14068 14071 14071 14071 14071 14071 14074</span>
+<span class="co">#&gt; [1417] 14080 14083 14084 14092 14095 14095 14103 14103 14105 14105 14105 14106</span>
+<span class="co">#&gt; [1429] 14107 14108 14111 14112 14119 14120 14125 14126 14127 14129 14130 14137</span>
+<span class="co">#&gt; [1441] 14138 14139 14146 14146 14148 14150 14154 14156 14157 14165 14165 14165</span>
+<span class="co">#&gt; [1453] 14165 14165 14167 14171 14174 14177 14179 14180 14182 14184 14185 14185</span>
+<span class="co">#&gt; [1465] 14188 14190 14192 14192 14194 14196 14199 14199 14199 14199 14199 14199</span>
+<span class="co">#&gt; [1477] 14199 14201 14205 14208 14208 14209 14211 14214 14215 14217 14220 14220</span>
+<span class="co">#&gt; [1489] 14220 14224 14224 14229 14231 14234 14234 14236 14236 14237 14238 14239</span>
+<span class="co">#&gt; [1501] 14240 14242 14242 14242 14245 14247 14247 14249 14251 14256 14256 14258</span>
+<span class="co">#&gt; [1513] 14266 14266 14267 14268 14275 14277 14277 14278 14279 14281 14282 14283</span>
+<span class="co">#&gt; [1525] 14285 14292 14293 14294 14294 14294 14294 14294 14295 14298 14299 14300</span>
+<span class="co">#&gt; [1537] 14300 14300 14300 14304 14308 14308 14308 14319 14319 14321 14323 14328</span>
+<span class="co">#&gt; [1549] 14330 14330 14334 14338 14340 14341 14341 14341 14344 14348 14350 14350</span>
+<span class="co">#&gt; [1561] 14351 14352 14354 14359 14359 14359 14361 14362 14364 14364 14368 14372</span>
+<span class="co">#&gt; [1573] 14372 14372 14375 14375 14375 14375 14383 14383 14383 14386 14386 14386</span>
+<span class="co">#&gt; [1585] 14386 14386 14388 14388 14394 14394 14395 14399 14400 14402 14403 14404</span>
+<span class="co">#&gt; [1597] 14406 14407 14408 14410 14411 14412 14414 14414 14414 14416 14416 14421</span>
+<span class="co">#&gt; [1609] 14424 14424 14426 14426 14426 14426 14428 14428 14429 14429 14430 14430</span>
+<span class="co">#&gt; [1621] 14433 14438 14444 14445 14447 14451 14452 14452 14452 14453 14456 14462</span>
+<span class="co">#&gt; [1633] 14465 14474 14476 14477 14479 14481 14482 14482 14482 14482 14482 14482</span>
+<span class="co">#&gt; [1645] 14482 14483 14486 14488 14489 14490 14494 14495 14498 14498 14500 14502</span>
+<span class="co">#&gt; [1657] 14502 14502 14502 14503 14505 14507 14507 14507 14519 14525 14527 14527</span>
+<span class="co">#&gt; [1669] 14527 14529 14534 14540 14542 14542 14542 14542 14543 14543 14544 14545</span>
+<span class="co">#&gt; [1681] 14548 14556 14558 14558 14558 14561 14565 14574 14574 14577 14578 14579</span>
+<span class="co">#&gt; [1693] 14581 14581 14581 14584 14586 14588 14592 14593 14593 14593 14597 14603</span>
+<span class="co">#&gt; [1705] 14603 14603 14605 14611 14615 14616 14616 14618 14620 14623 14624 14625</span>
+<span class="co">#&gt; [1717] 14626 14634 14637 14637 14637 14638 14639 14646 14646 14648 14650 14652</span>
+<span class="co">#&gt; [1729] 14654 14654 14659 14660 14660 14662 14663 14666 14666 14667 14673 14674</span>
+<span class="co">#&gt; [1741] 14674 14674 14674 14675 14680 14683 14687 14691 14691 14692 14698 14699</span>
+<span class="co">#&gt; [1753] 14704 14709 14709 14709 14709 14711 14715 14715 14717 14719 14720 14724</span>
+<span class="co">#&gt; [1765] 14725 14725 14727 14731 14732 14733 14735 14737 14740 14744 14745 14745</span>
+<span class="co">#&gt; [1777] 14749 14749 14750 14750 14752 14759 14763 14763 14766 14768 14773 14775</span>
+<span class="co">#&gt; [1789] 14775 14775 14775 14775 14777 14779 14787 14787 14790 14790 14792 14795</span>
+<span class="co">#&gt; [1801] 14799 14801 14802 14803 14810 14811 14812 14813 14814 14817 14819 14824</span>
+<span class="co">#&gt; [1813] 14826 14830 14833 14837 14837 14838 14841 14842 14842 14844 14844 14844</span>
+<span class="co">#&gt; [1825] 14844 14847 14853 14855 14857 14859 14860 14863 14866 14867 14870 14882</span>
+<span class="co">#&gt; [1837] 14888 14889 14889 14889 14892 14893 14900 14904 14904 14915 14918 14918</span>
+<span class="co">#&gt; [1849] 14918 14918 14920 14925 14931 14933 14935 14936 14936 14937 14938 14939</span>
+<span class="co">#&gt; [1861] 14945 14947 14948 14948 14949 14952 14956 14957 14959 14961 14968 14968</span>
+<span class="co">#&gt; [1873] 14970 14973 14973 14975 14976 14982 14982 14982 14998 14998 15000 15002</span>
+<span class="co">#&gt; [1885] 15005 15007 15011 15013 15014 15014 15017 15022 15025 15025 15025 15025</span>
+<span class="co">#&gt; [1897] 15026 15030 15030 15031 15032 15032 15035 15035 15036 15038 15043 15046</span>
+<span class="co">#&gt; [1909] 15047 15052 15053 15055 15059 15064 15064 15065 15065 15067 15072 15073</span>
+<span class="co">#&gt; [1921] 15076 15079 15081 15081 15081 15083 15086 15091 15092 15092 15092 15093</span>
+<span class="co">#&gt; [1933] 15095 15096 15097 15100 15102 15102 15105 15105 15105 15109 15110 15110</span>
+<span class="co">#&gt; [1945] 15111 15116 15118 15119 15122 15124 15126 15132 15134 15134 15137 15140</span>
+<span class="co">#&gt; [1957] 15140 15143 15144 15145 15147 15147 15148 15151 15152 15153 15153 15162</span>
+<span class="co">#&gt; [1969] 15164 15164 15164 15166 15169 15169 15172 15175 15178 15184 15185 15185</span>
+<span class="co">#&gt; [1981] 15185 15188 15188 15189 15193 15197 15197 15198 15201 15210 15210 15214</span>
+<span class="co">#&gt; [1993] 15217 15217 15218 15219 15223 15223 15225 15226 15229 15231 15231 15231</span>
+<span class="co">#&gt; [2005] 15235 15238 15238 15239 15240 15241 15245 15246 15246 15247 15247 15248</span>
+<span class="co">#&gt; [2017] 15249 15249 15252 15253 15254 15255 15255 15258 15258 15259 15261 15265</span>
+<span class="co">#&gt; [2029] 15272 15275 15278 15281 15281 15282 15282 15287 15288 15291 15291 15291</span>
+<span class="co">#&gt; [2041] 15291 15293 15301 15303 15303 15306 15308 15309 15312 15312 15316 15316</span>
+<span class="co">#&gt; [2053] 15318 15320 15321 15322 15323 15323 15324 15330 15334 15334 15335 15338</span>
+<span class="co">#&gt; [2065] 15339 15339 15348 15351 15354 15364 15365 15365 15366 15370 15371 15375</span>
+<span class="co">#&gt; [2077] 15377 15378 15379 15384 15385 15386 15392 15393 15393 15394 15394 15394</span>
+<span class="co">#&gt; [2089] 15395 15395 15395 15397 15398 15404 15412 15413 15415 15415 15418 15420</span>
+<span class="co">#&gt; [2101] 15420 15424 15426 15426 15426 15428 15430 15433 15440 15444 15444 15446</span>
+<span class="co">#&gt; [2113] 15450 15451 15451 15451 15454 15458 15460 15461 15464 15465 15466 15467</span>
+<span class="co">#&gt; [2125] 15472 15474 15475 15475 15478 15485 15485 15486 15488 15494 15497 15498</span>
+<span class="co">#&gt; [2137] 15499 15505 15505 15508 15509 15510 15511 15512 15513 15515 15517 15520</span>
+<span class="co">#&gt; [2149] 15522 15528 15528 15528 15529 15530 15531 15535 15540 15540 15543 15544</span>
+<span class="co">#&gt; [2161] 15559 15562 15562 15562 15563 15568 15575 15579 15581 15584 15584 15584</span>
+<span class="co">#&gt; [2173] 15585 15587 15589 15592 15594 15600 15601 15602 15606 15606 15609 15609</span>
+<span class="co">#&gt; [2185] 15613 15615 15618 15618 15618 15619 15627 15646 15647 15649 15649 15651</span>
+<span class="co">#&gt; [2197] 15651 15651 15653 15654 15658 15662 15665 15666 15671 15671 15673 15675</span>
+<span class="co">#&gt; [2209] 15680 15683 15684 15686 15688 15690 15691 15694 15695 15696 15697 15701</span>
+<span class="co">#&gt; [2221] 15706 15707 15708 15708 15710 15714 15716 15717 15718 15721 15729 15729</span>
+<span class="co">#&gt; [2233] 15729 15729 15730 15740 15745 15745 15746 15751 15751 15756 15757 15760</span>
+<span class="co">#&gt; [2245] 15760 15760 15762 15765 15766 15767 15769 15773 15773 15773 15776 15776</span>
+<span class="co">#&gt; [2257] 15783 15785 15785 15788 15792 15792 15792 15792 15794 15797 15797 15801</span>
+<span class="co">#&gt; [2269] 15801 15801 15802 15802 15804 15804 15805 15805 15806 15808 15811 15813</span>
+<span class="co">#&gt; [2281] 15814 15818 15818 15819 15819 15819 15821 15823 15824 15825 15826 15826</span>
+<span class="co">#&gt; [2293] 15827 15829 15829 15832 15836 15837 15840 15840 15840 15841 15841 15842</span>
+<span class="co">#&gt; [2305] 15843 15845 15847 15847 15848 15848 15850 15851 15851 15851 15851 15851</span>
+<span class="co">#&gt; [2317] 15852 15857 15864 15873 15874 15874 15877 15878 15887 15888 15888 15889</span>
+<span class="co">#&gt; [2329] 15897 15897 15897 15898 15907 15908 15913 15915 15917 15917 15917 15919</span>
+<span class="co">#&gt; [2341] 15919 15919 15920 15922 15923 15928 15930 15930 15931 15934 15937 15938</span>
+<span class="co">#&gt; [2353] 15939 15939 15941 15941 15941 15942 15946 15948 15948 15949 15949 15952</span>
+<span class="co">#&gt; [2365] 15955 15957 15959 15959 15962 15964 15965 15966 15968 15970 15970 15974</span>
+<span class="co">#&gt; [2377] 15977 15977 15983 15984 15984 15984 15984 15987 15987 15990 15991 15992</span>
+<span class="co">#&gt; [2389] 15992 15992 15992 15992 15992 15993 15996 15996 16003 16004 16013 16018</span>
+<span class="co">#&gt; [2401] 16021 16023 16025 16031 16036 16037 16041 16043 16048 16049 16052 16055</span>
+<span class="co">#&gt; [2413] 16059 16062 16062 16064 16064 16064 16068 16068 16073 16073 16075 16077</span>
+<span class="co">#&gt; [2425] 16080 16082 16085 16086 16086 16087 16091 16092 16097 16098 16100 16104</span>
+<span class="co">#&gt; [2437] 16104 16111 16112 16112 16116 16123 16126 16128 16129 16130 16131 16137</span>
+<span class="co">#&gt; [2449] 16140 16146 16147 16148 16149 16149 16151 16169 16169 16169 16170 16171</span>
+<span class="co">#&gt; [2461] 16171 16174 16179 16181 16183 16187 16187 16188 16189 16190 16191 16192</span>
+<span class="co">#&gt; [2473] 16193 16195 16198 16198 16198 16206 16210 16215 16219 16220 16223 16224</span>
+<span class="co">#&gt; [2485] 16231 16231 16232 16234 16235 16235 16237 16239 16239 16239 16240 16240</span>
+<span class="co">#&gt; [2497] 16241 16241 16241 16242 16253 16253 16256 16256 16261 16262 16273 16274</span>
+<span class="co">#&gt; [2509] 16277 16278 16280 16280 16286 16287 16287 16287 16290 16291 16294 16294</span>
+<span class="co">#&gt; [2521] 16295 16297 16300 16300 16304 16304 16304 16309 16309 16311 16314 16316</span>
+<span class="co">#&gt; [2533] 16316 16316 16319 16319 16319 16323 16329 16336 16337 16339 16340 16340</span>
+<span class="co">#&gt; [2545] 16343 16353 16353 16357 16357 16358 16363 16364 16364 16368 16369 16370</span>
+<span class="co">#&gt; [2557] 16378 16380 16383 16384 16386 16389 16390 16392 16392 16395 16397 16397</span>
+<span class="co">#&gt; [2569] 16398 16400 16402 16404 16406 16407 16407 16409 16410 16412 16420 16422</span>
+<span class="co">#&gt; [2581] 16425 16426 16427 16427 16427 16431 16437 16439 16442 16446 16450 16451</span>
+<span class="co">#&gt; [2593] 16459 16462 16462 16465 16466 16466 16469 16472 16479 16479 16483 16484</span>
+<span class="co">#&gt; [2605] 16485 16492 16499 16499 16505 16506 16506 16507 16512 16512 16513 16518</span>
+<span class="co">#&gt; [2617] 16519 16520 16521 16530 16532 16533 16538 16544 16544 16545 16547 16547</span>
+<span class="co">#&gt; [2629] 16551 16558 16558 16558 16560 16562 16564 16565 16570 16575 16575 16580</span>
+<span class="co">#&gt; [2641] 16582 16582 16583 16587 16589 16592 16593 16599 16601 16603 16611 16613</span>
+<span class="co">#&gt; [2653] 16616 16617 16618 16624 16626 16626 16626 16626 16628 16628 16629 16629</span>
+<span class="co">#&gt; [2665] 16629 16632 16636 16641 16642 16643 16643 16650 16650 16650 16656 16657</span>
+<span class="co">#&gt; [2677] 16665 16669 16670 16677 16683 16687 16687 16688 16689 16690 16693 16694</span>
+<span class="co">#&gt; [2689] 16694 16700 16703 16704 16704 16707 16709 16709 16709 16715 16716 16716</span>
+<span class="co">#&gt; [2701] 16716 16717 16718 16718 16723 16723 16728 16731 16733 16733 16733 16733</span>
+<span class="co">#&gt; [2713] 16733 16733 16736 16737 16742 16747 16750 16754 16768 16769 16776 16776</span>
+<span class="co">#&gt; [2725] 16778 16778 16778 16778 16778 16778 16778 16779 16779 16779 16783 16783</span>
+<span class="co">#&gt; [2737] 16783 16783 16786 16787 16789 16789 16789 16790 16791 16792 16793 16793</span>
+<span class="co">#&gt; [2749] 16797 16800 16801 16803 16804 16805 16807 16808 16811 16813 16817 16819</span>
+<span class="co">#&gt; [2761] 16820 16823 16824 16826 16842 16842 16854 16857 16861 16872 16872 16874</span>
+<span class="co">#&gt; [2773] 16878 16879 16881 16881 16889 16896 16900 16900 16900 16901 16904 16914</span>
+<span class="co">#&gt; [2785] 16914 16914 16914 16915 16916 16921 16922 16929 16931 16934 16937 16941</span>
+<span class="co">#&gt; [2797] 16942 16944 16945 16948 16954 16955 16955 16956 16956 16957 16960 16960</span>
+<span class="co">#&gt; [2809] 16960 16969 16970 16970 16975 16985 16985 16987 16988 16992 16994 16996</span>
+<span class="co">#&gt; [2821] 17000 17001 17003 17005 17006 17009 17010 17012 17014 17016 17017 17019</span>
+<span class="co">#&gt; [2833] 17024 17024 17027 17028 17028 17028 17029 17036 17038 17039 17041 17042</span>
+<span class="co">#&gt; [2845] 17045 17045 17049 17049 17050 17051 17051 17052 17053 17057 17057 17062</span>
+<span class="co">#&gt; [2857] 17063 17065 17066 17068 17068 17068 17068 17068 17073 17073 17076 17078</span>
+<span class="co">#&gt; [2869] 17079 17081 17084 17094 17095 17095 17096 17099 17100 17103 17108 17111</span>
+<span class="co">#&gt; [2881] 17114 17114 17115 17116 17118 17123 17125 17126 17127 17136 17138 17141</span>
+<span class="co">#&gt; [2893] 17143 17143 17146 17149 17151 17153 17153 17156 17160 17162 17164 17166</span>
+<span class="co">#&gt; [2905] 17168 17168 17172 17172 17175 17176 17179 17179 17182 17184 17186 17191</span>
+<span class="co">#&gt; [2917] 17191 17192 17193 17193 17194 17197 17197 17203 17203 17204 17204 17206</span>
+<span class="co">#&gt; [2929] 17209 17209 17213 17214 17216 17218 17219 17219 17220 17221 17223 17224</span>
+<span class="co">#&gt; [2941] 17227 17228 17231 17233 17235 17235 17237 17240 17244 17245 17247 17250</span>
+<span class="co">#&gt; [2953] 17254 17256 17258 17262 17263 17263 17265 17265 17265 17267 17273 17278</span>
+<span class="co">#&gt; [2965] 17279 17294 17294 17294 17294 17297 17312 17313 17313 17315 17317 17323</span>
+<span class="co">#&gt; [2977] 17323 17327 17329 17329 17330 17334 17338 17339 17343 17347 17351 17353</span>
+<span class="co">#&gt; [2989] 17353 17357 17358 17360 17360 17365 17365 17366 17374 17377 17379 17381</span>
+<span class="co">#&gt; [3001] 17383 17392 17393 17393 17400 17403 17403 17403 17403 17405 17405 17407</span>
+<span class="co">#&gt; [3013] 17408 17414 17416 17422 17425 17433 17433 17434 17436 17441 17442 17447</span>
+<span class="co">#&gt; [3025] 17448 17449 17451 17452 17455 17458 17460 17469 17469 17472 17473 17474</span>
+<span class="co">#&gt; [3037] 17475 17476 17485 17489 17492 17492 17496 17497 17499 17504 17509 17513</span>
+<span class="co">#&gt; [3049] 17514 17515 17516 17521 17522 17523 17525 17530 17533 17534 17534 17535</span>
+<span class="co">#&gt; [3061] 17539 17545 17548 17552 17553 17554 17555 17569 17569 17570 17574 17579</span>
+<span class="co">#&gt; [3073] 17581 17582 17590 17591 17592 17595 17597 17597 17598 17600 17604 17605</span>
+<span class="co">#&gt; [3085] 17606 17607 17607 17608 17609 17614 17614 17617 17634 17640 17642 17649</span>
+<span class="co">#&gt; [3097] 17650 17658 17659 17662 17663 17666 17667 17672 17673 17673 17674 17676</span>
+<span class="co">#&gt; [3109] 17676 17685 17688 17688 17689 17689 17692 17694 17710 17712 17713 17714</span>
+<span class="co">#&gt; [3121] 17715 17716 17723 17724 17729 17730 17740 17742 17746 17747 17751 17752</span>
+<span class="co">#&gt; [3133] 17753 17759 17759 17760 17760 17760 17760 17760 17760 17761 17765 17766</span>
+<span class="co">#&gt; [3145] 17772 17773 17776 17778 17784 17798 17801 17803 17803 17804 17805 17805</span>
+<span class="co">#&gt; [3157] 17811 17816 17820 17825 17825 17826 17829 17835 17837 17838 17840 17841</span>
+<span class="co">#&gt; [3169] 17849 17849 17849 17849 17856 17864 17869 17871 17871 17877 17882 17887</span>
+<span class="co">#&gt; [3181] 17888 17889 17891 17891 17892 17892 17892 17893 17893 17893 17894 17895</span>
+<span class="co">#&gt; [3193] 17898 17902 17904 17904 17905 17909 17916 17917 17920 17923 17924 17930</span>
+<span class="co">#&gt; [3205] 17932 17934 17936 17936 17938 17949 17952 17952 17953 17955 17955 17957</span>
+<span class="co">#&gt; [3217] 17975 17983 17986 17987 17988 17989 17995 17996 17999 17999 18001 18002</span>
+<span class="co">#&gt; [3229] 18003 18005 18007 18014 18017 18018 18020 18023 18026 18026 18026 18026</span>
+<span class="co">#&gt; [3241] 18027 18027 18028 18029 18029 18034 18034 18034 18037 18041 18050 18055</span>
+<span class="co">#&gt; [3253] 18055 18057 18059 18062 18062 18066 18067 18068 18069 18071 18077 18077</span>
+<span class="co">#&gt; [3265] 18077 18077 18080 18090 18102 18104 18107 18107 18108 18112 18113 18114</span>
+<span class="co">#&gt; [3277] 18115 18115 18115 18117 18118 18119 18120 18120 18124 18124 18125 18127</span>
+<span class="co">#&gt; [3289] 18128 18128 18128 18128 18139 18139 18149 18149 18152 18153 18159 18164</span>
+<span class="co">#&gt; [3301] 18166 18168 18172 18172 18176 18178 18179 18179 18181 18183 18186 18186</span>
+<span class="co">#&gt; [3313] 18188 18188 18190 18193 18193 18193 18198 18206 18207 18207 18211 18215</span>
+<span class="co">#&gt; [3325] 18231 18231 18232 18236 18236 18236 18236 18239 18242 18242 18242 18242</span>
+<span class="co">#&gt; [3337] 18242 18251 18252 18252 18254 18255 18257 18259 18274 18275 18276 18279</span>
+<span class="co">#&gt; [3349] 18279 18281 18281 18286 18291 18293 18294 18295 18295 18296 18299 18304</span>
+<span class="co">#&gt; [3361] 18306 18308 18310 18312 18318 18318 18320 18324 18325 18325 18340 18342</span>
+<span class="co">#&gt; [3373] 18342 18343 18344 18358 18359 18363 18364 18369 18371 18371 18371 18371</span>
+<span class="co">#&gt; [3385] 18374 18374 18376 18377 18392 18394 18395 18398 18398 18398 18405 18407</span>
+<span class="co">#&gt; [3397] 18416 18419 18421 18423 18426 18426 18426 18429 18430 18430 18430 18431</span>
+<span class="co">#&gt; [3409] 18432 18435 18439 18440 18440 18442 18443 18445 18447 18447 18458 18462</span>
+<span class="co">#&gt; [3421] 18462 18468 18470 18472 18474 18475 18477 18480 18481 18483 18485 18487</span>
+<span class="co">#&gt; [3433] 18489 18493 18495 18500 18507 18507 18508 18508 18509 18515 18522 18524</span>
+<span class="co">#&gt; [3445] 18525 18526 18528 18531 18531 18532 18535 18541 18541 18542 18552 18557</span>
+<span class="co">#&gt; [3457] 18559 18559 18559 18561 18561 18565 18571 18572 18574 18575 18578 18593</span>
+<span class="co">#&gt; [3469] 18594 18598 18599 18604 18607 18611 18614 18615 18625 18630 18640 18640</span>
+<span class="co">#&gt; [3481] 18648 18653 18656 18659 18663 18674 18678 18678 18680 18682 18686 18691</span>
+<span class="co">#&gt; [3493] 18692 18692 18693 18700 18700 18701 18705 18706 18707 18709 18710 18710</span>
+<span class="co">#&gt; [3505] 18717 18718 18729 18730 18731 18735 18736 18741 18741 18741 18745 18756</span>
+<span class="co">#&gt; [3517] 18757 18759 18760 18766 18768 18777 18779 18780 18781 18784 18787 18788</span>
+<span class="co">#&gt; [3529] 18791 18791 18795 18795 18797 18803 18804 18806 18818 18823</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $group</span>
+<span class="co">#&gt;    [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;   [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;   [75] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [112] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [149] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [186] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [223] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [260] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [297] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [334] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [371] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [408] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [445] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [482] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [519] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [556] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [593] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [630] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [667] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [704] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [741] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [778] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [815] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [852] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [889] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [926] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt;  [963] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1000] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1037] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1074] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1111] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1148] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1185] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1222] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1259] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1296] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1333] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1370] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1407] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1444] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1481] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1518] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1555] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1592] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1629] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1666] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1703] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1740] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1777] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1814] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1851] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1888] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1925] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1962] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [1999] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2036] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2073] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2110] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2147] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2184] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2221] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2258] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2295] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2332] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2369] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2406] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2443] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2480] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2517] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2554] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2591] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2628] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2665] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2702] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2739] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2776] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2813] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2850] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2887] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2924] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2961] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [2998] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3035] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3072] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3109] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3146] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3183] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3220] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3257] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3294] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3331] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3368] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3405] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3442] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3479] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; [3516] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $names</span>
+<span class="co">#&gt; [1] "1"</span></code></pre></div>
+<p><code>bplot_output</code> has an element named as <code>out</code>. This contains the values of those observations who are outliers based on boxplot. We can simply check if a given observation is in this vector and if it is, then we remove that observation [^It is always more complicated in real life tasks, but fine for now.]. Lets create a function for this step.</p>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">outlier_filter</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+<span class="va">outlier_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">x</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">$</span><span class="va">out</span>
+<span class="va">x</span> <span class="op">%in%</span> <span class="va">outlier_value</span> <span class="co"># returns TRUE if the given value is an outlier</span>
+<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu">outlier_filter</span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="co"># keep the observation if price is not an outlier</span>
+<span class="co">#&gt; # A tibble: 50,402 x 10</span>
+<span class="co">#&gt;    carat cut       color clarity depth table price     x     y     z</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  0.23 Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43</span>
+<span class="co">#&gt;  2  0.21 Premium   E     SI1      59.8    61   326  3.89  3.84  2.31</span>
+<span class="co">#&gt;  3  0.23 Good      E     VS1      56.9    65   327  4.05  4.07  2.31</span>
+<span class="co">#&gt;  4  0.29 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63</span>
+<span class="co">#&gt;  5  0.31 Good      J     SI2      63.3    58   335  4.34  4.35  2.75</span>
+<span class="co">#&gt;  6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</span>
+<span class="co">#&gt;  7  0.24 Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47</span>
+<span class="co">#&gt;  8  0.26 Very Good H     SI1      61.9    55   337  4.07  4.11  2.53</span>
+<span class="co">#&gt;  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49</span>
+<span class="co">#&gt; 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39</span>
+<span class="co">#&gt; # ... with 50,392 more rows</span></code></pre></div>
+<p>For univariate discrete variables you can use column chart. You have two options for that:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>geom_bar</code>: just specify which discrete variable you want to use, and the number of observations will be returned by category.</p></li>
+<li><p><code>geom_col</code>: Add a discrete variable for categories and a continues variable for the corresponding values. You have to calculate the number of observation as an initial step.</p></li>
+</ol>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">cut</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_bar</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-103"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-103-1.png" alt="Geom_bar" width="70%"><p class="caption">
+Figure 3.11: Geom_bar
+</p>
+</div>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">cut</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># calculating number of observations by category</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">cut</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-104"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-104-1.png" alt="Geom_col" width="70%"><p class="caption">
+Figure 3.12: Geom_col
+</p>
+</div>
+<p>You can also use geom_bar for two categorical variables:</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">cut</span>, fill <span class="op">=</span> <span class="va">color</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_bar</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="co"># color -&gt; add border</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-105"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-105-1.png" alt="Bar chart with fill argument." width="70%"><p class="caption">
+Figure 3.13: Bar chart with fill argument.
+</p>
+</div>
+<p>Or with proportions:</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">cut</span>, fill <span class="op">=</span> <span class="va">color</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_bar</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span>, position <span class="op">=</span> <span class="fu">position_fill</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># fill to 100%</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-106"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-106-1.png" alt="Position_fill" width="70%"><p class="caption">
+Figure 3.14: Position_fill
+</p>
+</div>
+<p>For any kind of matrix you can use the <code>geom_tile</code> for creating heatmaps. Lets see the correlations!</p>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+   <span class="fu">select_if</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="co"># you can calculate cor only for numerical variables</span>
+<span class="co">#&gt; # A tibble: 53,940 x 7</span>
+<span class="co">#&gt;    carat depth table price     x     y     z</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  0.23  61.5    55   326  3.95  3.98  2.43</span>
+<span class="co">#&gt;  2  0.21  59.8    61   326  3.89  3.84  2.31</span>
+<span class="co">#&gt;  3  0.23  56.9    65   327  4.05  4.07  2.31</span>
+<span class="co">#&gt;  4  0.29  62.4    58   334  4.2   4.23  2.63</span>
+<span class="co">#&gt;  5  0.31  63.3    58   335  4.34  4.35  2.75</span>
+<span class="co">#&gt;  6  0.24  62.8    57   336  3.94  3.96  2.48</span>
+<span class="co">#&gt;  7  0.24  62.3    57   336  3.95  3.98  2.47</span>
+<span class="co">#&gt;  8  0.26  61.9    55   337  4.07  4.11  2.53</span>
+<span class="co">#&gt;  9  0.22  65.1    61   337  3.87  3.78  2.49</span>
+<span class="co">#&gt; 10  0.23  59.4    61   338  4     4.05  2.39</span>
+<span class="co">#&gt; # ... with 53,930 more rows</span>
+
+<span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+   <span class="fu">select_if</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># you can calculate cor only for numerical variables</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># correlation matrix</span>
+<span class="co">#&gt;            carat       depth      table      price           x           y</span>
+<span class="co">#&gt; carat 1.00000000  0.02822431  0.1816175  0.9215913  0.97509423  0.95172220</span>
+<span class="co">#&gt; depth 0.02822431  1.00000000 -0.2957785 -0.0106474 -0.02528925 -0.02934067</span>
+<span class="co">#&gt; table 0.18161755 -0.29577852  1.0000000  0.1271339  0.19534428  0.18376015</span>
+<span class="co">#&gt; price 0.92159130 -0.01064740  0.1271339  1.0000000  0.88443516  0.86542090</span>
+<span class="co">#&gt; x     0.97509423 -0.02528925  0.1953443  0.8844352  1.00000000  0.97470148</span>
+<span class="co">#&gt; y     0.95172220 -0.02934067  0.1837601  0.8654209  0.97470148  1.00000000</span>
+<span class="co">#&gt; z     0.95338738  0.09492388  0.1509287  0.8612494  0.97077180  0.95200572</span>
+<span class="co">#&gt;                z</span>
+<span class="co">#&gt; carat 0.95338738</span>
+<span class="co">#&gt; depth 0.09492388</span>
+<span class="co">#&gt; table 0.15092869</span>
+<span class="co">#&gt; price 0.86124944</span>
+<span class="co">#&gt; x     0.97077180</span>
+<span class="co">#&gt; y     0.95200572</span>
+<span class="co">#&gt; z     1.00000000</span>
+
+<span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+   <span class="fu">select_if</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># you can calculate cor only for numerical variables</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># correlation matrix</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"X"</span><span class="op">)</span> <span class="co"># make rowname to "X" column</span>
+<span class="co">#&gt;       X      carat       depth      table      price           x           y</span>
+<span class="co">#&gt; 1 carat 1.00000000  0.02822431  0.1816175  0.9215913  0.97509423  0.95172220</span>
+<span class="co">#&gt; 2 depth 0.02822431  1.00000000 -0.2957785 -0.0106474 -0.02528925 -0.02934067</span>
+<span class="co">#&gt; 3 table 0.18161755 -0.29577852  1.0000000  0.1271339  0.19534428  0.18376015</span>
+<span class="co">#&gt; 4 price 0.92159130 -0.01064740  0.1271339  1.0000000  0.88443516  0.86542090</span>
+<span class="co">#&gt; 5     x 0.97509423 -0.02528925  0.1953443  0.8844352  1.00000000  0.97470148</span>
+<span class="co">#&gt; 6     y 0.95172220 -0.02934067  0.1837601  0.8654209  0.97470148  1.00000000</span>
+<span class="co">#&gt; 7     z 0.95338738  0.09492388  0.1509287  0.8612494  0.97077180  0.95200572</span>
+<span class="co">#&gt;            z</span>
+<span class="co">#&gt; 1 0.95338738</span>
+<span class="co">#&gt; 2 0.09492388</span>
+<span class="co">#&gt; 3 0.15092869</span>
+<span class="co">#&gt; 4 0.86124944</span>
+<span class="co">#&gt; 5 0.97077180</span>
+<span class="co">#&gt; 6 0.95200572</span>
+<span class="co">#&gt; 7 1.00000000</span>
+
+<span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+   <span class="fu">select_if</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># you can calculate cor only for numerical variables</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># correlation matrix</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"X"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="va">X</span>, names_to <span class="op">=</span> <span class="st">"Y"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 49 x 3</span>
+<span class="co">#&gt;    X     Y       value</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 carat carat  1     </span>
+<span class="co">#&gt;  2 carat depth  0.0282</span>
+<span class="co">#&gt;  3 carat table  0.182 </span>
+<span class="co">#&gt;  4 carat price  0.922 </span>
+<span class="co">#&gt;  5 carat x      0.975 </span>
+<span class="co">#&gt;  6 carat y      0.952 </span>
+<span class="co">#&gt;  7 carat z      0.953 </span>
+<span class="co">#&gt;  8 depth carat  0.0282</span>
+<span class="co">#&gt;  9 depth depth  1     </span>
+<span class="co">#&gt; 10 depth table -0.296 </span>
+<span class="co">#&gt; # ... with 39 more rows</span>
+
+<span class="va">diamonds</span> <span class="op">%&gt;%</span> 
+   <span class="fu">select_if</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># you can calculate cor only for numerical variables</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># correlation matrix</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">rownames_to_column</span><span class="op">(</span>var <span class="op">=</span> <span class="st">"X"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_longer</span><span class="op">(</span><span class="op">-</span><span class="va">X</span>, names_to <span class="op">=</span> <span class="st">"Y"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_tile</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_gradient2</span><span class="op">(</span>midpoint <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># 0 should be white on the plot for correlations</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-107"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-107-1.png" alt="Heatmap" width="70%"><p class="caption">
+Figure 3.15: Heatmap
+</p>
+</div>
+<p>Lets see what to do with time-series data. We need some data for this from Eurostat.</p>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/search_eurostat.html">search_eurostat</a></span><span class="op">(</span><span class="st">"employment"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unemployment_df</span> <span class="op">&lt;-</span> <span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">get_eurostat</a></span><span class="op">(</span><span class="st">"enpe_lfsa_urgan"</span><span class="op">)</span>
+
+<span class="va">unemployment_df</span>
+<span class="co">#&gt; # A tibble: 726 x 6</span>
+<span class="co">#&gt;    unit  sex   age    geo   time       values</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 RT    F     Y15-24 AM    2019-01-01   34.4</span>
+<span class="co">#&gt;  2 RT    F     Y15-24 AZ    2019-01-01   14.2</span>
+<span class="co">#&gt;  3 RT    F     Y15-24 BY    2019-01-01    9.6</span>
+<span class="co">#&gt;  4 RT    F     Y15-24 GE    2019-01-01   32.9</span>
+<span class="co">#&gt;  5 RT    F     Y15-24 MD    2019-01-01    9.4</span>
+<span class="co">#&gt;  6 RT    F     Y15-24 UA    2019-01-01   15.3</span>
+<span class="co">#&gt;  7 RT    F     Y15-74 AM    2019-01-01   19.3</span>
+<span class="co">#&gt;  8 RT    F     Y15-74 AZ    2019-01-01    5.7</span>
+<span class="co">#&gt;  9 RT    F     Y15-74 BY    2019-01-01    3.2</span>
+<span class="co">#&gt; 10 RT    F     Y15-74 GE    2019-01-01   10.1</span>
+<span class="co">#&gt; # ... with 716 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">unemployment_df</span> <span class="op">&lt;-</span> <span class="va">unemployment_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"T"</span> <span class="op">&amp;</span> <span class="va">age</span> <span class="op">==</span> <span class="st">"Y15-74"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>time <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">geo</span>, <span class="va">time</span>, unemployment <span class="op">=</span> <span class="va">values</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">employment_df</span> <span class="op">&lt;-</span> <span class="fu">eurostat</span><span class="fu">::</span><span class="fu"><a href="https://ropengov.github.io/eurostat/reference/get_eurostat.html">get_eurostat</a></span><span class="op">(</span><span class="st">"enpe_lfsa_ergan"</span><span class="op">)</span>
+
+<span class="va">employment_df</span>
+<span class="co">#&gt; # A tibble: 458 x 6</span>
+<span class="co">#&gt;    unit  sex   age    geo   time       values</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;date&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 RT    F     Y20-64 AM    2019-01-01   44.8</span>
+<span class="co">#&gt;  2 RT    F     Y20-64 AZ    2019-01-01   70.9</span>
+<span class="co">#&gt;  3 RT    F     Y20-64 BY    2019-01-01   77.4</span>
+<span class="co">#&gt;  4 RT    F     Y20-64 GE    2019-01-01   58.3</span>
+<span class="co">#&gt;  5 RT    F     Y20-64 MD    2019-01-01   46.8</span>
+<span class="co">#&gt;  6 RT    F     Y20-64 UA    2019-01-01   61.6</span>
+<span class="co">#&gt;  7 RT    M     Y20-64 AM    2019-01-01   66.6</span>
+<span class="co">#&gt;  8 RT    M     Y20-64 AZ    2019-01-01   77.9</span>
+<span class="co">#&gt;  9 RT    M     Y20-64 BY    2019-01-01   83  </span>
+<span class="co">#&gt; 10 RT    M     Y20-64 GE    2019-01-01   72.3</span>
+<span class="co">#&gt; # ... with 448 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">employment_df</span> <span class="op">&lt;-</span> <span class="va">employment_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"T"</span> <span class="op">&amp;</span> <span class="va">age</span> <span class="op">==</span> <span class="st">"Y20-64"</span> <span class="op">&amp;</span> <span class="va">unit</span> <span class="op">==</span> <span class="st">"RT"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>time <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">geo</span>, <span class="va">time</span>, employment <span class="op">=</span> <span class="va">values</span><span class="op">)</span></code></pre></div>
+<p>Lets merge the two data.frames by the time and geo column.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">full_join</span><span class="op">(</span>x <span class="op">=</span> <span class="va">employment_df</span>, y <span class="op">=</span> <span class="va">unemployment_df</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">geo</span> <span class="op">==</span> <span class="st">"GE"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># values of Germany</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">unemployment</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-114"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-114-1.png" alt="Time-series plot" width="70%"><p class="caption">
+Figure 3.16: Time-series plot
+</p>
+</div>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">geo</span> <span class="op">==</span> <span class="st">"GE"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">unemployment</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">time</span>, <span class="va">employment</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-115"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-115-1.png" alt="Two variables with two geom_line command" width="70%"><p class="caption">
+Figure 3.17: Two variables with two geom_line command
+</p>
+</div>
+<p>If we need legend:</p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">geo</span> <span class="op">==</span> <span class="st">"GE"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_longer</span><span class="op">(</span><span class="va">employment</span><span class="op">:</span><span class="va">unemployment</span><span class="op">)</span> <span class="co"># color based on the name</span>
+<span class="co">#&gt; # A tibble: 30 x 4</span>
+<span class="co">#&gt;    geo    time name         value</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 GE     2019 employment    65.1</span>
+<span class="co">#&gt;  2 GE     2019 unemployment  11.6</span>
+<span class="co">#&gt;  3 GE     2018 employment    64.9</span>
+<span class="co">#&gt;  4 GE     2018 unemployment  12.7</span>
+<span class="co">#&gt;  5 GE     2017 employment    65.3</span>
+<span class="co">#&gt;  6 GE     2017 unemployment  13.9</span>
+<span class="co">#&gt;  7 GE     2016 employment    65.5</span>
+<span class="co">#&gt;  8 GE     2016 unemployment  14  </span>
+<span class="co">#&gt;  9 GE     2015 employment    66.5</span>
+<span class="co">#&gt; 10 GE     2015 unemployment  14.1</span>
+<span class="co">#&gt; # ... with 20 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">geo</span> <span class="op">==</span> <span class="st">"GE"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_longer</span><span class="op">(</span><span class="va">employment</span><span class="op">:</span><span class="va">unemployment</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">time</span>, y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-117"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-117-1.png" alt="Two time-series variables with pivot_longer to create legend." width="70%"><p class="caption">
+Figure 3.18: Two time-series variables with pivot_longer to create legend.
+</p>
+</div>
+<p>Alternatively, we can put the two variables on the x and y-axis and show the time as label. This is a famous figure named as the Beveridge-curve (You will learn more about in your macroeconomics course).</p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">geo</span> <span class="op">==</span> <span class="st">"GE"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">unemployment</span>, y <span class="op">=</span> <span class="va">employment</span>, label <span class="op">=</span> <span class="va">time</span><span class="op">)</span>  <span class="op">+</span>
+  <span class="fu">geom_path</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># observation are connected in prevalence</span>
+  <span class="fu">geom_text</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-118"></span>
+<img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-118-1.png" alt="Beveridge-curve" width="70%"><p class="caption">
+Figure 3.19: Beveridge-curve
+</p>
+</div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="seminar2.html"><span class="header-section-number">2</span> Markdown &amp; Tidyverse</a></div>
+<div class="next"><a href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#seminar3"><span class="header-section-number">3</span> Ggplot</a></li>
+<li><a class="nav-link" href="#motivation-for-ggplot"><span class="header-section-number">3.1</span> Motivation for GGplot</a></li>
+<li>
+<a class="nav-link" href="#intorduction-to-ggplot"><span class="header-section-number">3.2</span> Intorduction to ggplot</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#color"><span class="header-section-number">3.2.1</span> Color</a></li>
+<li><a class="nav-link" href="#size"><span class="header-section-number">3.2.2</span> Size</a></li>
+<li><a class="nav-link" href="#shape"><span class="header-section-number">3.2.3</span> Shape</a></li>
+<li><a class="nav-link" href="#aesthetics"><span class="header-section-number">3.2.4</span> Aesthetics</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#customizing"><span class="header-section-number">3.3</span> customizing</a></li>
+<li><a class="nav-link" href="#geom"><span class="header-section-number">3.4</span> Geom</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/MarcellGranat/Data-Analysis/blob/master/Seminar3.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/MarcellGranat/Data-Analysis/edit/master/Seminar3.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong><strong>Data Analysis</strong> Coursebook</strong>" was written by Marcell Granat. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

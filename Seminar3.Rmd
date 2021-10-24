@@ -236,12 +236,12 @@ For univariate discrete variables you can use column chart. You have two options
 
 2.  `geom_col`: Add a discrete variable for categories and a continues variable for the corresponding values. You have to calculate the number of observation as an initial step.
 
-```{r}
+```{r fig.cap = "Geom_bar"}
 ggplot(diamonds, aes(cut)) + 
   geom_bar()
 ```
 
-```{r}
+```{r fig.cap = "Geom_col"}
 diamonds %>% 
   count(cut) %>% # calculating number of observations by category
   ggplot(aes(cut, n)) + 
@@ -360,7 +360,7 @@ df %>%
 ```
 
 
-```{r fig.cap = "Two time-series variables with pivot_longer to create legend.}
+```{r fig.cap = "Two time-series variables with pivot_longer to create legend."}
 df %>% 
   filter(geo == "GE") %>% 
   pivot_longer(employment:unemployment) %>%

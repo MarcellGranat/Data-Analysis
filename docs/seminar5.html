@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Webscraping with R | Data Analysis Coursebook</title>
+<meta name="author" content="Marcell Granat">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Webscraping with R | Data Analysis Coursebook">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Webscraping with R | Data Analysis Coursebook">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="Nowadays, we manage a very huge part of our life online. This has an important side-effect: we can collect enormous data from the web for our researches. You can access data about shops, blogs,...">
+<meta property="og:description" content="Nowadays, we manage a very huge part of our life online. This has an important side-effect: we can collect enormous data from the web for our researches. You can access data about shops, blogs,...">
+<meta name="twitter:description" content="Nowadays, we manage a very huge part of our life online. This has an important side-effect: we can collect enormous data from the web for our researches. You can access data about shops, blogs,...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title=""><strong>Data Analysis</strong> Coursebook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="syllabus.html">Syllabus</a></li>
+<li><a class="" href="seminar1.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="seminar2.html"><span class="header-section-number">2</span> Markdown &amp; Tidyverse</a></li>
+<li><a class="" href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></li>
+<li><a class="active" href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/MarcellGranat/Data-Analysis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="seminar5" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Webscraping with R<a class="anchor" aria-label="anchor" href="#seminar5"><i class="fas fa-link"></i></a>
+</h1>
+<p>Nowadays, we manage a very huge part of our life online. This has an important side-effect: we can collect enormous data from the web for our researches. You can access data about shops, blogs, social media etc. The target of this chapter is to give a brief introduction how you can collect this data effectively. We will need a new package for this purpose: <a href="https://rvest.tidyverse.org/">rvest</a></p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvest.tidyverse.org/">rvest</a></span><span class="op">)</span></code></pre></div>
+<p>We will scrape the data from <a href="https://www.hasznaltauto.hu/">hasznaltauto</a>, which is the online second hand car market of Hungary. Lets navigate to the page in our browser and lets click on search.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-120"></span>
+<img src="images/hasznaltauto.jpg" alt="www.hasznaltauto.hu/" width="70%"><p class="caption">
+Figure 4.1: www.hasznaltauto.hu/
+</p>
+</div>
+<p>Now we have to copy and paste the new url from the browser to Rstudio. This will be the first link we want to visit while scraping. Lets assign this url as <code>url</code> in R.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDAD [...]"</span> <span class="co"># long url</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-123"></span>
+<img src="images/hasz_frist_click.gif" alt="Click on the search button." width="70%"><p class="caption">
+Figure 4.2: Click on the search button.
+</p>
+</div>
+<p>The next step is load the website into your R session. This can be done by the <code>read_html</code> function from the <a href="https://rvest.tidyverse.org/">rvest</a> package.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">page</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span>
+
+<span class="va">page</span>
+<span class="co">#&gt; {html_document}</span>
+<span class="co">#&gt; &lt;html lang="hu-HU"&gt;</span>
+<span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</span>
+<span class="co">#&gt; [2] &lt;body&gt;\n    &lt;script type="text/javascript"&gt;var utag_data = {"website":"ha ...</span></code></pre></div>
+<p>Now we can see the webpage as html codes in RStudio. This is the same what you get if you open developer view in your browser.</p>
+<pre><code>#&gt; Error in knitr::include_graphics("images/dev_mode.png"): Cannot find the file(s): "images/dev_mode.png"</code></pre>
+<p>In the developer view, you can find the information that is relevant to you and select it using the <code>html_nodes</code> function. Alternatively, however, there is a simpler method. Add <strong>Selector Gadget</strong> to your browser. This add-on helps you find the ID of an item by clicking on it. This way, you can navigate without having web development skills. We can easily install this add-on in chrome and edge, just search for its name and the first hit should be this.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-126"></span>
+<img src="images/selector_gadget_to_chrome.jpg" alt="Add Selector Gadget to your browser." width="70%"><p class="caption">
+Figure 4.3: Add Selector Gadget to your browser.
+</p>
+</div>
+<p>You can activate the add-on from the menu of your browser.</p>
+<p>First, find the IDs for the car ads. To do this, first select the name of a specific car and then mark everything you do not want to include. The target is to make every car ads title to yellow or green, but nothing else should be green.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-127"></span>
+<img src="images/selector_gadget_to_use.gif" alt="Using Selector Gadget to find IDs for the car ads." width="70%"><p class="caption">
+Figure 4.4: Using Selector Gadget to find IDs for the car ads.
+</p>
+</div>
+<p>If you have the ID you are looking for, put it in the <code>html_nodes</code> function. The code above selects the ad titles from the page.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_node</span> <span class="op">&lt;-</span> <span class="va">page</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op">(</span><span class="st">".cim-kontener a"</span><span class="op">)</span>
+<span class="co">#&gt; Error in xml_ns.xml_document(x): external pointer is not valid</span>
+
+<span class="va">my_node</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'my_node' not found</span></code></pre></div>
+<p>But this is still an html_code.If we want to keep the text of the element, we use the <code>html_text</code> function, but if we are interested in the url it points to, we use the<code>html_attr</code> function. In the latter case, it is always necessary to specify the <code>href</code> element, ie which web page you are referring to.</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">name_of_the_car</span> <span class="op">&lt;-</span> <span class="va">my_node</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Error in xml_text(x, trim = trim): object 'my_node' not found</span>
+
+<span class="va">name_of_the_car</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'name_of_the_car' not found</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">url_to_car</span> <span class="op">&lt;-</span> <span class="va">my_node</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"href"</span><span class="op">)</span>
+<span class="co">#&gt; Error in xml_attr(x, name, default = default): object 'my_node' not found</span>
+
+<span class="va">url_to_car</span>
+<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'url_to_car' not found</span></code></pre></div>
+<p>We’ve now collected the names of all the ads and the url leading to them from the first page. The next step is to collect this data from all pages. However, downloading info from all sites is a lengthy process. <strong>Always try the first few pages first and only download them all if you are sure that your program is running without error.</strong></p>
+<p>But how do we download data from multiple pages at once? Let’s see if the url changes when we go to the next page.</p>
+<p>If we look at the second page of the results list in the browser, we can see that the link has been expanded with a “/page2” member compared to our previous <code>url</code> address. Continue with “/ page3” on page 3, etc.</p>
+<p>This way we can easily generate a vector that contains the links to the first 1, 10, 100, 1000 or even all pages. Lets put these into a data.frame.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">url_ending</span> <span class="op">&lt;-</span> <span class="fu">str_c</span><span class="op">(</span><span class="st">"/page"</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
+
+<span class="va">url_ending</span>
+<span class="co">#&gt; [1] "/page2"  "/page3"  "/page4"  "/page5"  "/page6"  "/page7"  "/page8" </span>
+<span class="co">#&gt; [8] "/page9"  "/page10"</span>
+
+<span class="va">url_ending</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="va">url_ending</span><span class="op">)</span> <span class="co"># nothing to add at the first page</span>
+
+<span class="va">url_ending</span>
+<span class="co">#&gt;  [1] ""        "/page2"  "/page3"  "/page4"  "/page5"  "/page6"  "/page7" </span>
+<span class="co">#&gt;  [8] "/page8"  "/page9"  "/page10"</span>
+
+<span class="va">cars_add_df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">url</span>, <span class="va">url_ending</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">cars_add_df</span>
+<span class="co">#&gt; # A tibble: 10 x 1</span>
+<span class="co">#&gt;    url                                                                          </span>
+<span class="co">#&gt;    &lt;chr&gt;                                                                        </span>
+<span class="co">#&gt;  1 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  2 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  3 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  4 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  5 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  6 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  7 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  8 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt;  9 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span>
+<span class="co">#&gt; 10 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY3UFY652CQ5~</span></code></pre></div>
+<p>Taking advantage of the <code>{purr}</code> package, we can load and manipulate entire pages in data frames in a transparent and human-readable (<strong>tidy</strong>) way.</p>
+<p>This will require the <code>map</code> function, but we haven’t talked about using it so far.</p>
+<p><code>Map</code> is very similar to the functions of the apply family. It performs a specific function on each element of a list / vector, but the result always comes in the form of a list.</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">map</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">~</span> <span class="va">.</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="co"># calculate the square of each element (lambda type function)</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1] 9</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; [1] 16</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[5]]</span>
+<span class="co">#&gt; [1] 25</span>
+
+<span class="fu">map</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">rnorm</span>, <span class="fl">10</span><span class="op">)</span> <span class="co"># generate rnrom distribution with 1,2,3 element </span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 10.12159</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] 8.041066 9.598428</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1]  9.182985  9.076562 10.020299</span></code></pre></div>
+<p>The second example shows that if we specify only one function as the second input, without “~” and “.”, the first input of <code>map</code> will automatically be the first possible input for the specified function, and then the elements added after the function will follow in order. In the present case, we prepared random samples with 1, 2, and 3 elements, where the expected value of the samples is 10, because the first input of the function <code>rnorm</code> is the number of elements (n) and the second is the expected value (mean).</p>
+<p>We will now use the <code>map</code> function inside the<code>mutate</code> function, so a list will actually be a column of the original table. The elements of this list will be the web pages that are loaded with the <code>read_html</code> function.</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10 x 2</span>
+<span class="co">#&gt;    url                                                                 page     </span>
+<span class="co">#&gt;    &lt;chr&gt;                                                               &lt;list&gt;   </span>
+<span class="co">#&gt;  1 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  2 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  3 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  4 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  5 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  6 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  7 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  8 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt;  9 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
+<span class="co">#&gt; 10 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span></code></pre></div>
+<p>Now let’s insert a <code>nodes</code> column that contains only the required points of the page, and a<code>url_to_cars</code> column, which is the links extracted from it. Since this is already a computationally intensive step, it is worth saving the result. Save it with the same name so your environment won’t be full of unnecessary variables.</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">&lt;-</span> <span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>,
+    nodes <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">page</span>, <span class="op">~</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op">(</span><span class="va">.</span>, <span class="st">".cim-kontener a"</span><span class="op">)</span><span class="op">)</span>,
+    ad_title <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">html_text</span><span class="op">)</span>,
+    url_to_cars <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">html_attr</span>, <span class="st">"href"</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span>
+<span class="co">#&gt; # A tibble: 10 x 5</span>
+<span class="co">#&gt;    url                                     page    nodes   ad_title  url_to_cars</span>
+<span class="co">#&gt;    &lt;chr&gt;                                   &lt;list&gt;  &lt;list&gt;  &lt;list&gt;    &lt;list&gt;     </span>
+<span class="co">#&gt;  1 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [13~ &lt;chr [136]&gt;</span>
+<span class="co">#&gt;  2 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  3 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  4 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  5 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  6 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  7 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  8 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt;  9 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
+<span class="co">#&gt; 10 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt;</span></code></pre></div>
+<p>From now on, all we need is a column with links and addresses, but these are nested. The first cell of the <code>url_to_cars</code> column contains more than a hundred links. This nesting option opens a lot of new doors in the process of data manipulation. Use the <code>unnest</code> function to extract these columns.</p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">ad_title</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 496 x 2</span>
+<span class="co">#&gt;    url_to_cars                               ad_title                           </span>
+<span class="co">#&gt;    &lt;chr&gt;                                     &lt;chr&gt;                              </span>
+<span class="co">#&gt;  1 &lt;NA&gt;                                      P                                  </span>
+<span class="co">#&gt;  2 https://www.hasznaltauto.hu/szemelyauto/~ SSANGYONG KORANDO 1.5 Turbo e-XGI ~</span>
+<span class="co">#&gt;  3 https://www.hasznaltauto.hu/szemelyauto/~ SSANGYONG KORANDO 1.5 Turbo e-XGI ~</span>
+<span class="co">#&gt;  4 &lt;NA&gt;                                      P                                  </span>
+<span class="co">#&gt;  5 https://www.hasznaltauto.hu/szemelyauto/~ CITROEN GRAND C4 SPACETOURER C4Spa~</span>
+<span class="co">#&gt;  6 https://www.hasznaltauto.hu/szemelyauto/~ CITROEN GRAND C4 SPACETOURER C4Spa~</span>
+<span class="co">#&gt;  7 &lt;NA&gt;                                      P                                  </span>
+<span class="co">#&gt;  8 https://www.hasznaltauto.hu/szemelyauto/~ SUZUKI SWIFT 1.2 Dualjet Hybrid GL+</span>
+<span class="co">#&gt;  9 https://www.hasznaltauto.hu/szemelyauto/~ SUZUKI SWIFT 1.2 Dualjet Hybrid GL+</span>
+<span class="co">#&gt; 10 &lt;NA&gt;                                      P                                  </span>
+<span class="co">#&gt; # ... with 486 more rows</span></code></pre></div>
+<p>We can see that the nodes selection was not entirely perfect (usually not), as there were no matching elements or duplications left.</p>
+<p>But now we can still remove the items that don’t fit here. Fortunately, there is no link behind these, and if all columns are the same, <code>unique</code>[^You can also use it on lists and vectors.] will be our service.</p>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">&lt;-</span> <span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">ad_title</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># remove rows where url_to_cars is missing (NA)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># delete duplications</span>
+
+<span class="va">cars_add_df</span>
+<span class="co">#&gt; # A tibble: 232 x 2</span>
+<span class="co">#&gt;    url_to_cars                             ad_title                             </span>
+<span class="co">#&gt;    &lt;chr&gt;                                   &lt;chr&gt;                                </span>
+<span class="co">#&gt;  1 https://www.hasznaltauto.hu/szemelyaut~ SSANGYONG KORANDO 1.5 Turbo e-XGI St~</span>
+<span class="co">#&gt;  2 https://www.hasznaltauto.hu/szemelyaut~ CITROEN GRAND C4 SPACETOURER C4Space~</span>
+<span class="co">#&gt;  3 https://www.hasznaltauto.hu/szemelyaut~ SUZUKI SWIFT 1.2 Dualjet Hybrid GL+  </span>
+<span class="co">#&gt;  4 https://www.hasznaltauto.hu/szemelyaut~ PEUGEOT 208 1.2 PureTech Active Acti~</span>
+<span class="co">#&gt;  5 https://www.hasznaltauto.hu/szemelyaut~ OPEL COMBO Life 1.2 T Enjoy 2.0t XL ~</span>
+<span class="co">#&gt;  6 https://www.hasznaltauto.hu/szemelyaut~ OPEL INSIGNIA Grand Sport 1.4 T Busi~</span>
+<span class="co">#&gt;  7 https://www.hasznaltauto.hu/szemelyaut~ OPEL ZAFIRA LIFE 1.5 D Business Edit~</span>
+<span class="co">#&gt;  8 https://www.hasznaltauto.hu/szemelyaut~ SUZUKI VITARA 1.4 Hybrid GL+         </span>
+<span class="co">#&gt;  9 https://www.hasznaltauto.hu/szemelyaut~ SUZUKI IGNIS 1.2 Hybrid GL+          </span>
+<span class="co">#&gt; 10 https://www.hasznaltauto.hu/szemelyaut~ CITROEN C5 AIRCROSS 1.2 PureTech Feel</span>
+<span class="co">#&gt; # ... with 222 more rows</span></code></pre></div>
+<p>We now have a ready-made list of available cars and their links. Let’s visit one in the browser to see what’s next.</p>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tables_form_page</span> <span class="op">&lt;-</span> <span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">first</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># apply</span>
+
+<span class="va">cars</span>
+<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">cars</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+<span class="va">x</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+<span class="fu">map</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="va">.</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="co"># same with tidy method</span>
+<span class="fu">map_dbl</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="va">.</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># map</span>
+
+<span class="va">tables_form_page</span> <span class="op">%&gt;%</span> 
+  <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">tables_form_page</span> <span class="op">%&gt;%</span> 
+  <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span> <span class="co"># merge the tables</span>
+
+<span class="va">get_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">get_data</span><span class="op">(</span><span class="st">"https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/suzuki_swift_1.2_dualjet_hybrid_gl_plusz-16320785"</span><span class="op">)</span>
+
+<span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">map</span><span class="op">(</span><span class="va">get_data</span><span class="op">)</span>
+
+<span class="st">"https://www.hasznaltauto.hu/talalatilista/PCOG2VG3R3RDADH5S56ACFHGCYPHPBIGNGCUMWTJLYVUGTIJJVRJJJGVADRN7V3JJNUVRHTKDXN7DSPRJFA44PXEYXFWSJSFAUAUW4QK23MIQBLDKMU7YGIN5IJ5JAK2NAXAL2FUODG7ROYUDNVFJQAQHIQPMNQYKCB4XDNSJ5APR2OBC4U3A5XZ77KY7CNBQNE6ZQM7FXUJAH6ATG5KKJWFWT634SKRQIB3WVNASV7VFEGFNOASN6ZEY4ZTP2CQ54Y5BE3UTSWFZQMMPQBQK4YQROGZYJAZLLBCDQABPKXBGKLWJSPWWVYF3VS6RMKUTMA3ZXMUV7RNBVZ27A4J26LHSOLMN6ZDRVP553POVKYTRH3E6AX3URTN2ET2U7PNJ6HOZNZKWBTZH4PANXWQHGJ7ZKDS6R4GQIRLWKV26RV5X5N5LL3TU5AEH2SFA7XJXIPGLS5F2IA53YAFAOXIEXHVI5YLDIICWUPBALQJ5JMPWA7KPAOGW5HTDM3CYOUEKSLQCHHJKKUWQN65C6YTIO5WNAEJKGNVE3UK3F6Z2RWGVMBHFCD5GQDLHAJHWF7ERO6KQ3VF5XJJLHDWOELOHLELM4YZ45PRHTDPGLT6CGFSWBZT2YGG3CNOO3RZXJHQ4BTO4Y6HKCK3GKIN3SU5OGR5EYUFGZ6FGSNDGVMRFJLV2WRR4PZTIEDAXQRS4JXPZ4K3XOI24OXXC5NUKM74SQQZIWGVLCHL644WYNBEJVYYNLWZT5LD3QABZUY44TSONNPVQ5G7XERHW2WGHELAD7PRQFUEHFXW4SUBZY3P3XHYEX7SDBSXWV22THSKV4OJ6M2LIJ7U7GHFYCO2RR4F4O4R3HDL62K3DO2CHMWXP5T7RFKA/page2"</span>  
+
+<span class="va">url</span>
+
+<span class="va">many_urls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="fu">str_c</span><span class="op">(</span><span class="st">"/page"</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>
+<span class="va">many_urls</span>
+
+<span class="fu">tibble</span><span class="op">(</span>url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">url</span>, <span class="va">many_urls</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">sample_n</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>,
+    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">page</span>, <span class="va">html_nodes</span>, <span class="st">".cim-kontener a"</span><span class="op">)</span>,
+    car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_text</span><span class="op">)</span>,
+    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_attr</span>, <span class="st">"href"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">cars_df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">url</span>, <span class="va">many_urls</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">mutate</span><span class="op">(</span>
+    page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>,
+    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">page</span>, <span class="va">html_nodes</span>, <span class="st">".cim-kontener a"</span><span class="op">)</span>,
+    car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_text</span><span class="op">)</span>,
+    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_attr</span>, <span class="st">"href"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">cars_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">sample_n</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">get_data</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">url_to_car</span><span class="op">)</span>
+
+<span class="va">cars_data_df</span> <span class="op">&lt;-</span> <span class="va">cars_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">get_data</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">x</span>, values_from <span class="op">=</span> <span class="va">y</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span>
+
+
+<span class="va">safely_read_html</span> <span class="op">&lt;-</span> <span class="fu">possibly</span><span class="op">(</span><span class="va">read_html</span>, <span class="cn">NA</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="va">sleepy_read_html</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">page</span> <span class="op">&lt;-</span> <span class="fu">safely_read_html</span><span class="op">(</span><span class="va">url</span><span class="op">)</span>
+  
+  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">page</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"I have to be patient! :)"</span><span class="op">)</span>
+      <span class="va">page</span> <span class="op">&lt;-</span> <span class="fu">safely_read_html</span><span class="op">(</span><span class="va">url</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span>
+  
+  <span class="va">page</span>
+<span class="op">}</span>
+
+<span class="va">get_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">page</span> <span class="op">&lt;-</span> <span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
+    <span class="fu">sleepy_read_html</span><span class="op">(</span><span class="op">)</span>
+  
+  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">page</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    
+  <span class="va">page</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="va">cars_data_df</span> <span class="op">&lt;-</span> <span class="va">cars_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">get_data</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">x</span>, values_from <span class="op">=</span> <span class="va">y</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+
+</div>
+
+
+
+
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#seminar5"><span class="header-section-number">4</span> Webscraping with R</a></li></ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/MarcellGranat/Data-Analysis/blob/master/Seminar5.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/MarcellGranat/Data-Analysis/edit/master/Seminar5.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong><strong>Data Analysis</strong> Coursebook</strong>" was written by Marcell Granat. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
