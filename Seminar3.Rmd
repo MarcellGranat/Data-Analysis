@@ -1,117 +1,172 @@
-# Ggplot
+# Ggplot {#seminar3}
 
-## Motivation to Ggplot
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+## Motivation for GGplot
 
-Bár maga a base R [értve itt ilyenkor mindig a `plot` paranccsal készült ábrákat] segítségével is lehet ábrákat készíteni, ez az egyszerűségét leszámítva nagyon ritkán ajánlott. Helyette érdemes a ggplot2-t alkalmazni, amely bár komplexebb, mint a base R, a személyre szabhatóságának szinte nincs felső határa.
-
-
+Although you can use base R itself [including diagrams made with the `plot` command here], this is very rarely recommended, except for its simplicity. Instead, you might want to use ggplot2, which, although more complex than base R, has almost no upper limit on its customizability.
 
 ![](images/plot_ggplot.jpg){width="400"}
 
-Ám amelett, hogy szebb ábráink lesznek van egy sokkal fontosabb ok, amiért a ggplotot használjuk. A csomag a nevét Leland Wilkinson **Grammar of Graphics** c. munkája után kapta (innen a *gg*), amelyben megfogalmazásra került lényegében az ideális ábrakészítő algoritmus struktúrája. Mivel a ggplot2 ezt az elvet követi, így meglátjátok majd, hogy bár sok dolgot kell fejben tartani, minden logikus benne. Miután sikerül elsajátítani ezt az anyagot (és némi utána olvasás után) bármilyen szükséges ábrát el fogtok tudni készíteni.
+But in addition to having nicer graphics, there is a much more important reason why we use ggplot. The package is named after Leland Wilkinsons work *Gramar of Graphics* (hence `gg`), in which the essential structure of the ideal graphing algorithm was formulated. Since `ggplot2` follows this principles, you will see that while there are many things to keep in mind, everything makes sense in it. Once you have mastered this material (and after some reading after that) you will be able to make any necessary diagrams[\^My personal opinion is that creating simple and complex plots is the best way to understand your data and to make others watch your research.].
 
-## Bevezetés
+## Intorduction to ggplot
 
-A ggplot2 telepíthető önállóan is, illetve ez a csomag része egy "csomaggyűjteménynek", amit `tidyverse`-nek hívnak. Jelenleg mi csak a ggplot2-vel fogunk foglalkozni, így annak telepítése és betöltése is bőven elegendő lesz. Így annak függvényébne, hogy le van-e már töltve a package telepítsük [`install.packages("ggplot2")`], vagy ne, majd töltsük be [`library(ggplot2)`]. A ggplot2 helyett lehet egyből a `tidyverse`-t is betölteni, azonban jelenleg a többi package redundáns nekünk.
-
-```{r}
-library(ggplot2)
-```
-
-A ggplot2-vel kapunk néhány kiegészítő adattáblát, az egyszerűség kedvéért használjuk most ezek közül a `diamonds`-t. Pillanatra tekintsük meg az adattábla felépítését:
-
-```{r eval = F}
-head(diamonds)
-```
-
-```{r echo = F}
-diamonds %>% 
-  head %>% 
-  knitr::kable(caption = "A diamonds adattábla")
-```
-
-Lássuk az első ábránkat ggplottal!
-
-```{r fig.cap="A legelső ábránk ggplot használatával"}
-ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-  geom_point()
-```
+Ggplot2 can be installed standalone, or this package is part of a "package collection" called `tidyverse`. I highly recommend you to always start your session with loading the tidyverse, since this collection contains many crucial function for data analyses. Thus, depending on whether the package is already downloaded, install `install.packages ("tidyverse")` or if this is not the first time you use tidyverse on your computer, then load the packages with `library(tidyverse)`[\^Grading your homework I usually see that you type `install.packages` into the script and leave it there. This is probably the worst habbit you can have in R programming. In this way you will install the packages everytime you use that script. Remember, add `library(tidyverse)` to the first line in your code, and use `install.packages`.].
 
 ```{r}
 library(tidyverse)
 ```
 
+With ggplot2 we get some additional data tables, for the sake of simplicity we now use `diamonds` of these. Let's take a look at the structure of the nameplate:
 
 ```{r}
 diamonds
 ```
 
-```{r}
+Lets see our first plot with ggplot.
+
+```{r fig.cap="our first plot with ggplot."}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
   geom_point()
 ```
 
-```{r}
+This is a typical syntax for creating a plot with ggplot. Each plot consist of 3 parts:
+
+-   `ggplot` function with two inputs: which `data` to use and how (`mapping`)
+
+-   `aesthetics`: this is offen inserted into the `ggplot` function (the mapping argument). The code above means that values of `depth` columns on the x-axis and values of `price` column on the y-axis
+
+-   `geom`: specifies the plot type, currently we create a point graph (scatter plot). Type `geom` and hit `TAB` to see all the possibilities.
+
+We have many options to customise or plot. First, lets see what we can change inside the `geom` function.
+
+### Color
+
+```{r fig.cap="Changing the color of points to blue."}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
   geom_point(color = "blue")
 ```
 
-```{r}
+### Size
+
+```{r fig.cap = "Changing the size of the points."}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
   geom_point(size = 5)
 ```
 
-```{r}
-ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
-  geom_point(color = "#FF9933")
-```
+### Shape
 
-```{r}
+Only some `geom` functions have shape argument, but `geom_point` has. By that we can modify the shape type.
+
+```{r fig.cap = "Changing the shape."}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
   geom_point(shape = 3) # change the shape of the points
 ```
 
-```{r}
-ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
-  geom_point(shape = 21)
-```
+This is important because the default shape type has only `color` argument. If you want border to your points then you have to change the shape to 21.
 
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price)) + 
   geom_point(shape = 21, color = "blue", fill = "red")
 ```
 
+### Aesthetics
+
+In the examples above we used `color`, `size` and `shape` arguments in explicit way inside the `geom` function. But what if we want to add different colors based on the `cut` column or different `shape` (as this is usually required in academic papers). You have to add then these argument to the mapping with the `aes` function.
+
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price, color = cut, shape = cut))  +
   geom_point()
 ```
 
+Everything what is not `x` or `y` and is in the `aes` function appears on the legend. You can omit this by adding `show.legend = FALSE`:
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = depth, y = price, color = cut, shape = cut))  +
+  geom_point(show.legend = FALSE) # hide legend
+```
+
+## customizing
+
+You have to use the `scale_` functions to specify the colors on the plot above. For academic work you must often use greyscale colors:
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = depth, y = price, color = cut, shape = cut))  +
+  geom_point() +
+  scale_color_grey() # using greyscale colors
+```
+
+You also have to add labels to your plot by the `labs` function:
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = depth, y = price, color = cut))  +
+  geom_point() +
+  labs(
+    x = "Depth",
+    y = "Price in dollar",
+    title = "My awesome title",
+    color = "My legend title",
+    subtitle = "My awesome subtitle",
+    caption = "Details about the source."
+  )
+```
+
+We use `theme` for customizing how the plot looks.
+
 ```{r}
 ggplot(data = diamonds, mapping = aes(x = depth, y = price, color = cut, shape = cut))  +
   geom_point() + 
-  theme_classic() + 
+  theme_minimal() + # theme with white backgroung and no axis line
   theme(
-    axis.text = element_text(size = 30)
+    axis.text = element_text(size = 30) # increase text size to unreasonable high
   )
 ```
+
+Some available themes I recommend:
+
+```{r animation.hook="gifski", echo = F, fig.cap="Themes for ggplot"}
+p <- ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+  geom_point()
+
+p + theme_bw() + ggtitle("theme_bw")
+p + theme_classic() + ggtitle("theme_classic")
+p + theme_grey() + ggtitle("theme_grey")
+p + theme_minimal() + ggtitle("theme_minimal")
+```
+
+You can install packages to find even more themes, like `{ggdark}` for dark themes. I also add some other options on this example:
 
 ```{r}
 ggplot(data = diamonds) + 
   aes(x = depth, y = price, color = cut) + 
   geom_point() + 
-  labs(x = "X-axis", y = "Y-axis", title = "Nice title", 
+  labs(x = "X-axis", y = "Y-axis", 
+       title = "Nice title", 
        color = "New legend title",
        subtitle = "Unknown years") + 
-  scale_x_continuous(labels = function(x) str_c(x, "%"), limits = c(50, 70), expand = c(0, 0)) + 
-  scale_color_manual(values = c("red", "blue", "orange", "green", "grey")) +
-  ggdark::dark_theme_classic() +
-  theme(plot.title = element_text(color = "red", face = "bold")) 
+  scale_x_continuous(labels = function(x) str_c(x, "%"), # percentage on x-axis
+                     limits = c(50, 70), 
+                     expand = c(0, 0) # axis line at the last observation
+                     ) + 
+  scale_color_manual( # modify colors
+    values = c("red", "blue", "orange", "green", "grey")
+    ) +
+  ggdark::dark_theme_classic() + # dark theme
+  theme(plot.title = element_text(color = "red", face = "bold")) # change title style
+```
+
+```{r echo=FALSE}
+ggdark::invert_geom_defaults()
 ```
 
 
+If you want to use the same theme, then you can make it as default:
+
 ```{r}
-theme_set(ggdark::dark_theme_bw())
+theme_set(theme_minimal())
 ```
 
 ```{r}
@@ -119,94 +174,138 @@ ggplot(diamonds, aes(depth, price)) +
   geom_point()
 ```
 
-```{r}
+## Geom
+
+Lets see what other type of charts exist. For univariate continues data I recommend density, histogram and boxplot.
+
+```{r fig.cap = "Density plot"}
 ggplot(diamonds, aes(price)) + 
   geom_density(color = "red", fill = "yellow")
 ```
 
-```{r}
+```{r fig.cap = "Histogram"}
 ggplot(diamonds, aes(price)) +
   geom_histogram() + 
   scale_x_log10()
 ```
 
-```{r}
+```{r fig.cap = "Boxplot"}
 ggplot(diamonds, aes(price)) +
   geom_boxplot()
 ```
 
-```{r}
-outlier_value <- boxplot(diamonds$price, plot = FALSE)$out
-diamonds$price %in% outlier_value
+What do we see on a boxplot?
+
+```{r fig.cap = "Structure of a boxplot", echo=FALSE}
+knitr::include_graphics("https://miro.medium.com/max/8000/1*0MPDTLn8KoLApoFvI0P2vQ.png")
 ```
+
+If we are interested in the outlier, and our plan is to remove them, then it is a good idea to use the base R `boxplot` function.
+
+```{r fig.cap="Boxplot with basea R command."}
+boxplot(diamonds$price)
+```
+
+This function has an advantage. Lets assign its output as `bplot_output` instead of simply plot it, while turning its `plot` argument to `FALSE`.
+
+```{r}
+bplot_output <- boxplot(diamonds$price, plot = FALSE) # hide the plot
+```
+
+```{r}
+bplot_output
+```
+
+`bplot_output` has an element named as `out`. This contains the values of those observations who are outliers based on boxplot. We can simply check if a given observation is in this vector and if it is, then we remove that observation [\^It is always more complicated in real life tasks, but fine for now.]. Lets create a function for this step.
 
 ```{r}
 outlier_filter <- function(x) {
 outlier_value <- boxplot(x, plot = FALSE)$out
-x %in% outlier_value
+x %in% outlier_value # returns TRUE if the given value is an outlier
 }
 ```
 
 ```{r}
 diamonds %>% 
-  filter(!outlier_filter(price))
+  filter(!outlier_filter(price)) # keep the observation if price is not an outlier
 ```
+
+For univariate discrete variables you can use column chart. You have two options for that:
+
+1.  `geom_bar`: just specify which discrete variable you want to use, and the number of observations will be returned by category.
+
+2.  `geom_col`: Add a discrete variable for categories and a continues variable for the corresponding values. You have to calculate the number of observation as an initial step.
 
 ```{r}
 ggplot(diamonds, aes(cut)) + 
   geom_bar()
 ```
 
-`ctrl + shit + m`
-
 ```{r}
 diamonds %>% 
-  count(cut) %>% 
+  count(cut) %>% # calculating number of observations by category
   ggplot(aes(cut, n)) + 
   geom_col()
 ```
 
-```{r}
-ggplot(data = diamonds, aes(depth, price)) + # 2 numerical variables
-  geom_point()
-```
+You can also use geom_bar for two categorical variables:
 
-```{r}
+```{r fig.cap = "Bar chart with fill argument."}
 ggplot(data = diamonds, aes(cut, fill = color))  +
-  geom_bar(color = "black", position = position_fill())
+  geom_bar(color = "black") # color -> add border
 ```
 
-```{r}
-diamonds %>% 
-  count(cut, color) %>% 
-  ggplot() + 
-  aes(cut, color, fill = n) +
-  geom_tile(color = "black")
+Or with proportions:
+
+```{r fig.cap = "Position_fill"}
+ggplot(data = diamonds, aes(cut, fill = color))  +
+  geom_bar(color = "black", position = position_fill()) # fill to 100%
 ```
 
-```{r}
+For any kind of matrix you can use the `geom_tile` for creating heatmaps. Lets see the correlations!
+
+```{r fig.cap="Heatmap"}
 diamonds %>% 
-  select_if(is.numeric) %>% 
-  cor() %>% 
+   select_if(is.numeric) # you can calculate cor only for numerical variables
+
+diamonds %>% 
+   select_if(is.numeric) %>%  # you can calculate cor only for numerical variables
+  cor() # correlation matrix
+
+diamonds %>% 
+   select_if(is.numeric) %>%  # you can calculate cor only for numerical variables
+  cor() %>%  # correlation matrix
   data.frame() %>% 
-  rownames_to_column() %>% 
-  pivot_longer(-1) %>% 
-  filter(rowname < name) %>% 
-  ggplot() + 
-  aes(x = rowname, y = name, fill = value) + 
-  geom_tile(color = "black") + 
-  scale_fill_gradient2(limits = c(-1, 1))
+  rownames_to_column(var = "X") # make rowname to "X" column
+
+diamonds %>% 
+   select_if(is.numeric) %>%  # you can calculate cor only for numerical variables
+  cor() %>%  # correlation matrix
+  data.frame() %>% 
+  rownames_to_column(var = "X") %>% 
+  pivot_longer(-X, names_to = "Y")
+
+diamonds %>% 
+   select_if(is.numeric) %>%  # you can calculate cor only for numerical variables
+  cor() %>%  # correlation matrix
+  data.frame() %>% 
+  rownames_to_column(var = "X") %>% 
+  pivot_longer(-X, names_to = "Y") %>% 
+  ggplot(aes(X, Y, fill = value)) + 
+  geom_tile(color = "black") +
+  scale_fill_gradient2(midpoint = 0) # 0 should be white on the plot for correlations
 ```
 
+Lets see what to do with time-series data. We need some data for this from Eurostat.
 
-
-```{r}
-eurostat::search_eurostat("employment") %>% 
-  View()
+```{r eval = FALSE}
+eurostat::search_eurostat("employment")
 ```
 
 ```{r}
 unemployment_df <- eurostat::get_eurostat("enpe_lfsa_urgan")
+
+unemployment_df
 ```
 
 ```{r}
@@ -218,8 +317,9 @@ unemployment_df <- unemployment_df %>%
 
 ```{r}
 employment_df <- eurostat::get_eurostat("enpe_lfsa_ergan")
-```
 
+employment_df
+```
 
 ```{r}
 employment_df <- employment_df %>% 
@@ -229,19 +329,21 @@ employment_df <- employment_df %>%
 ```
 
 
+Lets merge the two data.frames by the time and geo column.
+
 ```{r}
 df <- full_join(x = employment_df, y = unemployment_df)
 ```
 
-```{r}
+```{r fig.cap = "Time-series plot"}
 df %>% 
-  filter(geo == "GE") %>%
+  filter(geo == "GE") %>% # values of Germany
   ggplot() + 
   aes(x = time, y = unemployment) +
   geom_line()
 ```
 
-```{r}
+```{r fig.cap = "Two variables with two geom_line command"}
 df %>% 
   filter(geo == "GE") %>% 
   ggplot() + 
@@ -249,21 +351,31 @@ df %>%
   geom_line(aes(time, employment))
 ```
 
+If we need legend:
+
 ```{r}
 df %>% 
   filter(geo == "GE") %>% 
-  pivot_longer(employment:unemployment) %>% 
+  pivot_longer(employment:unemployment) # color based on the name
+```
+
+
+```{r fig.cap = "Two time-series variables with pivot_longer to create legend.}
+df %>% 
+  filter(geo == "GE") %>% 
+  pivot_longer(employment:unemployment) %>%
   ggplot() +
   aes(x = time, y = value, color = name) + 
   geom_line()
 ```
 
-```{r}
+Alternatively, we can put the two variables on the x and y-axis and show the time as label. This is a famous figure named as the Beveridge-curve (You will learn more about in your macroeconomics course).
+
+```{r fig.cap = "Beveridge-curve"}
 df %>% 
   filter(geo == "GE") %>% 
   ggplot() + 
   aes(x = unemployment, y = employment, label = time)  +
-  geom_path() + 
+  geom_path() + # observation are connected in prevalence
   geom_text()
 ```
-
