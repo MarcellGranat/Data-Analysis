@@ -1,18 +1,128 @@
-# Seminar 6 {#seminar6}
+# Data imputation {#seminar6}
 
-In this chapter, you'll learn how to wrap ggplot2 and dplyr function in a Shiny app.
-(If you don't use the tidyverse, you can skip this chapter 😄.) The techniques for wrapping ggplot2 and dplyr functions in a functions and package, are a a little different and covered in other resources like [*Using ggplot2 in packages*](http://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html) or [*Programming with dplyr*](http://dplyr.tidyverse.org/articles/programming.html).
+## General data manipulation
 
-
-## Motivation {#tidy-motivation}
-
-Imagine I want to create an app that allows you to filter a numeric variable to select rows that are greater than a threshold.
-You might write something like this:
-
-Let's begin with this call to `filter()` which uses a data-variable (`carat`) and an env-variable (`min`):
+We will move on with the data downloaded in the previous chapter. To get an idea of the structure of our data, we use the `glimpse` function.
 
 ```{r}
-ggplot(cars, aes(speed, dist)) + 
-  geom_point()
+glimpse(cars_data_df)
 ```
+
+Currently, all variable characters are type, so be sure to manipulate the data. Probably most columns are not needed. Lets create some new variables!
+
+```{r}
+cars_data_df %>% 
+  transmute(
+    ad_title,
+    url_to_cars,
+    price = vetelar_eur, # translate the column names :)
+    year = evjarat,
+    weight = teljes_tomeg,
+    n_doors = ajtok_szama,
+    fuel = uzemanyag,
+    gear = sebessegvalto_fajtaja,
+    mileage = kilometerora_allasa
+  )
+```
+
+The `transmute` function is like applying the` select` and `mutate` functions at the same time. We can create new variables with it, but only those that are defined in it will remain. However, it is worth cleaning the data in one step here.
+
+```{r}
+cars_data_df %>% 
+  transmute(
+    ad_title,
+    price = str_remove_all(vetelar_eur, "\\D"), # remove non-digit chr
+    year = gsub("/.*", "", evjarat), # remove after / sign
+    weight = str_remove_all(teljes_tomeg, "\\D"), # remove non-digit chr
+    n_doors = str_remove_all(ajtok_szama, "\\D"), # remove non-digit chr
+    fuel = uzemanyag, # fuel type
+    gear = str_detect(sebessegvalto_fajtaja, "Manuális"), # is manual mentioned?
+    mileage = str_remove_all(kilometerora_allasa, "\\D") # remove non-digit chr
+  )
+```
+
+But our variables are still character type...
+
+```{r}
+df <- cars_data_df %>% 
+  transmute(
+    ad_title,
+    price = str_remove_all(vetelar_eur, "\\D"), # remove non-digit chr
+    year = gsub("/.*", "", evjarat), # remove after / sign
+    weight = str_remove_all(teljes_tomeg, "\\D"), # remove non-digit chr
+    n_doors = str_remove_all(ajtok_szama, "\\D"), # remove non-digit chr
+    fuel = uzemanyag, # fuel type
+    gear = str_detect(sebessegvalto_fajtaja, "Manuális"), # is manual mentioned?
+    mileage = str_remove_all(kilometerora_allasa, "\\D") # remove non-digit chr
+  ) %>% 
+  mutate_at(vars("price", "year", "weight", "n_doors", "mileage"), as.numeric)
+
+df
+```
+
+## Simple methods
+
+Now the types are right. How much data is missing? Check with the `{visdat}` package.
+
+```{r}
+visdat::vis_miss(df)
+```
+
+I suggest that we arrange the table according to the existence of the deficit at this time.
+
+```{r}
+df %>% 
+  arrange(!is.na(mileage)) # rows w missing mileage 1st
+```
+
+These are very new cars so our best assumption is that here the `mileage` is 0.
+
+```{r}
+df %>% 
+  arrange(!is.na(mileage)) %>%  # rows w missing mileage 1st
+  replace_na(list(mileage = 0))
+```
+
+In the case of `weight` it would be more reasonable to replace missing observations with the average. 
+
+```{r}
+df %>% 
+  arrange(!is.na(weight)) %>%  # rows w missing weight 1st
+  mutate(weight = ifelse(is.na(weight), mean(weight, na.rm = TRUE), weight))
+```
+
+The syntax used above works as follows: if `NA`, its value should be equal to the average value, else, it should be equal to itself. Although we could have switched to the `median`.
+
+```{r}
+df %>% 
+  arrange(!is.na(weight)) %>%  # rows w missing weight 1st
+  mutate(weight = ifelse(is.na(weight), median(weight, na.rm = TRUE), weight))
+```
+
+## Advanced methods
+
+Is this kind of imputation correct for the other numerical variables as well? Then perform the operation on all numeric columns.
+
+```{r}
+df %>% 
+  arrange(!is.na(weight)) %>%  # rows w missing weight 1st
+  mutate_if(is.numeric, ~ ifelse(is.na(.), median(., na.rm = TRUE), .))
+```
+
+It is a completely different approach to try to estimate the value of the missing variable from the values of the other variables, but this can often be more advantageous.
+
+The R mice package serves this purpose, the methodology of which is already based on serious academic research. With the help of the package, we can easily use machine-learning-based tools to estimate our missing values. But beware: the proportion of our missing data should not exceed 10% as much as possible, since then we would estimate the unknown from the unknown.
+
+Of the engines on which the estimate is based, I recommend the random forest, but find out which one is more useful to you in a given case when it comes to an important publication.
+
+```{r}
+library(mice)
+
+df %>% 
+  mice %>% 
+  complete() %>% # return the estimated values
+  tibble() # convert it to a nice looking data frame
+```
+
+Now we have a clean data frame, without any missing value!
 

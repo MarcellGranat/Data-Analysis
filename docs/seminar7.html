@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Introduction to simulation | Data Analysis Coursebook</title>
+<meta name="author" content="Marcell Granat">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Introduction to simulation | Data Analysis Coursebook">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 Introduction to simulation | Data Analysis Coursebook">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="6.1 Motivation Creating simulated data set is a common habit to test your methodology and get familiar with it. Papers based on simulated data are usually the most profitable ones.However, writing...">
+<meta property="og:description" content="6.1 Motivation Creating simulated data set is a common habit to test your methodology and get familiar with it. Papers based on simulated data are usually the most profitable ones.However, writing...">
+<meta name="twitter:description" content="6.1 Motivation Creating simulated data set is a common habit to test your methodology and get familiar with it. Papers based on simulated data are usually the most profitable ones.However, writing...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title=""><strong>Data Analysis</strong> Coursebook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="seminar1.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="seminar2.html"><span class="header-section-number">2</span> Markdown &amp; Tidyverse</a></li>
+<li><a class="" href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></li>
+<li><a class="" href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></li>
+<li><a class="" href="seminar6.html"><span class="header-section-number">5</span> Data imputation</a></li>
+<li><a class="active" href="seminar7.html"><span class="header-section-number">6</span> Introduction to simulation</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/MarcellGranat/Data-Analysis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="seminar7" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Introduction to simulation<a class="anchor" aria-label="anchor" href="#seminar7"><i class="fas fa-link"></i></a>
+</h1>
+<div id="motivation" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Motivation<a class="anchor" aria-label="anchor" href="#motivation"><i class="fas fa-link"></i></a>
+</h2>
+<p>Creating simulated data set is a common habit to test your methodology and get familiar with it. Papers based on simulated data are usually the most profitable ones.However, writing code for simulation is much more effective if you do not use million of loops, because the script can easily become messy and hard to read.</p>
+<p>That is the reason, while we learn some theoretical concepts about how to effectively write simulations.</p>
+</div>
+<div id="the-for-loop" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> The for loop<a class="anchor" aria-label="anchor" href="#the-for-loop"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sadly, a common way to write iteration with loops.</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 5</span></code></pre></div>
+<p>This is a simple syntax for printing the numbers from 1 to 5. <code>for</code> loop works as a snippet, so you have to only type “for” and press <code>TAB</code> after. This will create the frame work (spaces, inputs, parentheses) of the loop. You should see then the following:</p>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">variable</span> <span class="kw">in</span> <span class="va">vector</span><span class="op">)</span> <span class="op">{</span>
+  
+<span class="op">}</span>
+<span class="co">#&gt; Error in for (variable in vector) {: invalid for() loop sequence</span></code></pre></div>
+<p>Now you have to specify the input: the variable, the vector and the code to evaluate.</p>
+</div>
+<div id="replicate" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Replicate<a class="anchor" aria-label="anchor" href="#replicate"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>replicate</code> is a base R function, but can be very useful. An important difference is that with loop, you can refer to an iterator (i = which iteration runs?). But that is something you do not need in simulative studies, so <code>i</code> would be only a redundant variable in your environment. Lets generate a random set from normal distribution.</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt;  [1]  1.53071072  1.11572128 -1.75680548  0.72440956 -0.42208816 -0.81778805</span>
+<span class="co">#&gt;  [7]  0.24025204 -0.03659535  1.64694641  0.59957410</span></code></pre></div>
+<p>Lets generate 5 sets with replicate.</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;             [,1]       [,2]       [,3]        [,4]       [,5]</span>
+<span class="co">#&gt;  [1,] -1.0724047  0.1045381 -0.6821441  0.50552179 -2.1724049</span>
+<span class="co">#&gt;  [2,] -0.5170869 -1.3029887 -0.3407339 -0.26928148  0.7668037</span>
+<span class="co">#&gt;  [3,]  0.5090504 -0.2540999  0.2150593 -0.68754642 -0.2515032</span>
+<span class="co">#&gt;  [4,]  0.8061063  2.6600309 -0.5483644 -1.44132060  0.1812080</span>
+<span class="co">#&gt;  [5,] -0.1964774  1.6424674  1.2690177  0.57432540 -0.8727565</span>
+<span class="co">#&gt;  [6,]  1.0609074 -0.3389844  0.8434366  0.16891814  0.5702774</span>
+<span class="co">#&gt;  [7,]  0.4528373  0.2114825 -0.5460979 -0.51564255 -0.5184491</span>
+<span class="co">#&gt;  [8,]  0.1612659 -0.8790304  0.3836906  0.75262964  0.4892118</span>
+<span class="co">#&gt;  [9,] -0.3785246 -1.1249163  1.5422579 -0.42230031 -1.2927494</span>
+<span class="co">#&gt; [10,] -1.2660102 -0.1263657 -1.0911051 -0.02975666  1.6548887</span></code></pre></div>
+<p>The result is a matrix, but if you wish to keep the output in list format you can write the following:</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt;  [1]  1.2736958 -0.6688812 -1.3302128  0.5530845 -0.1607211  0.1988171</span>
+<span class="co">#&gt;  [7]  0.1283606  0.3499840  0.7122512  0.8923841</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt;  [1] -0.47361369  0.74955592 -0.39576259 -0.94361428 -0.46896246  0.02996324</span>
+<span class="co">#&gt;  [7]  0.21263376  0.66298590  0.24973523 -0.59405192</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt;  [1]  3.22318891  0.86463075 -0.45963259  1.60003864 -1.17521562  1.30286863</span>
+<span class="co">#&gt;  [7]  0.12279515 -0.22744636  1.00398994 -0.07896539</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt;  [1] -2.39293563 -0.45604575  0.15624406 -0.72389236  0.49026891  1.57235957</span>
+<span class="co">#&gt;  [7] -2.39689102  0.91221690 -0.01008771 -1.01214036</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[5]]</span>
+<span class="co">#&gt;  [1] -2.8694232  2.5789621  0.5585526  1.0734009 -0.3474956  0.8562965</span>
+<span class="co">#&gt;  [7]  0.5296800  0.0107040  0.5775843  0.9275607</span></code></pre></div>
+<p>But how to use the simulated data, what we have created? Lets recall, that we can use a function on each elements of a list or vector with the <code>map</code> function. (<code>map_dbl</code> if the output contains only one number per element)</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">map</span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="co"># mean of trajectories as a list</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; [1] 0.4386977</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[2]]</span>
+<span class="co">#&gt; [1] -0.4110464</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[3]]</span>
+<span class="co">#&gt; [1] -0.2545167</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[4]]</span>
+<span class="co">#&gt; [1] -0.1256227</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[5]]</span>
+<span class="co">#&gt; [1] 0.4292195</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">map_dbl</span><span class="op">(</span><span class="va">mean</span><span class="op">)</span> <span class="co"># mean of trajectories as a vector</span>
+<span class="co">#&gt; [1] -0.77554025 -0.12528062  0.05073575 -0.09084027  0.15321429</span></code></pre></div>
+<p>The advantage of ignoring loops from your script for simulation is the increase in speed. In this aspect, it is important to note that you can use parallel computing to make your code even faster<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Multiply the evaluation of the speed with the number of cores in your laptop (4-16).&lt;/p&gt;"><sup>5</sup></a>.</p>
+</div>
+<div id="the-tidy-framework" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> The tidy framework<a class="anchor" aria-label="anchor" href="#the-tidy-framework"><i class="fas fa-link"></i></a>
+</h2>
+<p>From the previous chapters we already know that we nest even data frames (and any other object) into a data frame.</p>
+<p>Lets create a data frame first with the corresponding parameters.</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+  m <span class="op">=</span> <span class="fl">100</span>, <span class="co"># mean</span>
+  s <span class="op">=</span> <span class="fl">20</span>, <span class="co"># sd</span>
+  <span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;       m     s</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   100    20</span></code></pre></div>
+<p>Lets add a set of random data from normal distribution, with the given mean.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span> <span class="co"># . refers to the m which is mean</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;       m     s data      </span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;    </span>
+<span class="co">#&gt; 1   100    20 &lt;dbl [10]&gt;</span></code></pre></div>
+<p>We see that a numeric vector (double) is nested into a cell of the data frame. Are we interested in the minimum of the simulated data? Lets use map again.</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>,
+    minimum <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">data</span>, <span class="va">min</span><span class="op">)</span> <span class="co"># minimum of the value on `data` column</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;       m     s data       minimum  </span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     &lt;list&gt;   </span>
+<span class="co">#&gt; 1   100    20 &lt;dbl [10]&gt; &lt;dbl [1]&gt;</span></code></pre></div>
+<p>But the new column still contains a vector, we do not see the value even if it is just a number. Remember, if we know that the result is single number, then we can convert it to numeric vector with <code>map_dbl</code>.</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">m</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>,
+    minimum <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="va">min</span><span class="op">)</span> <span class="co"># minimum of the value on `data` column</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;       m     s data       minimum</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   100    20 &lt;dbl [10]&gt;    97.4</span></code></pre></div>
+<p>Now the expected mean of the generated data is 100, but the standard deviation is still 1 (the default value). We can control for 2 input with <code>map2</code>.</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map2</span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="va">.x</span>, sd <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span>, <span class="co"># .x refers to m, .y to s</span>
+    minimum <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="va">min</span><span class="op">)</span> 
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;       m     s data       minimum</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   100    20 &lt;dbl [10]&gt;    61.2</span></code></pre></div>
+<p>What about the size of the sample? We need a new frame and a new function: <code>pmap</code>. Use this map type function (same functionality) when you have more than 2 inputs.</p>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+  m <span class="op">=</span> <span class="fl">100</span>, <span class="co"># mean</span>
+  s <span class="op">=</span> <span class="fl">20</span>, <span class="co"># sd</span>
+  n <span class="op">=</span> <span class="fl">1000</span>, <span class="co"># sample size</span>
+  <span class="op">)</span>
+
+<span class="va">simulation_df</span>
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;       m     s     n</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   100    20  1000</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="va">m</span>, sd <span class="op">=</span> <span class="va">s</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;       m     s     n data         </span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;       </span>
+<span class="co">#&gt; 1   100    20  1000 &lt;dbl [1,000]&gt;</span></code></pre></div>
+<p>But why do we worked so much to generate a simply trajectory? We could do this simply with the <code>rnorm</code> function. It is true, but most of the time you have to generate multiple random data sets with different arguments. Lets see how to manage this with the current frame work.</p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+  m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span>, <span class="co"># mean</span>
+  s <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">10</span>, <span class="fl">50</span><span class="op">)</span>, <span class="co"># sd</span>
+  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span>, <span class="fl">10000</span><span class="op">)</span> <span class="co"># sample size</span>
+  <span class="op">)</span>
+
+
+<span class="va">simulation_df</span>
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;       m     s     n</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     3    10</span>
+<span class="co">#&gt; 2    10    10   100</span>
+<span class="co">#&gt; 3   100    50 10000</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="va">m</span>, sd <span class="op">=</span> <span class="va">s</span><span class="op">)</span><span class="op">)</span>,
+    minimum <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="va">min</span><span class="op">)</span>,
+    maximum <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="va">max</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 x 6</span>
+<span class="co">#&gt;       m     s     n data           minimum maximum</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;           &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     3    10 &lt;dbl [10]&gt;       -2.41    8.37</span>
+<span class="co">#&gt; 2    10    10   100 &lt;dbl [100]&gt;     -15.9    28.5 </span>
+<span class="co">#&gt; 3   100    50 10000 &lt;dbl [10,000]&gt; -103.    278.</span></code></pre></div>
+<p>So we see that the variables definied in the <code>mutate</code> function will be calculated for every input combination in the frame. How about to evaluate it multiple times? We have to duplicate the lines.</p>
+<p><code>slice</code> can be used to select a given row with number.</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">slice</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co"># select the 2nd line</span>
+<span class="co">#&gt; # A tibble: 1 x 3</span>
+<span class="co">#&gt;       m     s     n</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1    10    10   100</span></code></pre></div>
+<p>But what if the number appears multiple times?</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">slice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># select the 2nd line 2 times</span>
+<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt;       m     s     n</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1    10    10   100</span>
+<span class="co">#&gt; 2    10    10   100</span></code></pre></div>
+<p>So we need to select each line multiple times. We can do it with the <code>rep</code> function.</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1 2 3 1 2 3 1 2 3</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1 1 1 2 2 2 3 3 3</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">slice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># select all the lines 2 times</span>
+<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt;       m     s     n</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     3    10</span>
+<span class="co">#&gt; 2     1     3    10</span>
+<span class="co">#&gt; 3    10    10   100</span>
+<span class="co">#&gt; 4    10    10   100</span>
+<span class="co">#&gt; 5   100    50 10000</span>
+<span class="co">#&gt; 6   100    50 10000</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulation_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">slice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># select all the lines 2 times</span>
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">pmap</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="va">n</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span>, <span class="va">s</span>, <span class="va">n</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="va">m</span>, sd <span class="op">=</span> <span class="va">s</span><span class="op">)</span><span class="op">)</span>,
+    minimum <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="va">min</span><span class="op">)</span>,
+    maximum <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="va">max</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 6</span>
+<span class="co">#&gt;       m     s     n data           minimum maximum</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;           &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1     3    10 &lt;dbl [10]&gt;       -4.69    4.59</span>
+<span class="co">#&gt; 2     1     3    10 &lt;dbl [10]&gt;       -4.56    5.78</span>
+<span class="co">#&gt; 3    10    10   100 &lt;dbl [100]&gt;     -12.6    31.6 </span>
+<span class="co">#&gt; 4    10    10   100 &lt;dbl [100]&gt;     -16.3    29.8 </span>
+<span class="co">#&gt; 5   100    50 10000 &lt;dbl [10,000]&gt; -110.    304.  </span>
+<span class="co">#&gt; 6   100    50 10000 &lt;dbl [10,000]&gt;  -75.0   274.</span></code></pre></div>
+</div>
+<div id="case-study" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Case Study<a class="anchor" aria-label="anchor" href="#case-study"><i class="fas fa-link"></i></a>
+</h2>
+<p>How does the kurtosis change if the sample size or the standard deviation changes?</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tibble</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">crossing</span><span class="op">(</span>s <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="co"># match all possible combination</span>
+<span class="co">#&gt; # A tibble: 36 x 2</span>
+<span class="co">#&gt;        n     s</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1     1</span>
+<span class="co">#&gt;  2     1     2</span>
+<span class="co">#&gt;  3     1     4</span>
+<span class="co">#&gt;  4     1     8</span>
+<span class="co">#&gt;  5     1    16</span>
+<span class="co">#&gt;  6     1    32</span>
+<span class="co">#&gt;  7    10     1</span>
+<span class="co">#&gt;  8    10     2</span>
+<span class="co">#&gt;  9    10     4</span>
+<span class="co">#&gt; 10    10     8</span>
+<span class="co">#&gt; # ... with 26 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tibble</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">crossing</span><span class="op">(</span>s <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># match all possible combination</span>
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map2</span><span class="op">(</span><span class="va">n</span>, <span class="va">s</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">.x</span>, sd <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="co"># generate the data</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30 x 3</span>
+<span class="co">#&gt;        n     s data       </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     </span>
+<span class="co">#&gt;  1    10     1 &lt;dbl [10]&gt; </span>
+<span class="co">#&gt;  2    10     2 &lt;dbl [10]&gt; </span>
+<span class="co">#&gt;  3    10     4 &lt;dbl [10]&gt; </span>
+<span class="co">#&gt;  4    10     8 &lt;dbl [10]&gt; </span>
+<span class="co">#&gt;  5    10    16 &lt;dbl [10]&gt; </span>
+<span class="co">#&gt;  6    10    32 &lt;dbl [10]&gt; </span>
+<span class="co">#&gt;  7   100     1 &lt;dbl [100]&gt;</span>
+<span class="co">#&gt;  8   100     2 &lt;dbl [100]&gt;</span>
+<span class="co">#&gt;  9   100     4 &lt;dbl [100]&gt;</span>
+<span class="co">#&gt; 10   100     8 &lt;dbl [100]&gt;</span>
+<span class="co">#&gt; # ... with 20 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tibble</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">crossing</span><span class="op">(</span>s <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># match all possible combination</span>
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map2</span><span class="op">(</span><span class="va">n</span>, <span class="va">s</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">.x</span>, sd <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span>,
+    kurt <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="fu">moments</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/moments/man/kurtosis.html">kurtosis</a></span><span class="op">)</span> <span class="co"># calculate the kurtosis of the data</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 30 x 4</span>
+<span class="co">#&gt;        n     s data         kurt</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt;  1    10     1 &lt;dbl [10]&gt;   1.61</span>
+<span class="co">#&gt;  2    10     2 &lt;dbl [10]&gt;   3.43</span>
+<span class="co">#&gt;  3    10     4 &lt;dbl [10]&gt;   2.01</span>
+<span class="co">#&gt;  4    10     8 &lt;dbl [10]&gt;   1.75</span>
+<span class="co">#&gt;  5    10    16 &lt;dbl [10]&gt;   2.56</span>
+<span class="co">#&gt;  6    10    32 &lt;dbl [10]&gt;   2.27</span>
+<span class="co">#&gt;  7   100     1 &lt;dbl [100]&gt;  2.67</span>
+<span class="co">#&gt;  8   100     2 &lt;dbl [100]&gt;  3.02</span>
+<span class="co">#&gt;  9   100     4 &lt;dbl [100]&gt;  2.60</span>
+<span class="co">#&gt; 10   100     8 &lt;dbl [100]&gt;  2.65</span>
+<span class="co">#&gt; # ... with 20 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tibble</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">crossing</span><span class="op">(</span>s <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  
+  <span class="fu">slice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># increase the iterations to 100</span>
+  <span class="fu">mutate</span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">map2</span><span class="op">(</span><span class="va">n</span>, <span class="va">s</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">.x</span>, sd <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span>,
+    kurt <span class="op">=</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">data</span>, <span class="fu">moments</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/moments/man/kurtosis.html">kurtosis</a></span><span class="op">)</span> 
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># plot</span>
+  <span class="fu">aes</span><span class="op">(</span><span class="va">kurt</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">n</span> <span class="op">~</span> <span class="va">s</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-186-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>Conclusion #1: The kurtosis of the sample size did not change if we increase the standard deviation or the sample size. But is has became concentreted to 3, when the size of the sample increased.</p>
+<p><strong>Conclusion #2: We could write a complex simulation with 7 simple codes (while 4 lines are related to the plot).</strong></p>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="seminar6.html"><span class="header-section-number">5</span> Data imputation</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#seminar7"><span class="header-section-number">6</span> Introduction to simulation</a></li>
+<li><a class="nav-link" href="#motivation"><span class="header-section-number">6.1</span> Motivation</a></li>
+<li><a class="nav-link" href="#the-for-loop"><span class="header-section-number">6.2</span> The for loop</a></li>
+<li><a class="nav-link" href="#replicate"><span class="header-section-number">6.3</span> Replicate</a></li>
+<li><a class="nav-link" href="#the-tidy-framework"><span class="header-section-number">6.4</span> The tidy framework</a></li>
+<li><a class="nav-link" href="#case-study"><span class="header-section-number">6.5</span> Case Study</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/MarcellGranat/Data-Analysis/blob/master/Seminar7.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/MarcellGranat/Data-Analysis/edit/master/Seminar7.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong><strong>Data Analysis</strong> Coursebook</strong>" was written by Marcell Granat. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

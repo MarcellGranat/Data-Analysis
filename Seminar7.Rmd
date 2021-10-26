@@ -1,18 +1,239 @@
-# Seminar 7 {#seminar7}
+# Introduction to simulation {#seminar7}
 
-In this chapter, you'll learn how to wrap ggplot2 and dplyr function in a Shiny app.
-(If you don't use the tidyverse, you can skip this chapter 😄.) The techniques for wrapping ggplot2 and dplyr functions in a functions and package, are a a little different and covered in other resources like [*Using ggplot2 in packages*](http://ggplot2.tidyverse.org/dev/articles/ggplot2-in-packages.html) or [*Programming with dplyr*](http://dplyr.tidyverse.org/articles/programming.html).
+## Motivation
+
+Creating simulated data set is a common habit to test your methodology and get familiar with it. Papers based on simulated data are usually the most profitable ones.However, writing code for simulation is much more effective if you do not use million of loops, because the script can easily become messy and hard to read.
+
+That is the reason, while we learn some theoretical concepts about how to effectively write simulations.
 
 
-## Motivation {#tidy-motivation}
+## The for loop
 
-Imagine I want to create an app that allows you to filter a numeric variable to select rows that are greater than a threshold.
-You might write something like this:
-
-Let's begin with this call to `filter()` which uses a data-variable (`carat`) and an env-variable (`min`):
+Sadly, a common way to write iteration with loops.
 
 ```{r}
-ggplot(cars, aes(speed, dist)) + 
-  geom_point()
+for (i in 1:5) {
+  print(i)
+}
 ```
 
+This is a simple syntax for printing the numbers from 1 to 5. `for` loop works as a snippet, so you have to only type "for" and press `TAB` after. This will create the frame work (spaces, inputs, parentheses) of the loop. You should see then the following:
+
+```{r}
+for (variable in vector) {
+  
+}
+```
+
+Now you have to specify the input: the variable, the vector and the code to evaluate.
+
+## Replicate
+
+`replicate` is a base R function, but can be very useful. An important difference is that with loop, you can refer to an iterator (i = which iteration runs?). But that is something you do not need in simulative studies, so `i` would be only a redundant variable in your environment. Lets generate a random set from normal distribution.
+
+```{r}
+rnorm(n = 10, mean = 0, sd = 1)
+```
+
+Lets generate 5 sets with replicate.
+
+```{r}
+replicate(n = 5, rnorm(n = 10, mean = 0, sd = 1))
+```
+
+The result is a matrix, but if you wish to keep the output in list format you can write the following:
+
+```{r}
+replicate(n = 5, rnorm(n = 10, mean = 0, sd = 1), simplify = FALSE)
+```
+
+But how to use the simulated data, what we have created? Lets recall, that we can use a function on each elements of a list or vector with the `map` function. (`map_dbl` if the output contains only one number per element)
+
+```{r}
+replicate(n = 5, rnorm(n = 10, mean = 0, sd = 1), simplify = FALSE) %>% 
+  map(mean) # mean of trajectories as a list
+
+replicate(n = 5, rnorm(n = 10, mean = 0, sd = 1), simplify = FALSE) %>% 
+  map_dbl(mean) # mean of trajectories as a vector
+```
+
+The advantage of ignoring loops from your script for simulation is the increase in speed. In this aspect, it is important to note that you can use parallel computing to make your code even faster^[Multiply the evaluation of the speed with the number of cores in your laptop (4-16).].
+
+## The tidy framework
+
+From the previous chapters we already know that we nest even data frames (and any other object) into a data frame.
+
+Lets create a data frame first with the corresponding parameters.
+
+```{r}
+simulation_df <- tibble(
+  m = 100, # mean
+  s = 20, # sd
+  )
+```
+
+```{r}
+simulation_df
+```
+
+Lets add a set of random data from normal distribution, with the given mean.
+
+```{r}
+simulation_df %>% 
+  mutate(
+    data = map(m, ~ rnorm(n = 10, mean = .)) # . refers to the m which is mean
+  )
+```
+
+We see that a numeric vector (double) is nested into a cell of the data frame. Are we interested in the minimum of the simulated data? Lets use map again.
+
+```{r}
+simulation_df %>% 
+  mutate(
+    data = map(m, ~ rnorm(n = 10, mean = .)),
+    minimum = map(data, min) # minimum of the value on `data` column
+  )
+```
+
+But the new column still contains a vector, we do not see the value even if it is just a number. Remember, if we know that the result is single number, then we can convert it to numeric vector with `map_dbl`.
+
+```{r}
+simulation_df %>% 
+  mutate(
+    data = map(m, ~ rnorm(n = 10, mean = .)),
+    minimum = map_dbl(data, min) # minimum of the value on `data` column
+  )
+```
+
+Now the expected mean of the generated data is 100, but the standard deviation is still 1 (the default value). We can control for 2 input with `map2`.
+
+```{r}
+simulation_df %>% 
+  mutate(
+    data = map2(m, s, ~ rnorm(n = 10, mean = .x, sd = .y)), # .x refers to m, .y to s
+    minimum = map_dbl(data, min) 
+  )
+```
+
+What about the size of the sample? We need a new frame and a new function: `pmap`. Use this map type function (same functionality) when you have more than 2 inputs.
+
+```{r}
+simulation_df <- tibble(
+  m = 100, # mean
+  s = 20, # sd
+  n = 1000, # sample size
+  )
+
+simulation_df
+```
+
+```{r}
+simulation_df %>% 
+  mutate(
+    data = pmap(list(m, s, n), function(m, s, n) rnorm(n = n, mean = m, sd = s))
+  )
+```
+
+But why do we worked so much to generate a simply trajectory? We could do this simply with the `rnorm` function. It is true, but most of the time you have to generate multiple random data sets with different arguments. Lets see how to manage this with the current frame work.
+
+```{r}
+simulation_df <- tibble(
+  m = c(1, 10, 100), # mean
+  s = c(3, 10, 50), # sd
+  n = c(10, 100, 10000) # sample size
+  )
+
+
+simulation_df
+```
+
+```{r}
+simulation_df %>% 
+  mutate(
+    data = pmap(list(m, s, n), function(m, s, n) rnorm(n = n, mean = m, sd = s)),
+    minimum = map_dbl(data, min),
+    maximum = map_dbl(data, max)
+  )
+```
+
+So we see that the variables definied in the `mutate` function will be calculated for every input combination in the frame. How about to evaluate it multiple times? We have to duplicate the lines.
+
+`slice` can be used to select a given row with number.
+
+```{r}
+simulation_df %>% 
+  slice(2) # select the 2nd line
+```
+
+But what if the number appears multiple times?
+
+```{r}
+simulation_df %>% 
+  slice(c(2, 2)) # select the 2nd line 2 times
+```
+
+So we need to select each line multiple times. We can do it with the `rep` function.
+
+```{r}
+rep(c(1, 2, 3), times = 3)
+rep(c(1, 2, 3), each = 3)
+```
+
+```{r}
+simulation_df %>% 
+  slice(rep(1:n(), each = 2)) # select all the lines 2 times
+```
+
+```{r}
+simulation_df %>% 
+  slice(rep(1:n(), each = 2)) %>%  # select all the lines 2 times
+  mutate(
+    data = pmap(list(m, s, n), function(m, s, n) rnorm(n = n, mean = m, sd = s)),
+    minimum = map_dbl(data, min),
+    maximum = map_dbl(data, max)
+  )
+```
+
+## Case Study
+
+How does the kurtosis change if the sample size or the standard deviation changes?
+
+```{r}
+tibble(n = 10^(0:5)) %>% 
+  crossing(s = 2^(0:5)) # match all possible combination
+```
+
+```{r}
+tibble(n = 10^(1:5)) %>% 
+  crossing(s = 2^(0:5)) %>%  # match all possible combination
+  mutate(
+    data = map2(n, s, ~ rnorm(n = .x, sd = .y)) # generate the data
+  )
+```
+
+```{r}
+tibble(n = 10^(1:5)) %>% 
+  crossing(s = 2^(0:5)) %>%  # match all possible combination
+  mutate(
+    data = map2(n, s, ~ rnorm(n = .x, sd = .y)),
+    kurt = map_dbl(data, moments::kurtosis) # calculate the kurtosis of the data
+  )
+```
+
+```{r}
+tibble(n = 10^(1:5)) %>% 
+  crossing(s = 2^(0:5)) %>%  
+  slice(rep(1:n(), each = 100)) %>%  # increase the iterations to 100
+  mutate(
+    data = map2(n, s, ~ rnorm(n = .x, sd = .y)),
+    kurt = map_dbl(data, moments::kurtosis) 
+  ) %>% 
+  ggplot() + # plot
+  aes(kurt) +
+  geom_density() +
+  facet_grid(n ~ s)
+```
+
+Conclusion #1: The kurtosis of the sample size did not change if we increase the standard deviation or the sample size. But is has became concentreted to 3, when the size of the sample increased.
+
+**Conclusion #2: We could write a complex simulation with 7 simple codes (while 4 lines are related to the plot).**

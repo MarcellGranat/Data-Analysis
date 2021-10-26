@@ -51,8 +51,19 @@ At the end of the course you should know:
 
 -   What are density, distribution function, quantile functions?
 
--   What are data clustering techniques?
+-   How to scrape from the web?
 
--   What are the main techniques for association analysis?
+-   How to impute missing data?
+
+-   What are the main techniques for simulation?
 
 We will work with `R`, one the most loved statistical programming language. Do not be afraid if you do not have any programming experience, this is a beginner course. However, by the end of the program, we hope you will find useful the concept and practical tips we offer, and you will be able to solve your own real life data analysis issues.
+
+
+## Recommended reading
+
+-   [**Grolemund G & Wickham H:
+    R for Data Science**](http://r4ds.had.co.nz/)
+
+-   Gábor Békés & Gábor Kézdi: Data Analysis:
+    Patterns, Prediction and Causality

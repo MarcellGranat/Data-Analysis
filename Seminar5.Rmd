@@ -34,10 +34,12 @@ page <- read_html(url)
 page
 ```
 
+## Naviagtion on the page
+
 Now we can see the webpage as html codes in RStudio. This is the same what you get if you open developer view in your browser.
 
 ```{r fig.cap="Developer view in browser.", echo=FALSE}
-knitr::include_graphics("images/dev_mode.png")
+knitr::include_graphics("images/dev_mode.jpg")
 ```
 
 In the developer view, you can find the information that is relevant to you and select it using the `html_nodes` function. Alternatively, however, there is a simpler method. Add **Selector Gadget** to your browser. This add-on helps you find the ID of an item by clicking on it. This way, you can navigate without having web development skills. We can easily install this add-on in chrome and edge, just search for its name and the first hit should be this.
@@ -71,6 +73,8 @@ name_of_the_car <- my_node %>%
 
 name_of_the_car
 ```
+
+## Find the link
 
 ```{r}
 url_to_car <- my_node %>% 
@@ -140,7 +144,7 @@ cars_add_df <- cars_add_df %>%
 cars_add_df
 ```
 
-From now on, all we need is a column with links and addresses, but these are nested. The first cell of the `url_to_cars` column contains more than a hundred links. This nesting option opens a lot of new doors in the process of data manipulation. Use the `unnest` function to extract these columns.
+From now on, all we need is a column with links and titles, but these are nested. The first cell of the `url_to_cars` column contains more than a hundred links. This nesting option opens a lot of new doors in the process of data manipulation. Use the `unnest` function to extract these columns.
 
 ```{r}
 cars_add_df %>% 
@@ -150,7 +154,7 @@ cars_add_df %>%
 
 We can see that the nodes selection was not entirely perfect (usually not), as there were no matching elements or duplications left. 
 
-But now we can still remove the items that don't fit here. Fortunately, there is no link behind these, and if all columns are the same, `unique`[^You can also use it on lists and vectors.] will be our service.
+But now we can still remove the items that don't fit here. Fortunately, there is no link behind these, and if all columns are the same, `unique`^[You can also use it on lists and vectors.] will be our service.
 
 ```{r}
 cars_add_df <- cars_add_df %>% 
@@ -164,36 +168,39 @@ cars_add_df
 
 We now have a ready-made list of available cars and their links. Let’s visit one in the browser to see what’s next.
 
+## Data from tables
 
+```{r echo = FALSE, fig.cap="A random example of car ad."}
+knitr::include_graphics("images/example_car.jpg")
+```
 
-```{r eval = F}
-tables_form_page <- url_to_car %>% 
-  na.omit() %>% 
-  first() %>% 
-  read_html() %>% 
-  html_table(fill = TRUE) %>% 
-  keep(~ ncol(.) == 2)
+You can see that the data is tabulated on the page. This is the best option for us, as you don't have to search for the item ID on the page one by one (as before with the ad title). You can simply apply the `html_table` function to a loaded page, which collects all the tables on the it.
 
-# apply
+```{r}
+car_url <- "https://www.hasznaltauto.hu/szemelyauto/renault/zoe/renault_zoe_ze_q90_41_kwh_intens_aut_kmgari-szkonyv-17447302"
 
-cars
-apply(cars, 2, mean)
-x <- 1:10
-x
-lapply(x, function(x) x^2)
-sapply(x, function(x) x^2)
-map(x, ~ .^2) # same with tidy method
-map_dbl(x, ~ .^2)
+info_tables <- read_html(car_url) %>% 
+  html_table(fill = TRUE)
 
-# map
+info_tables
+```
 
-tables_form_page %>% 
-  map(~ set_names(., "x", "y"))
+What is the type of `info_tables`? Since it collects all the tables it can find from the page, it is a list of data frames.
 
-tables_form_page %>% 
-  map(~ set_names(., "x", "y")) %>% 
-  bind_rows() # merge the tables
+I will reveal that in some cases we will see that there are multiple tables on a page (certain types of info are taken separately) and we want to avoid an irrelevant single column table causing an error (step 1).
 
+Our goal is to be able to gather all the data about the car into a single two-column table. To join all two column tables (step 3), they must also have the same name (step 2).
+
+```{r}
+info_tables %>% 
+  keep(~ ncol(.) == 2) %>%  # keep tables that have 2 columns
+  map(set_names, "x", "y") %>%  # set the names to x and y for each table
+  bind_rows() # join the tables to one sinle table
+```
+
+We see that this works, the output now is one single table. Lets use this method on all the links. To do this, we need to write a function.
+
+```{r}
 get_data <- function(url_to_car) {
   url_to_car %>% 
     read_html() %>% 
@@ -202,99 +209,79 @@ get_data <- function(url_to_car) {
     map(~ set_names(., "x", "y")) %>% 
     bind_rows()
 }
+```
 
-get_data("https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/suzuki_swift_1.2_dualjet_hybrid_gl_plusz-16320785")
+```{r}
+get_data(car_url)
+```
 
-url_to_car %>% 
-  na.omit() %>% 
-  head() %>% 
-  map(get_data)
+The resulting table can all be collected in a single column of our table. Each cell will be a table that we all collected from a given link.
 
-"https://www.hasznaltauto.hu/talalatilista/PCOG2VG3R3RDADH5S56ACFHGCYPHPBIGNGCUMWTJLYVUGTIJJVRJJJGVADRN7V3JJNUVRHTKDXN7DSPRJFA44PXEYXFWSJSFAUAUW4QK23MIQBLDKMU7YGIN5IJ5JAK2NAXAL2FUODG7ROYUDNVFJQAQHIQPMNQYKCB4XDNSJ5APR2OBC4U3A5XZ77KY7CNBQNE6ZQM7FXUJAH6ATG5KKJWFWT634SKRQIB3WVNASV7VFEGFNOASN6ZEY4ZTP2CQ54Y5BE3UTSWFZQMMPQBQK4YQROGZYJAZLLBCDQABPKXBGKLWJSPWWVYF3VS6RMKUTMA3ZXMUV7RNBVZ27A4J26LHSOLMN6ZDRVP553POVKYTRH3E6AX3URTN2ET2U7PNJ6HOZNZKWBTZH4PANXWQHGJ7ZKDS6R4GQIRLWKV26RV5X5N5LL3TU5AEH2SFA7XJXIPGLS5F2IA53YAFAOXIEXHVI5YLDIICWUPBALQJ5JMPWA7KPAOGW5HTDM3CYOUEKSLQCHHJKKUWQN65C6YTIO5WNAEJKGNVE3UK3F6Z2RWGVMBHFCD5GQDLHAJHWF7ERO6KQ3VF5XJJLHDWOELOHLELM4YZ45PRHTDPGLT6CGFSWBZT2YGG3CNOO3RZXJHQ4BTO4Y6HKCK3GKIN3SU5OGR5EYUFGZ6FGSNDGVMRFJLV2WRR4PZTIEDAXQRS4JXPZ4K3XOI24OXXC5NUKM74SQQZIWGVLCHL644WYNBEJVYYNLWZT5LD3QABZUY44TSONNPVQ5G7XERHW2WGHELAD7PRQFUEHFXW4SUBZY3P3XHYEX7SDBSXWV22THSKV4OJ6M2LIJ7U7GHFYCO2RR4F4O4R3HDL62K3DO2CHMWXP5T7RFKA/page2"  
+This can also take a serious amount of time if we want to retrieve data from hundreds of cars at once. You should always use only a few. Use the `sample_n` function to randomly select a few lines to test if everything works as expected.
 
-url
 
-many_urls <- c("", str_c("/page", 2:10))
-many_urls
-
-tibble(url = str_c(url, many_urls)) %>%
-  sample_n(2) %>% 
+```{r}
+cars_add_df %>% 
+  sample_n(size = 3) %>% # remove this line at the end if everything is fine
   mutate(
-    page = map(url, read_html),
-    url_to_car = map(page, html_nodes, ".cim-kontener a"),
-    car = map(url_to_car, html_text),
-    url_to_car = map(url_to_car, html_attr, "href")
-  ) %>% 
-  select(car, url_to_car) %>% 
-  unnest(cols = c(car, url_to_car)) %>% 
-  filter(!is.na(url_to_car))
+    data = map(url_to_cars, get_data)
+  )
+```
 
-cars_df <- tibble(url = str_c(url, many_urls)) %>%
+Currently, our small table is also nested in a cell. Expand it!
+
+
+```{r echo = FALSE}
+set.seed(2021)
+```
+
+```{r}
+cars_add_df %>% 
+  sample_n(size = 3) %>% # remove this line at the end if everything is fine
   mutate(
-    page = map(url, read_html),
-    url_to_car = map(page, html_nodes, ".cim-kontener a"),
-    car = map(url_to_car, html_text),
-    url_to_car = map(url_to_car, html_attr, "href")
+    data = map(url_to_cars, get_data)
   ) %>% 
-  select(car, url_to_car) %>% 
-  unnest(cols = c(car, url_to_car)) %>% 
-  filter(!is.na(url_to_car))
+  unnest()
+```
 
-cars_df %>% 
-  sample_n(2) %>% 
+Now that we have a lot of rows instead of 3, the url in the first row is repeated as many times as the number of rows in the table next to it so far.
+
+Since the x column now has the variable name and the y column has the value of the variable, we need another super useful function we've seen before: `pivot_wider`!
+
+
+```{r echo = FALSE}
+set.seed(2021)
+```
+
+```{r}
+cars_add_df %>% 
+  sample_n(size = 3) %>% # remove this line at the end if everything is fine
   mutate(
-    data = map(url_to_car, get_data)
+    data = map(url_to_cars, get_data)
   ) %>% 
-  unnest(data) %>% 
-  select(-url_to_car)
+  unnest() %>% 
+  pivot_wider(names_from = "x", values_from = "y")
+```
 
-cars_data_df <- cars_df %>% 
+The last thing that causes this headache for this task is the special characters used in the Hungarian language. The `{janitor}`, on the other hand, handles this smoothly as well.
+
+```{r echo = FALSE}
+set.seed(2021)
+```
+
+We can now download all the cars if we wish!
+
+```{r}
+cars_data_df <- cars_add_df %>% 
   mutate(
-    data = map(url_to_car, get_data)
+    data = map(url_to_cars, get_data)
   ) %>% 
-  unnest(data) %>% 
-  pivot_wider(names_from = x, values_from = y) %>% 
-  janitor::clean_names()
-
-
-safely_read_html <- possibly(read_html, NA, quiet = FALSE)
-
-sleepy_read_html <- function(url) {
-  page <- safely_read_html(url)
-  
-  for (i in 1:3) {
-    if (is.na(page)) {
-      Sys.sleep(2)
-      message("I have to be patient! :)")
-      page <- safely_read_html(url)
-    }
-  }
-  
-  page
-}
-
-get_data <- function(url_to_car) {
-  page <- url_to_car %>% 
-    sleepy_read_html()
-  
-  if (!is.na(page)) {
-    
-  page %>% 
-    html_table(fill = TRUE) %>% 
-    keep(~ ncol(.) == 2) %>% 
-    map(~ set_names(., "x", "y")) %>% 
-    bind_rows()
-  } else {
-    tibble(x = as.character(NA), y = as.character(NA))
-  }
-}
-
-cars_data_df <- cars_df %>% 
-  unique() %>% 
-  mutate(
-    data = map(url_to_car, get_data)
-  ) %>% 
-  unnest(data) %>% 
-  pivot_wider(names_from = x, values_from = y) %>% 
+  unnest() %>% 
+  pivot_wider(names_from = "x", values_from = "y") %>% 
   janitor::clean_names()
 ```
+
+```{r}
+cars_data_df
+```
+

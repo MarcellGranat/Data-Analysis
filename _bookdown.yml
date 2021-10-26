@@ -7,24 +7,12 @@ output_dir: "docs"
 rmd_files:
   [
     "index.Rmd",
-
-    "introduction.Rmd",
-
     "Seminar1.Rmd",
-
     "Seminar2.Rmd",
-
     "Seminar3.Rmd",
-    
-    # seminar 4 is not added
-    
-    "Seminar5.Rmd"
-    # 
-    # "Lecture6.Rmd",
-    # "Seminar6.Rmd",
-    # 
-    # "Lecture7.Rmd",
-    # "Seminar7.Rmd",
+    "Seminar5.Rmd",
+    "Seminar6.Rmd",
+    "Seminar7.Rmd"
   ]
 
 

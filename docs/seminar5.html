@@ -45,11 +45,12 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="syllabus.html">Syllabus</a></li>
 <li><a class="" href="seminar1.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="" href="seminar2.html"><span class="header-section-number">2</span> Markdown &amp; Tidyverse</a></li>
 <li><a class="" href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></li>
 <li><a class="active" href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></li>
+<li><a class="" href="seminar6.html"><span class="header-section-number">5</span> Data imputation</a></li>
+<li><a class="" href="seminar7.html"><span class="header-section-number">6</span> Introduction to simulation</a></li>
 </ul>
 
         <div class="book-extra">
@@ -89,13 +90,22 @@ Figure 4.2: Click on the search button.
 <span class="co">#&gt; &lt;html lang="hu-HU"&gt;</span>
 <span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</span>
 <span class="co">#&gt; [2] &lt;body&gt;\n    &lt;script type="text/javascript"&gt;var utag_data = {"website":"ha ...</span></code></pre></div>
+<div id="naviagtion-on-the-page" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Naviagtion on the page<a class="anchor" aria-label="anchor" href="#naviagtion-on-the-page"><i class="fas fa-link"></i></a>
+</h2>
 <p>Now we can see the webpage as html codes in RStudio. This is the same what you get if you open developer view in your browser.</p>
-<pre><code>#&gt; Error in knitr::include_graphics("images/dev_mode.png"): Cannot find the file(s): "images/dev_mode.png"</code></pre>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-125"></span>
+<img src="images/dev_mode.jpg" alt="Developer view in browser." width="70%"><p class="caption">
+Figure 4.3: Developer view in browser.
+</p>
+</div>
 <p>In the developer view, you can find the information that is relevant to you and select it using the <code>html_nodes</code> function. Alternatively, however, there is a simpler method. Add <strong>Selector Gadget</strong> to your browser. This add-on helps you find the ID of an item by clicking on it. This way, you can navigate without having web development skills. We can easily install this add-on in chrome and edge, just search for its name and the first hit should be this.</p>
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-126"></span>
 <img src="images/selector_gadget_to_chrome.jpg" alt="Add Selector Gadget to your browser." width="70%"><p class="caption">
-Figure 4.3: Add Selector Gadget to your browser.
+Figure 4.4: Add Selector Gadget to your browser.
 </p>
 </div>
 <p>You can activate the add-on from the menu of your browser.</p>
@@ -103,37 +113,372 @@ Figure 4.3: Add Selector Gadget to your browser.
 <div class="figure" style="text-align: center">
 <span style="display:block;" id="fig:unnamed-chunk-127"></span>
 <img src="images/selector_gadget_to_use.gif" alt="Using Selector Gadget to find IDs for the car ads." width="70%"><p class="caption">
-Figure 4.4: Using Selector Gadget to find IDs for the car ads.
+Figure 4.5: Using Selector Gadget to find IDs for the car ads.
 </p>
 </div>
 <p>If you have the ID you are looking for, put it in the <code>html_nodes</code> function. The code above selects the ad titles from the page.</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_node</span> <span class="op">&lt;-</span> <span class="va">page</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rvest.tidyverse.org/reference/rename.html">html_nodes</a></span><span class="op">(</span><span class="st">".cim-kontener a"</span><span class="op">)</span>
-<span class="co">#&gt; Error in xml_ns.xml_document(x): external pointer is not valid</span>
 
 <span class="va">my_node</span>
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'my_node' not found</span></code></pre></div>
+<span class="co">#&gt; {xml_nodeset (157)}</span>
+<span class="co">#&gt;  [1] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt;  [2] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/ssangyong/kora ...</span>
+<span class="co">#&gt;  [3] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/ssangyong/kora ...</span>
+<span class="co">#&gt;  [4] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt;  [5] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/citroen/grand_ ...</span>
+<span class="co">#&gt;  [6] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/citroen/grand_ ...</span>
+<span class="co">#&gt;  [7] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt;  [8] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/s ...</span>
+<span class="co">#&gt;  [9] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/s ...</span>
+<span class="co">#&gt; [10] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt; [11] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/peugeot/208/pe ...</span>
+<span class="co">#&gt; [12] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/peugeot/208/pe ...</span>
+<span class="co">#&gt; [13] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt; [14] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/opel/combo/ope ...</span>
+<span class="co">#&gt; [15] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/opel/combo/ope ...</span>
+<span class="co">#&gt; [16] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt; [17] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/opel/insignia/ ...</span>
+<span class="co">#&gt; [18] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/opel/insignia/ ...</span>
+<span class="co">#&gt; [19] &lt;a class="btn hagomb hagomb-nagy parkoloBtn parkolo-nolabel" data-hirkod ...</span>
+<span class="co">#&gt; [20] &lt;a class="" href="https://www.hasznaltauto.hu/szemelyauto/opel/zafira_li ...</span>
+<span class="co">#&gt; ...</span></code></pre></div>
 <p>But this is still an html_code.If we want to keep the text of the element, we use the <code>html_text</code> function, but if we are interested in the url it points to, we use the<code>html_attr</code> function. In the latter case, it is always necessary to specify the <code>href</code> element, ie which web page you are referring to.</p>
-<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">name_of_the_car</span> <span class="op">&lt;-</span> <span class="va">my_node</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Error in xml_text(x, trim = trim): object 'my_node' not found</span>
 
 <span class="va">name_of_the_car</span>
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'name_of_the_car' not found</span></code></pre></div>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<span class="co">#&gt;   [1] "P"                                                                                                                 </span>
+<span class="co">#&gt;   [2] "SSANGYONG KORANDO 1.5 Turbo e-XGI Style+"                                                                          </span>
+<span class="co">#&gt;   [3] "SSANGYONG KORANDO 1.5 Turbo e-XGI Style+"                                                                          </span>
+<span class="co">#&gt;   [4] "P"                                                                                                                 </span>
+<span class="co">#&gt;   [5] "CITROEN GRAND C4 SPACETOURER C4Spacetourer 1.2 PureTech Live S&amp;S E6.3"                                             </span>
+<span class="co">#&gt;   [6] "CITROEN GRAND C4 SPACETOURER C4Spacetourer 1.2 PureTech Live S&amp;S E6.3"                                             </span>
+<span class="co">#&gt;   [7] "P"                                                                                                                 </span>
+<span class="co">#&gt;   [8] "SUZUKI SWIFT 1.2 Dualjet Hybrid GL+"                                                                               </span>
+<span class="co">#&gt;   [9] "SUZUKI SWIFT 1.2 Dualjet Hybrid GL+"                                                                               </span>
+<span class="co">#&gt;  [10] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [11] "PEUGEOT 208 1.2 PureTech Active Active Pack TESZTAUTÓ!"                                                            </span>
+<span class="co">#&gt;  [12] "PEUGEOT 208 1.2 PureTech Active Active Pack TESZTAUTÓ!"                                                            </span>
+<span class="co">#&gt;  [13] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [14] "OPEL COMBO Life 1.2 T Enjoy 2.0t XL (7 személyes ) CÉGEKNEK 0.5%-OS ÜGYLETI KAMATTAL!"                             </span>
+<span class="co">#&gt;  [15] "OPEL COMBO Life 1.2 T Enjoy 2.0t XL (7 személyes ) CÉGEKNEK 0.5%-OS ÜGYLETI KAMATTAL!"                             </span>
+<span class="co">#&gt;  [16] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [17] "OPEL INSIGNIA Grand Sport 1.4 T Business Edition tesztautó"                                                        </span>
+<span class="co">#&gt;  [18] "OPEL INSIGNIA Grand Sport 1.4 T Business Edition tesztautó"                                                        </span>
+<span class="co">#&gt;  [19] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [20] "OPEL ZAFIRA LIFE 1.5 D Business Edition S (9 személyes ) 5 ÉV GARANCIA. Rendelhető !"                              </span>
+<span class="co">#&gt;  [21] "OPEL ZAFIRA LIFE 1.5 D Business Edition S (9 személyes ) 5 ÉV GARANCIA. Rendelhető !"                              </span>
+<span class="co">#&gt;  [22] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [23] "SUZUKI VITARA 1.4 Hybrid GL+"                                                                                      </span>
+<span class="co">#&gt;  [24] "SUZUKI VITARA 1.4 Hybrid GL+"                                                                                      </span>
+<span class="co">#&gt;  [25] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [26] "SUZUKI IGNIS 1.2 Hybrid GL+"                                                                                       </span>
+<span class="co">#&gt;  [27] "SUZUKI IGNIS 1.2 Hybrid GL+"                                                                                       </span>
+<span class="co">#&gt;  [28] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [29] "CITROEN C5 AIRCROSS 1.2 PureTech Feel"                                                                             </span>
+<span class="co">#&gt;  [30] "CITROEN C5 AIRCROSS 1.2 PureTech Feel"                                                                             </span>
+<span class="co">#&gt;  [31] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [32] "OPEL CROSSLAND 1.2 Edition"                                                                                        </span>
+<span class="co">#&gt;  [33] "OPEL CROSSLAND 1.2 Edition"                                                                                        </span>
+<span class="co">#&gt;  [34] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [35] "FORD MONDEO 2.0 TDCi Business KULTRÁLT ESZTÉTIKUM. MEGBÍZHATÓ MŰSZAKI ÁLLAPOT"                                     </span>
+<span class="co">#&gt;  [36] "FORD MONDEO 2.0 TDCi Business KULTRÁLT ESZTÉTIKUM. MEGBÍZHATÓ MŰSZAKI ÁLLAPOT"                                     </span>
+<span class="co">#&gt;  [37] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [38] "VOLKSWAGEN GOLF VII 2.0 TDI Highline GYÁRI FÉNYEZÉS. MAGASAN EXTRÁZOTT. SPORT BELSŐVEL ÉS HANGULAT VILÁGÍTÁSSAL!!!"</span>
+<span class="co">#&gt;  [39] "VOLKSWAGEN GOLF VII 2.0 TDI Highline GYÁRI FÉNYEZÉS. MAGASAN EXTRÁZOTT. SPORT BELSŐVEL ÉS HANGULAT VILÁGÍTÁSSAL!!!"</span>
+<span class="co">#&gt;  [40] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [41] "CITROEN C4 e-C4 50kWh Feel Plus Elektromos autó támogatással: 9.490.000 Ft"                                        </span>
+<span class="co">#&gt;  [42] "CITROEN C4 e-C4 50kWh Feel Plus Elektromos autó támogatással: 9.490.000 Ft"                                        </span>
+<span class="co">#&gt;  [43] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [44] "SSANGYONG TIVOLI 1.5 GDi-T Style"                                                                                  </span>
+<span class="co">#&gt;  [45] "SSANGYONG TIVOLI 1.5 GDi-T Style"                                                                                  </span>
+<span class="co">#&gt;  [46] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [47] "BMW I3 120Ah (Automata) ZÖLD RENDSZÁM - Navigáció - Hővédő üvegezés - Hőszivattyú"                                 </span>
+<span class="co">#&gt;  [48] "BMW I3 120Ah (Automata) ZÖLD RENDSZÁM - Navigáció - Hővédő üvegezés - Hőszivattyú"                                 </span>
+<span class="co">#&gt;  [49] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [50] "OPEL MOKKA 1.2 T Edition CÉGEKNEK 0.5%-OS ÜGYLETI KAMATTAL!"                                                       </span>
+<span class="co">#&gt;  [51] "OPEL MOKKA 1.2 T Edition CÉGEKNEK 0.5%-OS ÜGYLETI KAMATTAL!"                                                       </span>
+<span class="co">#&gt;  [52] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [53] "SSANGYONG REXTON 2.2 e-XDI Premium 4WD (Automata) (7 személyes )"                                                  </span>
+<span class="co">#&gt;  [54] "SSANGYONG REXTON 2.2 e-XDI Premium 4WD (Automata) (7 személyes )"                                                  </span>
+<span class="co">#&gt;  [55] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [56] "BMW 520d xDrive (Automata) M Sport - Lézervilágítás - Napfénytető - Elektr. memóriás ülések - Service Inclu"       </span>
+<span class="co">#&gt;  [57] "BMW 520d xDrive (Automata) M Sport - Lézervilágítás - Napfénytető - Elektr. memóriás ülések - Service Inclu"       </span>
+<span class="co">#&gt;  [58] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [59] "CITROEN C3 1.2 PureTech Live S&amp;S"                                                                                  </span>
+<span class="co">#&gt;  [60] "CITROEN C3 1.2 PureTech Live S&amp;S"                                                                                  </span>
+<span class="co">#&gt;  [61] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [62] "FORD KUGA 1.5 EcoBoost Titanium Technology ELSŐ TULAJDONOSTÓL. GARANTÁLT KILÓMÉTER. VÉGIG VEZETETT SZERVIZKÖNYV!!!"</span>
+<span class="co">#&gt;  [63] "FORD KUGA 1.5 EcoBoost Titanium Technology ELSŐ TULAJDONOSTÓL. GARANTÁLT KILÓMÉTER. VÉGIG VEZETETT SZERVIZKÖNYV!!!"</span>
+<span class="co">#&gt;  [64] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [65] "OPEL CORSA F 1.2 Edition CÉGEKNEK 0.5%-OS ÜGYLETI KAMATTAL!"                                                       </span>
+<span class="co">#&gt;  [66] "OPEL CORSA F 1.2 Edition CÉGEKNEK 0.5%-OS ÜGYLETI KAMATTAL!"                                                       </span>
+<span class="co">#&gt;  [67] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [68] "NISSAN QASHQAI 1.3 DIG-T Acenta Készletkisöprés a Gablini M3-ban!"                                                 </span>
+<span class="co">#&gt;  [69] "NISSAN QASHQAI 1.3 DIG-T Acenta Készletkisöprés a Gablini M3-ban!"                                                 </span>
+<span class="co">#&gt;  [70] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [71] "NISSAN JUKE 1.0 DIG-T Acenta + Comfort csomag. Új Juke készletről!!! Gablini M3"                                   </span>
+<span class="co">#&gt;  [72] "NISSAN JUKE 1.0 DIG-T Acenta + Comfort csomag. Új Juke készletről!!! Gablini M3"                                   </span>
+<span class="co">#&gt;  [73] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [74] "NISSAN MICRA 1.0 IG-T Acenta"                                                                                      </span>
+<span class="co">#&gt;  [75] "NISSAN MICRA 1.0 IG-T Acenta"                                                                                      </span>
+<span class="co">#&gt;  [76] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [77] "OPEL ASTRA K 1.2 T Business Edition"                                                                               </span>
+<span class="co">#&gt;  [78] "OPEL ASTRA K 1.2 T Business Edition"                                                                               </span>
+<span class="co">#&gt;  [79] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [80] "NISSAN LEAF Acenta 40kWh (Automata) Készletről azonnal Zuglóban is! Több színben!"                                 </span>
+<span class="co">#&gt;  [81] "NISSAN LEAF Acenta 40kWh (Automata) Készletről azonnal Zuglóban is! Több színben!"                                 </span>
+<span class="co">#&gt;  [82] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [83] "VOLKSWAGEN PASSAT VIII 2.0 TDI Highline BMT ELSŐ TULAJDONOSTÓL. GYÁRI FÉNYEZÉS. GARANTÁLT KILÓMÉTER!!!"            </span>
+<span class="co">#&gt;  [84] "VOLKSWAGEN PASSAT VIII 2.0 TDI Highline BMT ELSŐ TULAJDONOSTÓL. GYÁRI FÉNYEZÉS. GARANTÁLT KILÓMÉTER!!!"            </span>
+<span class="co">#&gt;  [85] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [86] "DACIA DUSTER 1.5 Blue dCi Essential ELSŐ TULAJDONOSTÓL. VALÓS KILÓMÉTERREL. SZALON ÁLLAPOT!!!"                     </span>
+<span class="co">#&gt;  [87] "DACIA DUSTER 1.5 Blue dCi Essential ELSŐ TULAJDONOSTÓL. VALÓS KILÓMÉTERREL. SZALON ÁLLAPOT!!!"                     </span>
+<span class="co">#&gt;  [88] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [89] "OPEL GRANDLAND X 1.2 T Business Edition"                                                                           </span>
+<span class="co">#&gt;  [90] "OPEL GRANDLAND X 1.2 T Business Edition"                                                                           </span>
+<span class="co">#&gt;  [91] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [92] "HYUNDAI TUCSON 1.6 T-GDI Travel DCT Magyarországi! 1. Tulajdonos! Gyári garanciális! Sérülésmentes!"               </span>
+<span class="co">#&gt;  [93] "HYUNDAI TUCSON 1.6 T-GDI Travel DCT Magyarországi! 1. Tulajdonos! Gyári garanciális! Sérülésmentes!"               </span>
+<span class="co">#&gt;  [94] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [95] "MAZDA 2 1.5 Attraction Magyarországi!31.000KM!1-tulajdonos!"                                                       </span>
+<span class="co">#&gt;  [96] "MAZDA 2 1.5 Attraction Magyarországi!31.000KM!1-tulajdonos!"                                                       </span>
+<span class="co">#&gt;  [97] "P"                                                                                                                 </span>
+<span class="co">#&gt;  [98] "TOYOTA AVENSIS Wagon 1.8 Sol Magyarországi! 1. Tulajdonos! Végig vezetett szervizkönyv!"                           </span>
+<span class="co">#&gt;  [99] "TOYOTA AVENSIS Wagon 1.8 Sol Magyarországi! 1. Tulajdonos! Végig vezetett szervizkönyv!"                           </span>
+<span class="co">#&gt; [100] "P"                                                                                                                 </span>
+<span class="co">#&gt; [101] "HONDA CR-V 2.2 i-DTEC Lifestyle Magyarországi!Kitűnő állapot!Már az új 4. generációs CR-V!"                        </span>
+<span class="co">#&gt; [102] "HONDA CR-V 2.2 i-DTEC Lifestyle Magyarországi!Kitűnő állapot!Már az új 4. generációs CR-V!"                        </span>
+<span class="co">#&gt; [103] "P"                                                                                                                 </span>
+<span class="co">#&gt; [104] "FORD FIESTA 1.4 Colourline Magyarországi!99000Km!Szervizkönyv!"                                                    </span>
+<span class="co">#&gt; [105] "FORD FIESTA 1.4 Colourline Magyarországi!99000Km!Szervizkönyv!"                                                    </span>
+<span class="co">#&gt; [106] "P"                                                                                                                 </span>
+<span class="co">#&gt; [107] "OPEL VIVARO 2.0 D Combi L 2022-ben érkezik megérkezik"                                                             </span>
+<span class="co">#&gt; [108] "OPEL VIVARO 2.0 D Combi L 2022-ben érkezik megérkezik"                                                             </span>
+<span class="co">#&gt; [109] "P"                                                                                                                 </span>
+<span class="co">#&gt; [110] "CITROEN C3 AIRCROSS 1.2 PureTech Feel S&amp;S"                                                                         </span>
+<span class="co">#&gt; [111] "CITROEN C3 AIRCROSS 1.2 PureTech Feel S&amp;S"                                                                         </span>
+<span class="co">#&gt; [112] "P"                                                                                                                 </span>
+<span class="co">#&gt; [113] "SKODA OCTAVIA 1.8 TSI Style DSG Magyarországi! Sérülésmentes! Vezetett szervizkönyv!"                              </span>
+<span class="co">#&gt; [114] "SKODA OCTAVIA 1.8 TSI Style DSG Magyarországi! Sérülésmentes! Vezetett szervizkönyv!"                              </span>
+<span class="co">#&gt; [115] "P"                                                                                                                 </span>
+<span class="co">#&gt; [116] "FIAT 500 1.2 8V Lounge Magyarországi!33.500KM!Újszerű!"                                                            </span>
+<span class="co">#&gt; [117] "FIAT 500 1.2 8V Lounge Magyarországi!33.500KM!Újszerű!"                                                            </span>
+<span class="co">#&gt; [118] "P"                                                                                                                 </span>
+<span class="co">#&gt; [119] "MERCEDES-BENZ C 180 9G-TRONIC Magyaro.-i Garanciális!"                                                             </span>
+<span class="co">#&gt; [120] "P"                                                                                                                 </span>
+<span class="co">#&gt; [121] "VOLVO XC40 2.0 [T4] R-Design AWD Geartronic Magyaro.-i első üzembeh"                                               </span>
+<span class="co">#&gt; [122] "P"                                                                                                                 </span>
+<span class="co">#&gt; [123] "MERCEDES-BENZ GLS 500 4Matic Aut. (7 sz.) Magyaro.-i Garanciális! ISP!"                                            </span>
+<span class="co">#&gt; [124] "P"                                                                                                                 </span>
+<span class="co">#&gt; [125] "MERCEDES-BENZ GLC-OSZTÁLY GLC 400 d 4Matic 9G-TRONIC Nettó ár:18 889 763Ft"                                        </span>
+<span class="co">#&gt; [126] "P"                                                                                                                 </span>
+<span class="co">#&gt; [127] "MERCEDES-BENZ A 180 (BlueEFFICIENCY) Urban Akár +1 Év Garancia!"                                                   </span>
+<span class="co">#&gt; [128] "P"                                                                                                                 </span>
+<span class="co">#&gt; [129] "VOLVO XC60 2.4 D Kinetic Geartronic AWD Magyarországi. végig vezetett szervizkönyv!"                               </span>
+<span class="co">#&gt; [130] "P"                                                                                                                 </span>
+<span class="co">#&gt; [131] "OPEL CROSSLAND X 1.2 Start-Stop Enjoy Nyitva vagyunk!"                                                             </span>
+<span class="co">#&gt; [132] "P"                                                                                                                 </span>
+<span class="co">#&gt; [133] "OPEL CROSSLAND X 1.2 Start-Stop Enjoy CÉGEKNEK AKÁR 0.5 % -os FIX Ügyleti FINANSZÍROZÁS!"                          </span>
+<span class="co">#&gt; [134] "P"                                                                                                                 </span>
+<span class="co">#&gt; [135] "OPEL ASTRA K 1.2 T BEST Készletsöprő akció az Opel Wallis-nál! Nyitva vagyunk!"                                    </span>
+<span class="co">#&gt; [136] "P"                                                                                                                 </span>
+<span class="co">#&gt; [137] "OPEL ASTRA K 1.2 T BEST Készletsöprő akció az Opel Wallis-nál! Nyitva vagyunk!"                                    </span>
+<span class="co">#&gt; [138] "P"                                                                                                                 </span>
+<span class="co">#&gt; [139] "OPEL CROSSLAND X 1.2 Start-Stop Enjoy CÉGEKNEK AKÁR 0.5 % -os FIX Ügyleti FINANSZÍROZÁS!"                          </span>
+<span class="co">#&gt; [140] "P"                                                                                                                 </span>
+<span class="co">#&gt; [141] "OPEL ASTRA K Sports Tourer 1.2 T GS Line MAGYARORSZÁGI GYÁRI GARANCIA MAGAS FELSZERELTSÉG"                         </span>
+<span class="co">#&gt; [142] "P"                                                                                                                 </span>
+<span class="co">#&gt; [143] "OPEL ASTRA K 1.2 T Business Edition Opel Wallistól"                                                                </span>
+<span class="co">#&gt; [144] "P"                                                                                                                 </span>
+<span class="co">#&gt; [145] "OPEL CROSSLAND 1.2 Edition // Demo Autó //"                                                                        </span>
+<span class="co">#&gt; [146] "P"                                                                                                                 </span>
+<span class="co">#&gt; [147] "OPEL ASTRA K Sports Tourer 1.2 T GS Line GYÁRI GARANCIA MAGYARORSZÁGI ÜZEMBEHELYEZÉS"                              </span>
+<span class="co">#&gt; [148] "P"                                                                                                                 </span>
+<span class="co">#&gt; [149] "OPEL CROSSLAND 1.2 Business Edition Megbízható társ kevés km-rel"                                                  </span>
+<span class="co">#&gt; [150] "P"                                                                                                                 </span>
+<span class="co">#&gt; [151] "OPEL ASTRA K Sports Tourer 1.2 T Edition MAGYARORSZÁGI ÜZEMBE HELYEZÉS GYÁRI GARANCIA"                             </span>
+<span class="co">#&gt; [152] "P"                                                                                                                 </span>
+<span class="co">#&gt; [153] "OPEL CROSSLAND X 1.2 T Start-Stop Enjoy CÉGEKNEK AKÁR 0.5 % -os FIX Ügyleti FINANSZÍROZÁS!"                        </span>
+<span class="co">#&gt; [154] "P"                                                                                                                 </span>
+<span class="co">#&gt; [155] "MERCEDES-BENZ B 180 Style MO-I.NAVIGÁCIÓ.66500km"                                                                  </span>
+<span class="co">#&gt; [156] "P"                                                                                                                 </span>
+<span class="co">#&gt; [157] "BMW 218d (Automata)"</span></code></pre></div>
+</div>
+<div id="find-the-link" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Find the link<a class="anchor" aria-label="anchor" href="#find-the-link"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">url_to_car</span> <span class="op">&lt;-</span> <span class="va">my_node</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_attr.html">html_attr</a></span><span class="op">(</span><span class="st">"href"</span><span class="op">)</span>
-<span class="co">#&gt; Error in xml_attr(x, name, default = default): object 'my_node' not found</span>
 
 <span class="va">url_to_car</span>
-<span class="co">#&gt; Error in eval(expr, envir, enclos): object 'url_to_car' not found</span></code></pre></div>
+<span class="co">#&gt;   [1] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;   [2] "https://www.hasznaltauto.hu/szemelyauto/ssangyong/korando/ssangyong_korando_1.5_turbo_e-xgi_style_plusz-14803978"                                                                  </span>
+<span class="co">#&gt;   [3] "https://www.hasznaltauto.hu/szemelyauto/ssangyong/korando/ssangyong_korando_1.5_turbo_e-xgi_style_plusz-14803978"                                                                  </span>
+<span class="co">#&gt;   [4] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;   [5] "https://www.hasznaltauto.hu/szemelyauto/citroen/grand_c4_spacetourer/citroen_grand_c4_spacetourer_c4spacetourer_1.2_puretech_live_ss_e6.3-15315018"                                </span>
+<span class="co">#&gt;   [6] "https://www.hasznaltauto.hu/szemelyauto/citroen/grand_c4_spacetourer/citroen_grand_c4_spacetourer_c4spacetourer_1.2_puretech_live_ss_e6.3-15315018"                                </span>
+<span class="co">#&gt;   [7] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;   [8] "https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/suzuki_swift_1.2_dualjet_hybrid_gl_plusz-16320785"                                                                            </span>
+<span class="co">#&gt;   [9] "https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/suzuki_swift_1.2_dualjet_hybrid_gl_plusz-16320785"                                                                            </span>
+<span class="co">#&gt;  [10] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [11] "https://www.hasznaltauto.hu/szemelyauto/peugeot/208/peugeot_208_1.2_puretech_active_active_pack_tesztauto-16706957"                                                                </span>
+<span class="co">#&gt;  [12] "https://www.hasznaltauto.hu/szemelyauto/peugeot/208/peugeot_208_1.2_puretech_active_active_pack_tesztauto-16706957"                                                                </span>
+<span class="co">#&gt;  [13] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [14] "https://www.hasznaltauto.hu/szemelyauto/opel/combo/opel_combo_life_1.2_t_enjoy_2.0t_xl_7_szemelyes_cegeknek_0.5-os_ugyleti_kamattal-16776038"                                      </span>
+<span class="co">#&gt;  [15] "https://www.hasznaltauto.hu/szemelyauto/opel/combo/opel_combo_life_1.2_t_enjoy_2.0t_xl_7_szemelyes_cegeknek_0.5-os_ugyleti_kamattal-16776038"                                      </span>
+<span class="co">#&gt;  [16] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [17] "https://www.hasznaltauto.hu/szemelyauto/opel/insignia/opel_insignia_grand_sport_1.4_t_business_edition_tesztauto-16791117"                                                         </span>
+<span class="co">#&gt;  [18] "https://www.hasznaltauto.hu/szemelyauto/opel/insignia/opel_insignia_grand_sport_1.4_t_business_edition_tesztauto-16791117"                                                         </span>
+<span class="co">#&gt;  [19] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [20] "https://www.hasznaltauto.hu/szemelyauto/opel/zafira_life/opel_zafira_life_1.5_d_business_edition_s_9_szemelyes_5_ev_garancia_rendelheto-16812389"                                  </span>
+<span class="co">#&gt;  [21] "https://www.hasznaltauto.hu/szemelyauto/opel/zafira_life/opel_zafira_life_1.5_d_business_edition_s_9_szemelyes_5_ev_garancia_rendelheto-16812389"                                  </span>
+<span class="co">#&gt;  [22] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [23] "https://www.hasznaltauto.hu/szemelyauto/suzuki/vitara/suzuki_vitara_1.4_hybrid_gl_plusz-16844171"                                                                                  </span>
+<span class="co">#&gt;  [24] "https://www.hasznaltauto.hu/szemelyauto/suzuki/vitara/suzuki_vitara_1.4_hybrid_gl_plusz-16844171"                                                                                  </span>
+<span class="co">#&gt;  [25] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [26] "https://www.hasznaltauto.hu/szemelyauto/suzuki/ignis/suzuki_ignis_1.2_hybrid_gl_plusz-16847562"                                                                                    </span>
+<span class="co">#&gt;  [27] "https://www.hasznaltauto.hu/szemelyauto/suzuki/ignis/suzuki_ignis_1.2_hybrid_gl_plusz-16847562"                                                                                    </span>
+<span class="co">#&gt;  [28] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [29] "https://www.hasznaltauto.hu/szemelyauto/citroen/c5_aircross/citroen_c5_aircross_1.2_puretech_feel-16930069"                                                                        </span>
+<span class="co">#&gt;  [30] "https://www.hasznaltauto.hu/szemelyauto/citroen/c5_aircross/citroen_c5_aircross_1.2_puretech_feel-16930069"                                                                        </span>
+<span class="co">#&gt;  [31] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [32] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland/opel_crossland_1.2_edition-17018658"                                                                                        </span>
+<span class="co">#&gt;  [33] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland/opel_crossland_1.2_edition-17018658"                                                                                        </span>
+<span class="co">#&gt;  [34] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [35] "https://www.hasznaltauto.hu/szemelyauto/ford/mondeo/ford_mondeo_2.0_tdci_business_kultralt_esztetikum_megbizhato_muszaki_allapot-17040232"                                         </span>
+<span class="co">#&gt;  [36] "https://www.hasznaltauto.hu/szemelyauto/ford/mondeo/ford_mondeo_2.0_tdci_business_kultralt_esztetikum_megbizhato_muszaki_allapot-17040232"                                         </span>
+<span class="co">#&gt;  [37] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [38] "https://www.hasznaltauto.hu/szemelyauto/volkswagen/golf_vii/volkswagen_golf_vii_2.0_tdi_highline_gyari_fenyezes_magasan_extrazott_sport_belsovel_es_hangulat_vilagitassal-17055891"</span>
+<span class="co">#&gt;  [39] "https://www.hasznaltauto.hu/szemelyauto/volkswagen/golf_vii/volkswagen_golf_vii_2.0_tdi_highline_gyari_fenyezes_magasan_extrazott_sport_belsovel_es_hangulat_vilagitassal-17055891"</span>
+<span class="co">#&gt;  [40] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [41] "https://www.hasznaltauto.hu/szemelyauto/citroen/c4/citroen_c4_e-c4_50kwh_feel_plus_elektromos_auto_tamogatassal_9.490.000_ft-17066667"                                             </span>
+<span class="co">#&gt;  [42] "https://www.hasznaltauto.hu/szemelyauto/citroen/c4/citroen_c4_e-c4_50kwh_feel_plus_elektromos_auto_tamogatassal_9.490.000_ft-17066667"                                             </span>
+<span class="co">#&gt;  [43] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [44] "https://www.hasznaltauto.hu/szemelyauto/ssangyong/tivoli/ssangyong_tivoli_1.5_gdi-t_style-17067259"                                                                                </span>
+<span class="co">#&gt;  [45] "https://www.hasznaltauto.hu/szemelyauto/ssangyong/tivoli/ssangyong_tivoli_1.5_gdi-t_style-17067259"                                                                                </span>
+<span class="co">#&gt;  [46] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [47] "https://www.hasznaltauto.hu/szemelyauto/bmw/i3/bmw_i3_120ah_automata_zold_rendszam_-_navigacio_-_hovedo_uvegezes_-_hoszivattyu-17068472"                                           </span>
+<span class="co">#&gt;  [48] "https://www.hasznaltauto.hu/szemelyauto/bmw/i3/bmw_i3_120ah_automata_zold_rendszam_-_navigacio_-_hovedo_uvegezes_-_hoszivattyu-17068472"                                           </span>
+<span class="co">#&gt;  [49] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [50] "https://www.hasznaltauto.hu/szemelyauto/opel/mokka/opel_mokka_1.2_t_edition_cegeknek_0.5-os_ugyleti_kamattal-17092798"                                                             </span>
+<span class="co">#&gt;  [51] "https://www.hasznaltauto.hu/szemelyauto/opel/mokka/opel_mokka_1.2_t_edition_cegeknek_0.5-os_ugyleti_kamattal-17092798"                                                             </span>
+<span class="co">#&gt;  [52] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [53] "https://www.hasznaltauto.hu/szemelyauto/ssangyong/rexton/ssangyong_rexton_2.2_e-xdi_premium_4wd_automata_7_szemelyes-17113913"                                                     </span>
+<span class="co">#&gt;  [54] "https://www.hasznaltauto.hu/szemelyauto/ssangyong/rexton/ssangyong_rexton_2.2_e-xdi_premium_4wd_automata_7_szemelyes-17113913"                                                     </span>
+<span class="co">#&gt;  [55] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [56] "https://www.hasznaltauto.hu/szemelyauto/bmw/520/bmw_520d_xdrive_automata_m_sport_-_lezervilagitas_-_napfenyteto_-_elektr_memorias_ulesek_-_service_inclu-17122247"                 </span>
+<span class="co">#&gt;  [57] "https://www.hasznaltauto.hu/szemelyauto/bmw/520/bmw_520d_xdrive_automata_m_sport_-_lezervilagitas_-_napfenyteto_-_elektr_memorias_ulesek_-_service_inclu-17122247"                 </span>
+<span class="co">#&gt;  [58] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [59] "https://www.hasznaltauto.hu/szemelyauto/citroen/c3/citroen_c3_1.2_puretech_live_ss-17183148"                                                                                       </span>
+<span class="co">#&gt;  [60] "https://www.hasznaltauto.hu/szemelyauto/citroen/c3/citroen_c3_1.2_puretech_live_ss-17183148"                                                                                       </span>
+<span class="co">#&gt;  [61] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [62] "https://www.hasznaltauto.hu/szemelyauto/ford/kuga/ford_kuga_1.5_ecoboost_titanium_technology_elso_tulajdonostol_garantalt_kilometer_vegig_vezetett_szervizkonyv-17356145"          </span>
+<span class="co">#&gt;  [63] "https://www.hasznaltauto.hu/szemelyauto/ford/kuga/ford_kuga_1.5_ecoboost_titanium_technology_elso_tulajdonostol_garantalt_kilometer_vegig_vezetett_szervizkonyv-17356145"          </span>
+<span class="co">#&gt;  [64] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [65] "https://www.hasznaltauto.hu/szemelyauto/opel/corsa_f/opel_corsa_f_1.2_edition_cegeknek_0.5-os_ugyleti_kamattal-17415708"                                                           </span>
+<span class="co">#&gt;  [66] "https://www.hasznaltauto.hu/szemelyauto/opel/corsa_f/opel_corsa_f_1.2_edition_cegeknek_0.5-os_ugyleti_kamattal-17415708"                                                           </span>
+<span class="co">#&gt;  [67] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [68] "https://www.hasznaltauto.hu/szemelyauto/nissan/qashqai/nissan_qashqai_1.3_dig-t_acenta_keszletkisopres_a_gablini_m3-ban-17435860"                                                  </span>
+<span class="co">#&gt;  [69] "https://www.hasznaltauto.hu/szemelyauto/nissan/qashqai/nissan_qashqai_1.3_dig-t_acenta_keszletkisopres_a_gablini_m3-ban-17435860"                                                  </span>
+<span class="co">#&gt;  [70] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [71] "https://www.hasznaltauto.hu/szemelyauto/nissan/juke/nissan_juke_1.0_dig-t_acenta_plusz_comfort_csomag_uj_juke_keszletrol_gablini_m3-17436209"                                      </span>
+<span class="co">#&gt;  [72] "https://www.hasznaltauto.hu/szemelyauto/nissan/juke/nissan_juke_1.0_dig-t_acenta_plusz_comfort_csomag_uj_juke_keszletrol_gablini_m3-17436209"                                      </span>
+<span class="co">#&gt;  [73] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [74] "https://www.hasznaltauto.hu/szemelyauto/nissan/micra/nissan_micra_1.0_ig-t_acenta-17436352"                                                                                        </span>
+<span class="co">#&gt;  [75] "https://www.hasznaltauto.hu/szemelyauto/nissan/micra/nissan_micra_1.0_ig-t_acenta-17436352"                                                                                        </span>
+<span class="co">#&gt;  [76] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [77] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_1.2_t_business_edition-17443440"                                                                                 </span>
+<span class="co">#&gt;  [78] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_1.2_t_business_edition-17443440"                                                                                 </span>
+<span class="co">#&gt;  [79] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [80] "https://www.hasznaltauto.hu/szemelyauto/nissan/leaf/nissan_leaf_acenta_40kwh_automata_keszletrol_azonnal_zugloban_is_tobb_szinben-17444263"                                        </span>
+<span class="co">#&gt;  [81] "https://www.hasznaltauto.hu/szemelyauto/nissan/leaf/nissan_leaf_acenta_40kwh_automata_keszletrol_azonnal_zugloban_is_tobb_szinben-17444263"                                        </span>
+<span class="co">#&gt;  [82] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [83] "https://www.hasznaltauto.hu/szemelyauto/volkswagen/passat_viii/volkswagen_passat_viii_2.0_tdi_highline_bmt_elso_tulajdonostol_gyari_fenyezes_garantalt_kilometer-17447909"         </span>
+<span class="co">#&gt;  [84] "https://www.hasznaltauto.hu/szemelyauto/volkswagen/passat_viii/volkswagen_passat_viii_2.0_tdi_highline_bmt_elso_tulajdonostol_gyari_fenyezes_garantalt_kilometer-17447909"         </span>
+<span class="co">#&gt;  [85] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [86] "https://www.hasznaltauto.hu/szemelyauto/dacia/duster/dacia_duster_1.5_blue_dci_essential_elso_tulajdonostol_valos_kilometerrel_szalon_allapot-17512287"                            </span>
+<span class="co">#&gt;  [87] "https://www.hasznaltauto.hu/szemelyauto/dacia/duster/dacia_duster_1.5_blue_dci_essential_elso_tulajdonostol_valos_kilometerrel_szalon_allapot-17512287"                            </span>
+<span class="co">#&gt;  [88] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [89] "https://www.hasznaltauto.hu/szemelyauto/opel/grandland_x/opel_grandland_x_1.2_t_business_edition-17539934"                                                                         </span>
+<span class="co">#&gt;  [90] "https://www.hasznaltauto.hu/szemelyauto/opel/grandland_x/opel_grandland_x_1.2_t_business_edition-17539934"                                                                         </span>
+<span class="co">#&gt;  [91] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [92] "https://www.hasznaltauto.hu/szemelyauto/hyundai/tucson/hyundai_tucson_1.6_t-gdi_travel_dct_magyarorszagi_1_tulajdonos_gyari_garancialis_serulesmentes-17564234"                    </span>
+<span class="co">#&gt;  [93] "https://www.hasznaltauto.hu/szemelyauto/hyundai/tucson/hyundai_tucson_1.6_t-gdi_travel_dct_magyarorszagi_1_tulajdonos_gyari_garancialis_serulesmentes-17564234"                    </span>
+<span class="co">#&gt;  [94] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [95] "https://www.hasznaltauto.hu/szemelyauto/mazda/2/mazda_2_1.5_attraction_magyarorszagi31.000km1-tulajdonos-17582320"                                                                 </span>
+<span class="co">#&gt;  [96] "https://www.hasznaltauto.hu/szemelyauto/mazda/2/mazda_2_1.5_attraction_magyarorszagi31.000km1-tulajdonos-17582320"                                                                 </span>
+<span class="co">#&gt;  [97] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt;  [98] "https://www.hasznaltauto.hu/szemelyauto/toyota/avensis/toyota_avensis_wagon_1.8_sol_magyarorszagi_1_tulajdonos_vegig_vezetett_szervizkonyv-17582338"                               </span>
+<span class="co">#&gt;  [99] "https://www.hasznaltauto.hu/szemelyauto/toyota/avensis/toyota_avensis_wagon_1.8_sol_magyarorszagi_1_tulajdonos_vegig_vezetett_szervizkonyv-17582338"                               </span>
+<span class="co">#&gt; [100] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [101] "https://www.hasznaltauto.hu/szemelyauto/honda/cr-v/honda_cr-v_2.2_i-dtec_lifestyle_magyarorszagikituno_allapotmar_az_uj_4_generacios_cr-v-17582368"                                </span>
+<span class="co">#&gt; [102] "https://www.hasznaltauto.hu/szemelyauto/honda/cr-v/honda_cr-v_2.2_i-dtec_lifestyle_magyarorszagikituno_allapotmar_az_uj_4_generacios_cr-v-17582368"                                </span>
+<span class="co">#&gt; [103] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [104] "https://www.hasznaltauto.hu/szemelyauto/ford/fiesta/ford_fiesta_1.4_colourline_magyarorszagi99000kmszervizkonyv-17583871"                                                          </span>
+<span class="co">#&gt; [105] "https://www.hasznaltauto.hu/szemelyauto/ford/fiesta/ford_fiesta_1.4_colourline_magyarorszagi99000kmszervizkonyv-17583871"                                                          </span>
+<span class="co">#&gt; [106] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [107] "https://www.hasznaltauto.hu/szemelyauto/opel/vivaro/opel_vivaro_2.0_d_combi_l_2022-ben_erkezik_megerkezik-17588957"                                                                </span>
+<span class="co">#&gt; [108] "https://www.hasznaltauto.hu/szemelyauto/opel/vivaro/opel_vivaro_2.0_d_combi_l_2022-ben_erkezik_megerkezik-17588957"                                                                </span>
+<span class="co">#&gt; [109] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [110] "https://www.hasznaltauto.hu/szemelyauto/citroen/c3_aircross/citroen_c3_aircross_1.2_puretech_feel_ss-17589004"                                                                     </span>
+<span class="co">#&gt; [111] "https://www.hasznaltauto.hu/szemelyauto/citroen/c3_aircross/citroen_c3_aircross_1.2_puretech_feel_ss-17589004"                                                                     </span>
+<span class="co">#&gt; [112] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [113] "https://www.hasznaltauto.hu/szemelyauto/skoda/octavia/skoda_octavia_1.8_tsi_style_dsg_magyarorszagi_serulesmentes_vezetett_szervizkonyv-17590025"                                  </span>
+<span class="co">#&gt; [114] "https://www.hasznaltauto.hu/szemelyauto/skoda/octavia/skoda_octavia_1.8_tsi_style_dsg_magyarorszagi_serulesmentes_vezetett_szervizkonyv-17590025"                                  </span>
+<span class="co">#&gt; [115] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [116] "https://www.hasznaltauto.hu/szemelyauto/fiat/500/fiat_500_1.2_8v_lounge_magyarorszagi33.500kmujszeru-17603291"                                                                     </span>
+<span class="co">#&gt; [117] "https://www.hasznaltauto.hu/szemelyauto/fiat/500/fiat_500_1.2_8v_lounge_magyarorszagi33.500kmujszeru-17603291"                                                                     </span>
+<span class="co">#&gt; [118] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [119] "https://www.hasznaltauto.hu/szemelyauto/mercedes-benz/c_180/mercedes-benz_c_180_9g-tronic_magyaro-i_garancialis-16447280"                                                          </span>
+<span class="co">#&gt; [120] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [121] "https://www.hasznaltauto.hu/szemelyauto/volvo/xc40/volvo_xc40_2.0_t4_r-design_awd_geartronic_magyaro-i_elso_uzembeh-17585530"                                                      </span>
+<span class="co">#&gt; [122] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [123] "https://www.hasznaltauto.hu/szemelyauto/mercedes-benz/gls_500/mercedes-benz_gls_500_4matic_aut_7_sz_magyaro-i_garancialis_isp-17594722"                                            </span>
+<span class="co">#&gt; [124] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [125] "https://www.hasznaltauto.hu/szemelyauto/mercedes-benz/glc-osztaly/mercedes-benz_glc-osztaly_glc_400_d_4matic_9g-tronic_netto_ar18_889_763ft-17605413"                              </span>
+<span class="co">#&gt; [126] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [127] "https://www.hasznaltauto.hu/szemelyauto/mercedes-benz/a_180/mercedes-benz_a_180_blueefficiency_urban_akar_plusz_1_ev_garancia-17143636"                                            </span>
+<span class="co">#&gt; [128] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [129] "https://www.hasznaltauto.hu/szemelyauto/volvo/xc60/volvo_xc60_2.4_d_kinetic_geartronic_awd_magyarorszagi_vegig_vezetett_szervizkonyv-17556556"                                     </span>
+<span class="co">#&gt; [130] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [131] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland_x/opel_crossland_x_1.2_start-stop_enjoy_nyitva_vagyunk-16876962"                                                            </span>
+<span class="co">#&gt; [132] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [133] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland_x/opel_crossland_x_1.2_start-stop_enjoy_cegeknek_akar_0.5_-os_fix_ugyleti_finanszirozas-17590806"                           </span>
+<span class="co">#&gt; [134] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [135] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_1.2_t_best_keszletsopro_akcio_az_opel_wallis-nal_nyitva_vagyunk-16852314"                                        </span>
+<span class="co">#&gt; [136] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [137] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_1.2_t_best_keszletsopro_akcio_az_opel_wallis-nal_nyitva_vagyunk-16592509"                                        </span>
+<span class="co">#&gt; [138] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [139] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland_x/opel_crossland_x_1.2_start-stop_enjoy_cegeknek_akar_0.5_-os_fix_ugyleti_finanszirozas-17590650"                           </span>
+<span class="co">#&gt; [140] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [141] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_sports_tourer_1.2_t_gs_line_magyarorszagi_gyari_garancia_magas_felszereltseg-17589461"                           </span>
+<span class="co">#&gt; [142] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [143] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_1.2_t_business_edition_opel_wallistol-17385241"                                                                  </span>
+<span class="co">#&gt; [144] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [145] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland/opel_crossland_1.2_edition_demo_auto-17605071"                                                                              </span>
+<span class="co">#&gt; [146] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [147] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_sports_tourer_1.2_t_gs_line_gyari_garancia_magyarorszagi_uzembehelyezes-17589255"                                </span>
+<span class="co">#&gt; [148] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [149] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland/opel_crossland_1.2_business_edition_megbizhato_tars_keves_km-rel-17604760"                                                  </span>
+<span class="co">#&gt; [150] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [151] "https://www.hasznaltauto.hu/szemelyauto/opel/astra_k/opel_astra_k_sports_tourer_1.2_t_edition_magyarorszagi_uzembe_helyezes_gyari_garancia-17589607"                               </span>
+<span class="co">#&gt; [152] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [153] "https://www.hasznaltauto.hu/szemelyauto/opel/crossland_x/opel_crossland_x_1.2_t_start-stop_enjoy_cegeknek_akar_0.5_-os_fix_ugyleti_finanszirozas-17591758"                         </span>
+<span class="co">#&gt; [154] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [155] "https://www.hasznaltauto.hu/szemelyauto/mercedes-benz/b_180/mercedes-benz_b_180_style_mo-inavigacio66500km-17375831"                                                               </span>
+<span class="co">#&gt; [156] NA                                                                                                                                                                                  </span>
+<span class="co">#&gt; [157] "https://www.hasznaltauto.hu/szemelyauto/bmw/218/bmw_218d_automata-17582426"</span></code></pre></div>
 <p>We’ve now collected the names of all the ads and the url leading to them from the first page. The next step is to collect this data from all pages. However, downloading info from all sites is a lengthy process. <strong>Always try the first few pages first and only download them all if you are sure that your program is running without error.</strong></p>
 <p>But how do we download data from multiple pages at once? Let’s see if the url changes when we go to the next page.</p>
 <p>If we look at the second page of the results list in the browser, we can see that the link has been expanded with a “/page2” member compared to our previous <code>url</code> address. Continue with “/ page3” on page 3, etc.</p>
 <p>This way we can easily generate a vector that contains the links to the first 1, 10, 100, 1000 or even all pages. Lets put these into a data.frame.</p>
-<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">url_ending</span> <span class="op">&lt;-</span> <span class="fu">str_c</span><span class="op">(</span><span class="st">"/page"</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>
 
 <span class="va">url_ending</span>
@@ -165,7 +510,7 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
 <p>Taking advantage of the <code>{purr}</code> package, we can load and manipulate entire pages in data frames in a transparent and human-readable (<strong>tidy</strong>) way.</p>
 <p>This will require the <code>map</code> function, but we haven’t talked about using it so far.</p>
 <p><code>Map</code> is very similar to the functions of the apply family. It performs a specific function on each element of a list / vector, but the result always comes in the form of a list.</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">map</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">~</span> <span class="va">.</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="co"># calculate the square of each element (lambda type function)</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1</span>
@@ -184,16 +529,16 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
 
 <span class="fu">map</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">rnorm</span>, <span class="fl">10</span><span class="op">)</span> <span class="co"># generate rnrom distribution with 1,2,3 element </span>
 <span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 10.12159</span>
+<span class="co">#&gt; [1] 10.53788</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] 8.041066 9.598428</span>
+<span class="co">#&gt; [1] 9.400479 9.796269</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; [1]  9.182985  9.076562 10.020299</span></code></pre></div>
+<span class="co">#&gt; [1] 10.475820  9.653438 10.261546</span></code></pre></div>
 <p>The second example shows that if we specify only one function as the second input, without “~” and “.”, the first input of <code>map</code> will automatically be the first possible input for the specified function, and then the elements added after the function will follow in order. In the present case, we prepared random samples with 1, 2, and 3 elements, where the expected value of the samples is 10, because the first input of the function <code>rnorm</code> is the number of elements (n) and the second is the expected value (mean).</p>
 <p>We will now use the <code>map</code> function inside the<code>mutate</code> function, so a list will actually be a column of the original table. The elements of this list will be the web pages that are loaded with the <code>read_html</code> function.</p>
-<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>
     page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>
@@ -212,7 +557,7 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
 <span class="co">#&gt;  9 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span>
 <span class="co">#&gt; 10 https://www.hasznaltauto.hu/talalatilista/PCOG2VGRR3RDADH4S56ACFGY~ &lt;xml_dcm~</span></code></pre></div>
 <p>Now let’s insert a <code>nodes</code> column that contains only the required points of the page, and a<code>url_to_cars</code> column, which is the links extracted from it. Since this is already a computationally intensive step, it is worth saving the result. Save it with the same name so your environment won’t be full of unnecessary variables.</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">&lt;-</span> <span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>
     page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>,
@@ -220,12 +565,12 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
     ad_title <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">html_text</span><span class="op">)</span>,
     url_to_cars <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">nodes</span>, <span class="va">html_attr</span>, <span class="st">"href"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars_add_df</span>
 <span class="co">#&gt; # A tibble: 10 x 5</span>
 <span class="co">#&gt;    url                                     page    nodes   ad_title  url_to_cars</span>
 <span class="co">#&gt;    &lt;chr&gt;                                   &lt;list&gt;  &lt;list&gt;  &lt;list&gt;    &lt;list&gt;     </span>
-<span class="co">#&gt;  1 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [13~ &lt;chr [136]&gt;</span>
+<span class="co">#&gt;  1 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [15~ &lt;chr [157]&gt;</span>
 <span class="co">#&gt;  2 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
 <span class="co">#&gt;  3 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
 <span class="co">#&gt;  4 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
@@ -235,12 +580,12 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
 <span class="co">#&gt;  8 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
 <span class="co">#&gt;  9 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt; </span>
 <span class="co">#&gt; 10 https://www.hasznaltauto.hu/talalatili~ &lt;xml_d~ &lt;xml_n~ &lt;chr [40~ &lt;chr [40]&gt;</span></code></pre></div>
-<p>From now on, all we need is a column with links and addresses, but these are nested. The first cell of the <code>url_to_cars</code> column contains more than a hundred links. This nesting option opens a lot of new doors in the process of data manipulation. Use the <code>unnest</code> function to extract these columns.</p>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<p>From now on, all we need is a column with links and titles, but these are nested. The first cell of the <code>url_to_cars</code> column contains more than a hundred links. This nesting option opens a lot of new doors in the process of data manipulation. Use the <code>unnest</code> function to extract these columns.</p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">select</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">ad_title</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 496 x 2</span>
+<span class="co">#&gt; # A tibble: 517 x 2</span>
 <span class="co">#&gt;    url_to_cars                               ad_title                           </span>
 <span class="co">#&gt;    &lt;chr&gt;                                     &lt;chr&gt;                              </span>
 <span class="co">#&gt;  1 &lt;NA&gt;                                      P                                  </span>
@@ -253,10 +598,10 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
 <span class="co">#&gt;  8 https://www.hasznaltauto.hu/szemelyauto/~ SUZUKI SWIFT 1.2 Dualjet Hybrid GL+</span>
 <span class="co">#&gt;  9 https://www.hasznaltauto.hu/szemelyauto/~ SUZUKI SWIFT 1.2 Dualjet Hybrid GL+</span>
 <span class="co">#&gt; 10 &lt;NA&gt;                                      P                                  </span>
-<span class="co">#&gt; # ... with 486 more rows</span></code></pre></div>
+<span class="co">#&gt; # ... with 507 more rows</span></code></pre></div>
 <p>We can see that the nodes selection was not entirely perfect (usually not), as there were no matching elements or duplications left.</p>
-<p>But now we can still remove the items that don’t fit here. Fortunately, there is no link behind these, and if all columns are the same, <code>unique</code>[^You can also use it on lists and vectors.] will be our service.</p>
-<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<p>But now we can still remove the items that don’t fit here. Fortunately, there is no link behind these, and if all columns are the same, <code>unique</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;You can also use it on lists and vectors.&lt;/p&gt;"><sup>4</sup></a> will be our service.</p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">&lt;-</span> <span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">select</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">ad_title</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -264,7 +609,7 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
   <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># delete duplications</span>
 
 <span class="va">cars_add_df</span>
-<span class="co">#&gt; # A tibble: 232 x 2</span>
+<span class="co">#&gt; # A tibble: 239 x 2</span>
 <span class="co">#&gt;    url_to_cars                             ad_title                             </span>
 <span class="co">#&gt;    &lt;chr&gt;                                   &lt;chr&gt;                                </span>
 <span class="co">#&gt;  1 https://www.hasznaltauto.hu/szemelyaut~ SSANGYONG KORANDO 1.5 Turbo e-XGI St~</span>
@@ -277,155 +622,196 @@ Figure 4.4: Using Selector Gadget to find IDs for the car ads.
 <span class="co">#&gt;  8 https://www.hasznaltauto.hu/szemelyaut~ SUZUKI VITARA 1.4 Hybrid GL+         </span>
 <span class="co">#&gt;  9 https://www.hasznaltauto.hu/szemelyaut~ SUZUKI IGNIS 1.2 Hybrid GL+          </span>
 <span class="co">#&gt; 10 https://www.hasznaltauto.hu/szemelyaut~ CITROEN C5 AIRCROSS 1.2 PureTech Feel</span>
-<span class="co">#&gt; # ... with 222 more rows</span></code></pre></div>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
 <p>We now have a ready-made list of available cars and their links. Let’s visit one in the browser to see what’s next.</p>
+</div>
+<div id="data-from-tables" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Data from tables<a class="anchor" aria-label="anchor" href="#data-from-tables"><i class="fas fa-link"></i></a>
+</h2>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-138"></span>
+<img src="images/example_car.jpg" alt="A random example of car ad." width="70%"><p class="caption">
+Figure 4.6: A random example of car ad.
+</p>
+</div>
+<p>You can see that the data is tabulated on the page. This is the best option for us, as you don’t have to search for the item ID on the page one by one (as before with the ad title). You can simply apply the <code>html_table</code> function to a loaded page, which collects all the tables on the it.</p>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">car_url</span> <span class="op">&lt;-</span> <span class="st">"https://www.hasznaltauto.hu/szemelyauto/renault/zoe/renault_zoe_ze_q90_41_kwh_intens_aut_kmgari-szkonyv-17447302"</span>
+
+<span class="va">info_tables</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="va">car_url</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">info_tables</span>
+<span class="co">#&gt; [[1]]</span>
+<span class="co">#&gt; # A tibble: 31 x 2</span>
+<span class="co">#&gt;    `Ár, költségek`                        `Ár, költségek`                       </span>
+<span class="co">#&gt;    &lt;chr&gt;                                  &lt;chr&gt;                                 </span>
+<span class="co">#&gt;  1 "Vételár:"                             "5 199 000 Ft"                        </span>
+<span class="co">#&gt;  2 "Vételár EUR:"                         "€ 14 265"                            </span>
+<span class="co">#&gt;  3 "Finanszírozás kalkulátor            ~ "Finanszírozás kalkulátor            ~</span>
+<span class="co">#&gt;  4 "Általános adatok"                     "Általános adatok"                    </span>
+<span class="co">#&gt;  5 "Évjárat:"                             "2018/4"                              </span>
+<span class="co">#&gt;  6 "Állapot:"                             "Megkímélt"                           </span>
+<span class="co">#&gt;  7 "Kivitel:"                             "Ferdehátú"                           </span>
+<span class="co">#&gt;  8 "Alvázszám:"                           "Elérhető autó-előélet alvázszám alap~</span>
+<span class="co">#&gt;  9 "Ellenőrzöm"                           "Ellenőrzöm"                          </span>
+<span class="co">#&gt; 10 "Finanszírozás"                        "Finanszírozás"                       </span>
+<span class="co">#&gt; # ... with 21 more rows</span></code></pre></div>
+<p>What is the type of <code>info_tables</code>? Since it collects all the tables it can find from the page, it is a list of data frames.</p>
+<p>I will reveal that in some cases we will see that there are multiple tables on a page (certain types of info are taken separately) and we want to avoid an irrelevant single column table causing an error (step 1).</p>
+<p>Our goal is to be able to gather all the data about the car into a single two-column table. To join all two column tables (step 3), they must also have the same name (step 2).</p>
 <div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">tables_form_page</span> <span class="op">&lt;-</span> <span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">first</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span>
-
-<span class="co"># apply</span>
-
-<span class="va">cars</span>
-<span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">cars</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
-<span class="va">x</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu">map</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="va">.</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="co"># same with tidy method</span>
-<span class="fu">map_dbl</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="va">.</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
-
-<span class="co"># map</span>
-
-<span class="va">tables_form_page</span> <span class="op">%&gt;%</span> 
-  <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">tables_form_page</span> <span class="op">%&gt;%</span> 
-  <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span> <span class="co"># merge the tables</span>
-
-<span class="va">get_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span> <span class="op">{</span>
+<code class="sourceCode R"><span class="va">info_tables</span> <span class="op">%&gt;%</span> 
+  <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># keep tables that have 2 columns</span>
+  <span class="fu">map</span><span class="op">(</span><span class="va">set_names</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># set the names to x and y for each table</span>
+  <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span> <span class="co"># join the tables to one sinle table</span>
+<span class="co">#&gt; # A tibble: 31 x 2</span>
+<span class="co">#&gt;    x                                      y                                     </span>
+<span class="co">#&gt;    &lt;chr&gt;                                  &lt;chr&gt;                                 </span>
+<span class="co">#&gt;  1 "Vételár:"                             "5 199 000 Ft"                        </span>
+<span class="co">#&gt;  2 "Vételár EUR:"                         "€ 14 265"                            </span>
+<span class="co">#&gt;  3 "Finanszírozás kalkulátor            ~ "Finanszírozás kalkulátor            ~</span>
+<span class="co">#&gt;  4 "Általános adatok"                     "Általános adatok"                    </span>
+<span class="co">#&gt;  5 "Évjárat:"                             "2018/4"                              </span>
+<span class="co">#&gt;  6 "Állapot:"                             "Megkímélt"                           </span>
+<span class="co">#&gt;  7 "Kivitel:"                             "Ferdehátú"                           </span>
+<span class="co">#&gt;  8 "Alvázszám:"                           "Elérhető autó-előélet alvázszám alap~</span>
+<span class="co">#&gt;  9 "Ellenőrzöm"                           "Ellenőrzöm"                          </span>
+<span class="co">#&gt; 10 "Finanszírozás"                        "Finanszírozás"                       </span>
+<span class="co">#&gt; # ... with 21 more rows</span></code></pre></div>
+<p>We see that this works, the output now is one single table. Lets use this method on all the links. To do this, we need to write a function.</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">get_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
     <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu">get_data</span><span class="op">(</span><span class="st">"https://www.hasznaltauto.hu/szemelyauto/suzuki/swift/suzuki_swift_1.2_dualjet_hybrid_gl_plusz-16320785"</span><span class="op">)</span>
-
-<span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">map</span><span class="op">(</span><span class="va">get_data</span><span class="op">)</span>
-
-<span class="st">"https://www.hasznaltauto.hu/talalatilista/PCOG2VG3R3RDADH5S56ACFHGCYPHPBIGNGCUMWTJLYVUGTIJJVRJJJGVADRN7V3JJNUVRHTKDXN7DSPRJFA44PXEYXFWSJSFAUAUW4QK23MIQBLDKMU7YGIN5IJ5JAK2NAXAL2FUODG7ROYUDNVFJQAQHIQPMNQYKCB4XDNSJ5APR2OBC4U3A5XZ77KY7CNBQNE6ZQM7FXUJAH6ATG5KKJWFWT634SKRQIB3WVNASV7VFEGFNOASN6ZEY4ZTP2CQ54Y5BE3UTSWFZQMMPQBQK4YQROGZYJAZLLBCDQABPKXBGKLWJSPWWVYF3VS6RMKUTMA3ZXMUV7RNBVZ27A4J26LHSOLMN6ZDRVP553POVKYTRH3E6AX3URTN2ET2U7PNJ6HOZNZKWBTZH4PANXWQHGJ7ZKDS6R4GQIRLWKV26RV5X5N5LL3TU5AEH2SFA7XJXIPGLS5F2IA53YAFAOXIEXHVI5YLDIICWUPBALQJ5JMPWA7KPAOGW5HTDM3CYOUEKSLQCHHJKKUWQN65C6YTIO5WNAEJKGNVE3UK3F6Z2RWGVMBHFCD5GQDLHAJHWF7ERO6KQ3VF5XJJLHDWOELOHLELM4YZ45PRHTDPGLT6CGFSWBZT2YGG3CNOO3RZXJHQ4BTO4Y6HKCK3GKIN3SU5OGR5EYUFGZ6FGSNDGVMRFJLV2WRR4PZTIEDAXQRS4JXPZ4K3XOI24OXXC5NUKM74SQQZIWGVLCHL644WYNBEJVYYNLWZT5LD3QABZUY44TSONNPVQ5G7XERHW2WGHELAD7PRQFUEHFXW4SUBZY3P3XHYEX7SDBSXWV22THSKV4OJ6M2LIJ7U7GHFYCO2RR4F4O4R3HDL62K3DO2CHMWXP5T7RFKA/page2"</span>  
-
-<span class="va">url</span>
-
-<span class="va">many_urls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="fu">str_c</span><span class="op">(</span><span class="st">"/page"</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>
-<span class="va">many_urls</span>
-
-<span class="fu">tibble</span><span class="op">(</span>url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">url</span>, <span class="va">many_urls</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">sample_n</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="op">}</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">get_data</span><span class="op">(</span><span class="va">car_url</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 31 x 2</span>
+<span class="co">#&gt;    x                                      y                                     </span>
+<span class="co">#&gt;    &lt;chr&gt;                                  &lt;chr&gt;                                 </span>
+<span class="co">#&gt;  1 "Vételár:"                             "5 199 000 Ft"                        </span>
+<span class="co">#&gt;  2 "Vételár EUR:"                         "€ 14 265"                            </span>
+<span class="co">#&gt;  3 "Finanszírozás kalkulátor            ~ "Finanszírozás kalkulátor            ~</span>
+<span class="co">#&gt;  4 "Általános adatok"                     "Általános adatok"                    </span>
+<span class="co">#&gt;  5 "Évjárat:"                             "2018/4"                              </span>
+<span class="co">#&gt;  6 "Állapot:"                             "Megkímélt"                           </span>
+<span class="co">#&gt;  7 "Kivitel:"                             "Ferdehátú"                           </span>
+<span class="co">#&gt;  8 "Alvázszám:"                           "Elérhető autó-előélet alvázszám alap~</span>
+<span class="co">#&gt;  9 "Ellenőrzöm"                           "Ellenőrzöm"                          </span>
+<span class="co">#&gt; 10 "Finanszírozás"                        "Finanszírozás"                       </span>
+<span class="co">#&gt; # ... with 21 more rows</span></code></pre></div>
+<p>The resulting table can all be collected in a single column of our table. Each cell will be a table that we all collected from a given link.</p>
+<p>This can also take a serious amount of time if we want to retrieve data from hundreds of cars at once. You should always use only a few. Use the <code>sample_n</code> function to randomly select a few lines to test if everything works as expected.</p>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">sample_n</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># remove this line at the end if everything is fine</span>
   <span class="fu">mutate</span><span class="op">(</span>
-    page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>,
-    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">page</span>, <span class="va">html_nodes</span>, <span class="st">".cim-kontener a"</span><span class="op">)</span>,
-    car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_text</span><span class="op">)</span>,
-    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_attr</span>, <span class="st">"href"</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">unnest</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">cars_df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>url <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">url</span>, <span class="va">many_urls</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">get_data</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 x 3</span>
+<span class="co">#&gt;   url_to_cars                         ad_title                         data     </span>
+<span class="co">#&gt;   &lt;chr&gt;                               &lt;chr&gt;                            &lt;list&gt;   </span>
+<span class="co">#&gt; 1 https://www.hasznaltauto.hu/szemel~ OPEL MOKKA 1.2 T Edition CÉGEKN~ &lt;tibble ~</span>
+<span class="co">#&gt; 2 https://www.hasznaltauto.hu/szemel~ MERCEDES-BENZ E 200 d 9G-TRONIC~ &lt;tibble ~</span>
+<span class="co">#&gt; 3 https://www.hasznaltauto.hu/szemel~ MERCEDES-BENZ GLC-OSZTÁLY GLC 4~ &lt;tibble ~</span></code></pre></div>
+<p>Currently, our small table is also nested in a cell. Expand it!</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">sample_n</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># remove this line at the end if everything is fine</span>
   <span class="fu">mutate</span><span class="op">(</span>
-    page <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url</span>, <span class="va">read_html</span><span class="op">)</span>,
-    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">page</span>, <span class="va">html_nodes</span>, <span class="st">".cim-kontener a"</span><span class="op">)</span>,
-    car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_text</span><span class="op">)</span>,
-    url_to_car <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">html_attr</span>, <span class="st">"href"</span><span class="op">)</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">get_data</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">unnest</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">car</span>, <span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">cars_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu">sample_n</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 107 x 4</span>
+<span class="co">#&gt;    url_to_cars                  ad_title                  x        y            </span>
+<span class="co">#&gt;    &lt;chr&gt;                        &lt;chr&gt;                     &lt;chr&gt;    &lt;chr&gt;        </span>
+<span class="co">#&gt;  1 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Vételár: 14 290 000 Ft</span>
+<span class="co">#&gt;  2 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Vételár~ € 39 209     </span>
+<span class="co">#&gt;  3 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Általán~ Általános ad~</span>
+<span class="co">#&gt;  4 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Évjárat: 2017/6       </span>
+<span class="co">#&gt;  5 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Állapot: Kitűnő       </span>
+<span class="co">#&gt;  6 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Kivitel: Sedan        </span>
+<span class="co">#&gt;  7 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Alvázsz~ Elérhető aut~</span>
+<span class="co">#&gt;  8 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Ellenőr~ Ellenőrzöm   </span>
+<span class="co">#&gt;  9 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Jármű a~ Jármű adatok </span>
+<span class="co">#&gt; 10 https://www.hasznaltauto.hu~ MERCEDES-AMG E 43 4Matic~ Kilomét~ 112 651 km   </span>
+<span class="co">#&gt; # ... with 97 more rows</span></code></pre></div>
+<p>Now that we have a lot of rows instead of 3, the url in the first row is repeated as many times as the number of rows in the table next to it so far.</p>
+<p>Since the x column now has the variable name and the y column has the value of the variable, we need another super useful function we’ve seen before: <code>pivot_wider</code>!</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">sample_n</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># remove this line at the end if everything is fine</span>
   <span class="fu">mutate</span><span class="op">(</span>
-    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">get_data</span><span class="op">)</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">get_data</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">url_to_car</span><span class="op">)</span>
-
-<span class="va">cars_data_df</span> <span class="op">&lt;-</span> <span class="va">cars_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"x"</span>, values_from <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 x 42</span>
+<span class="co">#&gt;   url_to_cars   ad_title   `Vételár:` `Vételár EUR:` `Általános adat~ `Évjárat:`</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;     </span>
+<span class="co">#&gt; 1 https://www.~ MERCEDES-~ 14 290 00~ € 39 209       Általános adatok 2017/6    </span>
+<span class="co">#&gt; 2 https://www.~ BMW 530e ~ 19 700 00~ € 54 053       Általános adatok 2021/2    </span>
+<span class="co">#&gt; 3 https://www.~ VOLVO XC6~ 20 490 00~ € 56 220       Általános adatok 2020/7    </span>
+<span class="co">#&gt; # ... with 36 more variables: Állapot: &lt;chr&gt;, Kivitel: &lt;chr&gt;, Alvázszám: &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Ellenőrzöm &lt;chr&gt;, Jármű adatok &lt;chr&gt;, Kilométeróra állása: &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Szállítható szem. száma: &lt;chr&gt;, Ajtók száma: &lt;chr&gt;, Szín: &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Saját tömeg: &lt;chr&gt;, Teljes tömeg: &lt;chr&gt;, Csomagtartó: &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Klíma fajtája: &lt;chr&gt;, Tető: &lt;chr&gt;, Motor adatok &lt;chr&gt;, Üzemanyag: &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Hengerűrtartalom: &lt;chr&gt;, Teljesítmény: &lt;chr&gt;, Henger-elrendezés: &lt;chr&gt;,</span>
+<span class="co">#&gt; #   Hajtás: &lt;chr&gt;, Sebességváltó fajtája: &lt;chr&gt;, Okmányok &lt;chr&gt;, ...</span></code></pre></div>
+<p>The last thing that causes this headache for this task is the special characters used in the Hungarian language. The <a href="https://github.com/sfirke/janitor">janitor</a>, on the other hand, handles this smoothly as well.</p>
+<p>We can now download all the cars if we wish!</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_data_df</span> <span class="op">&lt;-</span> <span class="va">cars_add_df</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>
-    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">get_data</span><span class="op">)</span>
+    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_cars</span>, <span class="va">get_data</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">x</span>, values_from <span class="op">=</span> <span class="va">y</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span>
-
-
-<span class="va">safely_read_html</span> <span class="op">&lt;-</span> <span class="fu">possibly</span><span class="op">(</span><span class="va">read_html</span>, <span class="cn">NA</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="va">sleepy_read_html</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">page</span> <span class="op">&lt;-</span> <span class="fu">safely_read_html</span><span class="op">(</span><span class="va">url</span><span class="op">)</span>
-  
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
-    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">page</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="st">"I have to be patient! :)"</span><span class="op">)</span>
-      <span class="va">page</span> <span class="op">&lt;-</span> <span class="fu">safely_read_html</span><span class="op">(</span><span class="va">url</span><span class="op">)</span>
-    <span class="op">}</span>
-  <span class="op">}</span>
-  
-  <span class="va">page</span>
-<span class="op">}</span>
-
-<span class="va">get_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">url_to_car</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">page</span> <span class="op">&lt;-</span> <span class="va">url_to_car</span> <span class="op">%&gt;%</span> 
-    <span class="fu">sleepy_read_html</span><span class="op">(</span><span class="op">)</span>
-  
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">page</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    
-  <span class="va">page</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_table.html">html_table</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu">keep</span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu">map</span><span class="op">(</span><span class="op">~</span> <span class="fu">set_names</span><span class="op">(</span><span class="va">.</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span>
-  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="fu">tibble</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">}</span>
-<span class="op">}</span>
-
-<span class="va">cars_data_df</span> <span class="op">&lt;-</span> <span class="va">cars_df</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>
-    data <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">url_to_car</span>, <span class="va">get_data</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">x</span>, values_from <span class="op">=</span> <span class="va">y</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">unnest</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="st">"x"</span>, values_from <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_data_df</span>
+<span class="co">#&gt; # A tibble: 239 x 63</span>
+<span class="co">#&gt;    url_to_cars  ad_title   vetelar vetelar_eur finanszirozas_k~ altalanos_adatok</span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;           </span>
+<span class="co">#&gt;  1 https://www~ SSANGYONG~ 6 999 ~ € 19 204    "Finanszírozás ~ Általános adatok</span>
+<span class="co">#&gt;  2 https://www~ CITROEN G~ 7 780 ~ € 21 347    "Finanszírozás ~ Általános adatok</span>
+<span class="co">#&gt;  3 https://www~ SUZUKI SW~ &lt;NA&gt;    € 13 283     &lt;NA&gt;            Általános adatok</span>
+<span class="co">#&gt;  4 https://www~ PEUGEOT 2~ &lt;NA&gt;    € 15 873    "Finanszírozás ~ Általános adatok</span>
+<span class="co">#&gt;  5 https://www~ OPEL COMB~ &lt;NA&gt;    € 11 483     &lt;NA&gt;            Általános adatok</span>
+<span class="co">#&gt;  6 https://www~ OPEL INSI~ &lt;NA&gt;    € 18 271     &lt;NA&gt;            Általános adatok</span>
+<span class="co">#&gt;  7 https://www~ OPEL ZAFI~ &lt;NA&gt;    € 22 879     &lt;NA&gt;            Általános adatok</span>
+<span class="co">#&gt;  8 https://www~ SUZUKI VI~ &lt;NA&gt;    € 16 271     &lt;NA&gt;            Általános adatok</span>
+<span class="co">#&gt;  9 https://www~ SUZUKI IG~ &lt;NA&gt;    € 13 307     &lt;NA&gt;            Általános adatok</span>
+<span class="co">#&gt; 10 https://www~ CITROEN C~ 8 600 ~ € 23 597    "Finanszírozás ~ Általános adatok</span>
+<span class="co">#&gt; # ... with 229 more rows, and 57 more variables: atveheto &lt;chr&gt;, evjarat &lt;chr&gt;,</span>
+<span class="co">#&gt; #   allapot &lt;chr&gt;, kivitel &lt;chr&gt;, finanszirozas &lt;chr&gt;, finanszirozas_2 &lt;chr&gt;,</span>
+<span class="co">#&gt; #   finanszirozas_tipusa_casco_val &lt;chr&gt;,</span>
+<span class="co">#&gt; #   finanszirozas_tipusa_casco_nelkul &lt;chr&gt;, kezdoreszlet_casco_nelkul &lt;chr&gt;,</span>
+<span class="co">#&gt; #   havi_reszlet_casco_nelkul &lt;chr&gt;, futamido_casco_nelkul &lt;chr&gt;,</span>
+<span class="co">#&gt; #   garancia &lt;chr&gt;, garancia_2 &lt;chr&gt;, atrozsdasodasi_garancia &lt;chr&gt;,</span>
+<span class="co">#&gt; #   szavatossagi_garancia &lt;chr&gt;, jarmu_adatok &lt;chr&gt;, ...</span></code></pre></div>
 
 </div>
-
-
-
-
-
-
-
+</div>
 
   <div class="chapter-nav">
 <div class="prev"><a href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></div>
-<div class="empty"></div>
+<div class="next"><a href="seminar6.html"><span class="header-section-number">5</span> Data imputation</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#seminar5"><span class="header-section-number">4</span> Webscraping with R</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#seminar5"><span class="header-section-number">4</span> Webscraping with R</a></li>
+<li><a class="nav-link" href="#naviagtion-on-the-page"><span class="header-section-number">4.1</span> Naviagtion on the page</a></li>
+<li><a class="nav-link" href="#find-the-link"><span class="header-section-number">4.2</span> Find the link</a></li>
+<li><a class="nav-link" href="#data-from-tables"><span class="header-section-number">4.3</span> Data from tables</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

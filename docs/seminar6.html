@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Data imputation | Data Analysis Coursebook</title>
+<meta name="author" content="Marcell Granat">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Data imputation | Data Analysis Coursebook">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Data imputation | Data Analysis Coursebook">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="5.1 General data manipulation We will move on with the data downloaded in the previous chapter. To get an idea of the structure of our data, we use the glimpse function. glimpse(cars_data_df) #&gt;...">
+<meta property="og:description" content="5.1 General data manipulation We will move on with the data downloaded in the previous chapter. To get an idea of the structure of our data, we use the glimpse function. glimpse(cars_data_df) #&gt;...">
+<meta name="twitter:description" content="5.1 General data manipulation We will move on with the data downloaded in the previous chapter. To get an idea of the structure of our data, we use the glimpse function. glimpse(cars_data_df) #&gt;...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title=""><strong>Data Analysis</strong> Coursebook</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="seminar1.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="seminar2.html"><span class="header-section-number">2</span> Markdown &amp; Tidyverse</a></li>
+<li><a class="" href="seminar3.html"><span class="header-section-number">3</span> Ggplot</a></li>
+<li><a class="" href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></li>
+<li><a class="active" href="seminar6.html"><span class="header-section-number">5</span> Data imputation</a></li>
+<li><a class="" href="seminar7.html"><span class="header-section-number">6</span> Introduction to simulation</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/MarcellGranat/Data-Analysis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="seminar6" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Data imputation<a class="anchor" aria-label="anchor" href="#seminar6"><i class="fas fa-link"></i></a>
+</h1>
+<div id="general-data-manipulation" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> General data manipulation<a class="anchor" aria-label="anchor" href="#general-data-manipulation"><i class="fas fa-link"></i></a>
+</h2>
+<p>We will move on with the data downloaded in the previous chapter. To get an idea of the structure of our data, we use the <code>glimpse</code> function.</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">glimpse</span><span class="op">(</span><span class="va">cars_data_df</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 239</span>
+<span class="co">#&gt; Columns: 63</span>
+<span class="co">#&gt; $ url_to_cars                       &lt;chr&gt; "https://www.hasznaltauto.hu/szemely~</span>
+<span class="co">#&gt; $ ad_title                          &lt;chr&gt; "SSANGYONG KORANDO 1.5 Turbo e-XGI S~</span>
+<span class="co">#&gt; $ vetelar                           &lt;chr&gt; "6 999 000 Ft", "7 780 000 Ft", NA, ~</span>
+<span class="co">#&gt; $ vetelar_eur                       &lt;chr&gt; "€ 19 204", "€ 21 347", "€ 13 283", ~</span>
+<span class="co">#&gt; $ finanszirozas_kalkulator_hirdetes &lt;chr&gt; "Finanszírozás kalkulátor           ~</span>
+<span class="co">#&gt; $ altalanos_adatok                  &lt;chr&gt; "Általános adatok", "Általános adato~</span>
+<span class="co">#&gt; $ atveheto                          &lt;chr&gt; "2021.", "2021.", "2021.", "2021.", ~</span>
+<span class="co">#&gt; $ evjarat                           &lt;chr&gt; "2021/10", "2020/1", "2020", "2021",~</span>
+<span class="co">#&gt; $ allapot                           &lt;chr&gt; "Újszerű", "Kitűnő", "Normál", "Kitű~</span>
+<span class="co">#&gt; $ kivitel                           &lt;chr&gt; "Terepjáró", "Egyterű", "Ferdehátú",~</span>
+<span class="co">#&gt; $ finanszirozas                     &lt;chr&gt; "Finanszírozás", NA, NA, "Finanszíro~</span>
+<span class="co">#&gt; $ finanszirozas_2                   &lt;chr&gt; "35%-tól elvihető", NA, NA, "20%-tól~</span>
+<span class="co">#&gt; $ finanszirozas_tipusa_casco_val    &lt;chr&gt; "Lízing", NA, NA, "Lízing", NA, NA, ~</span>
+<span class="co">#&gt; $ finanszirozas_tipusa_casco_nelkul &lt;chr&gt; "Lízing", NA, NA, NA, NA, NA, NA, NA~</span>
+<span class="co">#&gt; $ kezdoreszlet_casco_nelkul         &lt;chr&gt; "2 449 650 Ft", NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ havi_reszlet_casco_nelkul         &lt;chr&gt; "83 735 Ft", NA, NA, NA, NA, NA, NA,~</span>
+<span class="co">#&gt; $ futamido_casco_nelkul             &lt;chr&gt; "60 hónap", NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ garancia                          &lt;chr&gt; "Garancia", NA, NA, "Garancia", NA, ~</span>
+<span class="co">#&gt; $ garancia_2                        &lt;chr&gt; "5 év", NA, NA, "5 év", NA, NA, NA, ~</span>
+<span class="co">#&gt; $ atrozsdasodasi_garancia           &lt;chr&gt; "10 év", NA, NA, "12 év", NA, NA, NA~</span>
+<span class="co">#&gt; $ szavatossagi_garancia             &lt;chr&gt; "5 év", NA, NA, NA, NA, NA, NA, "7 é~</span>
+<span class="co">#&gt; $ jarmu_adatok                      &lt;chr&gt; "Jármű adatok", "Jármű adatok", "Jár~</span>
+<span class="co">#&gt; $ kilometerora_allasa               &lt;chr&gt; "13 km", "Nincs megadva", "Nincs meg~</span>
+<span class="co">#&gt; $ szallithato_szem_szama            &lt;chr&gt; "5 fő", "5 fő", "5 fő", "5 fő", "7 f~</span>
+<span class="co">#&gt; $ ajtok_szama                       &lt;chr&gt; "5", "5", "5", "5", "5", "5", "4", "~</span>
+<span class="co">#&gt; $ sajat_tomeg                       &lt;chr&gt; "1 405 kg", "1 395 kg", "865 kg", "1~</span>
+<span class="co">#&gt; $ teljes_tomeg                      &lt;chr&gt; "2 010 kg", "1 935 kg", "1 365 kg", ~</span>
+<span class="co">#&gt; $ csomagtarto                       &lt;chr&gt; "551 liter", "645 liter", "265 liter~</span>
+<span class="co">#&gt; $ klima_fajtaja                     &lt;chr&gt; "Manuális klíma", "Automata klíma", ~</span>
+<span class="co">#&gt; $ motor_adatok                      &lt;chr&gt; "Motor adatok", "Motor adatok", "Mot~</span>
+<span class="co">#&gt; $ uzemanyag                         &lt;chr&gt; "Benzin", "Benzin", "Hibrid", "Benzi~</span>
+<span class="co">#&gt; $ hengerurtartalom                  &lt;chr&gt; "1 497 cm3", "1 199 cm3", "1 197 cm3~</span>
+<span class="co">#&gt; $ teljesitmeny                      &lt;chr&gt; "120 kW, 163 LE", "96 kW, 131 LE", "~</span>
+<span class="co">#&gt; $ henger_elrendezes                 &lt;chr&gt; "Soros", "Soros", "Soros", "Soros", ~</span>
+<span class="co">#&gt; $ hajtas                            &lt;chr&gt; "Első kerék", "Első kerék", "Első ke~</span>
+<span class="co">#&gt; $ sebessegvalto_fajtaja             &lt;chr&gt; "Manuális (6 fokozatú)", "Manuális (~</span>
+<span class="co">#&gt; $ okmanyok                          &lt;chr&gt; "Okmányok", "Okmányok", "Okmányok", ~</span>
+<span class="co">#&gt; $ okmanyok_jellege                  &lt;chr&gt; "Érvényes magyar okmányokkal", "Érvé~</span>
+<span class="co">#&gt; $ muszaki_vizsga_ervenyes           &lt;chr&gt; "2025/10", NA, "2024", NA, NA, NA, N~</span>
+<span class="co">#&gt; $ abroncs                           &lt;chr&gt; "Abroncs", "Abroncs", "Abroncs", "Ab~</span>
+<span class="co">#&gt; $ nyari_gumi_meret                  &lt;chr&gt; "235/55 R 18", "205/60 R 16", "185/5~</span>
+<span class="co">#&gt; $ szin                              &lt;chr&gt; NA, "Fehér", "Bíborvörös (metál)", "~</span>
+<span class="co">#&gt; $ karpit_szine_1                    &lt;chr&gt; NA, "Fekete", "Fekete", "Fekete", NA~</span>
+<span class="co">#&gt; $ alaptipus_ara                     &lt;chr&gt; NA, NA, "4 440 000 Ft", "5 800 000 F~</span>
+<span class="co">#&gt; $ extrakkal_novelt_ar               &lt;chr&gt; NA, NA, "5 220 000 Ft", "6 095 000 F~</span>
+<span class="co">#&gt; $ akcios_ar                         &lt;chr&gt; NA, NA, "4 890 000 Ft", "5 785 000 F~</span>
+<span class="co">#&gt; $ akcio_feltetelei                  &lt;chr&gt; NA, NA, "Hűség program regisztráció,~</span>
+<span class="co">#&gt; $ karpit_szine_2                    &lt;chr&gt; NA, NA, NA, "Sötétszürke", NA, NA, N~</span>
+<span class="co">#&gt; $ kezdoreszlet                      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, "1 200 0~</span>
+<span class="co">#&gt; $ havi_reszlet                      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, "69 990 ~</span>
+<span class="co">#&gt; $ futamido                          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, "61 hóna~</span>
+<span class="co">#&gt; $ teto                              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, "Lemezte~</span>
+<span class="co">#&gt; $ teli_gumi_meret                   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, "205/60 ~</span>
+<span class="co">#&gt; $ kotelezo_es_casco_dijak_hirdetes  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ alvazszam                         &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ ellenorzom                        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ futasido                          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ garancia_adatai                   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ garancia_megnevezese              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ garancia_lejarata                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ hatso_nyari_gumi_meret            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ hatso_teli_gumi_meret             &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span>
+<span class="co">#&gt; $ berlesi_lehetoseg                 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, ~</span></code></pre></div>
+<p>Currently, all variable characters are type, so be sure to manipulate the data. Probably most columns are not needed. Lets create some new variables!</p>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_data_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">transmute</span><span class="op">(</span>
+    <span class="va">ad_title</span>,
+    <span class="va">url_to_cars</span>,
+    price <span class="op">=</span> <span class="va">vetelar_eur</span>, <span class="co"># translate the column names :)</span>
+    year <span class="op">=</span> <span class="va">evjarat</span>,
+    weight <span class="op">=</span> <span class="va">teljes_tomeg</span>,
+    n_doors <span class="op">=</span> <span class="va">ajtok_szama</span>,
+    fuel <span class="op">=</span> <span class="va">uzemanyag</span>,
+    gear <span class="op">=</span> <span class="va">sebessegvalto_fajtaja</span>,
+    mileage <span class="op">=</span> <span class="va">kilometerora_allasa</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 239 x 9</span>
+<span class="co">#&gt;    ad_title      url_to_cars     price  year  weight n_doors fuel  gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  </span>
+<span class="co">#&gt;  1 SSANGYONG KO~ https://www.ha~ € 19 ~ 2021~ 2 010~ 5       Benz~ Manu~ 13 km  </span>
+<span class="co">#&gt;  2 CITROEN GRAN~ https://www.ha~ € 21 ~ 2020~ 1 935~ 5       Benz~ Manu~ Nincs ~</span>
+<span class="co">#&gt;  3 SUZUKI SWIFT~ https://www.ha~ € 13 ~ 2020  1 365~ 5       Hibr~ Manu~ Nincs ~</span>
+<span class="co">#&gt;  4 PEUGEOT 208 ~ https://www.ha~ € 15 ~ 2021  1 595~ 5       Benz~ Manu~ 2 km   </span>
+<span class="co">#&gt;  5 OPEL COMBO L~ https://www.ha~ € 11 ~ 2021  2 280~ 5       Benz~ Manu~ 2 km   </span>
+<span class="co">#&gt;  6 OPEL INSIGNI~ https://www.ha~ € 18 ~ 2021  2 160~ 5       Benz~ Manu~ Nincs ~</span>
+<span class="co">#&gt;  7 OPEL ZAFIRA ~ https://www.ha~ € 22 ~ 2021  2 635~ 4       Dízel Manu~ Nincs ~</span>
+<span class="co">#&gt;  8 SUZUKI VITAR~ https://www.ha~ € 16 ~ 2021  1 770~ 5       Benz~ Manu~ 1 km   </span>
+<span class="co">#&gt;  9 SUZUKI IGNIS~ https://www.ha~ € 13 ~ 2021  1 330~ 5       Benz~ Manu~ Nincs ~</span>
+<span class="co">#&gt; 10 CITROEN C5 A~ https://www.ha~ € 23 ~ 2021~ 1 940~ 5       Benz~ Manu~ 2 km   </span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>The <code>transmute</code> function is like applying the<code>select</code> and <code>mutate</code> functions at the same time. We can create new variables with it, but only those that are defined in it will remain. However, it is worth cleaning the data in one step here.</p>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cars_data_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">transmute</span><span class="op">(</span>
+    <span class="va">ad_title</span>,
+    price <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">vetelar_eur</span>, <span class="st">"\\D"</span><span class="op">)</span>, <span class="co"># remove non-digit chr</span>
+    year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"/.*"</span>, <span class="st">""</span>, <span class="va">evjarat</span><span class="op">)</span>, <span class="co"># remove after / sign</span>
+    weight <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">teljes_tomeg</span>, <span class="st">"\\D"</span><span class="op">)</span>, <span class="co"># remove non-digit chr</span>
+    n_doors <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">ajtok_szama</span>, <span class="st">"\\D"</span><span class="op">)</span>, <span class="co"># remove non-digit chr</span>
+    fuel <span class="op">=</span> <span class="va">uzemanyag</span>, <span class="co"># fuel type</span>
+    gear <span class="op">=</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">sebessegvalto_fajtaja</span>, <span class="st">"Manuális"</span><span class="op">)</span>, <span class="co"># is manual mentioned?</span>
+    mileage <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">kilometerora_allasa</span>, <span class="st">"\\D"</span><span class="op">)</span> <span class="co"># remove non-digit chr</span>
+  <span class="op">)</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                       price year  weight n_doors fuel  gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                          &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;  </span>
+<span class="co">#&gt;  1 SSANGYONG KORANDO 1.5 Turbo e~ 19204 2021  2010   5       Benz~ TRUE  "13"   </span>
+<span class="co">#&gt;  2 CITROEN GRAND C4 SPACETOURER ~ 21347 2020  1935   5       Benz~ TRUE  ""     </span>
+<span class="co">#&gt;  3 SUZUKI SWIFT 1.2 Dualjet Hybr~ 13283 2020  1365   5       Hibr~ TRUE  ""     </span>
+<span class="co">#&gt;  4 PEUGEOT 208 1.2 PureTech Acti~ 15873 2021  1595   5       Benz~ TRUE  "2"    </span>
+<span class="co">#&gt;  5 OPEL COMBO Life 1.2 T Enjoy 2~ 11483 2021  2280   5       Benz~ TRUE  "2"    </span>
+<span class="co">#&gt;  6 OPEL INSIGNIA Grand Sport 1.4~ 18271 2021  2160   5       Benz~ TRUE  ""     </span>
+<span class="co">#&gt;  7 OPEL ZAFIRA LIFE 1.5 D Busine~ 22879 2021  2635   4       Dízel TRUE  ""     </span>
+<span class="co">#&gt;  8 SUZUKI VITARA 1.4 Hybrid GL+   16271 2021  1770   5       Benz~ TRUE  "1"    </span>
+<span class="co">#&gt;  9 SUZUKI IGNIS 1.2 Hybrid GL+    13307 2021  1330   5       Benz~ TRUE  ""     </span>
+<span class="co">#&gt; 10 CITROEN C5 AIRCROSS 1.2 PureT~ 23597 2021  1940   5       Benz~ TRUE  "2"    </span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>But our variables are still character type…</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">cars_data_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">transmute</span><span class="op">(</span>
+    <span class="va">ad_title</span>,
+    price <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">vetelar_eur</span>, <span class="st">"\\D"</span><span class="op">)</span>, <span class="co"># remove non-digit chr</span>
+    year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">"/.*"</span>, <span class="st">""</span>, <span class="va">evjarat</span><span class="op">)</span>, <span class="co"># remove after / sign</span>
+    weight <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">teljes_tomeg</span>, <span class="st">"\\D"</span><span class="op">)</span>, <span class="co"># remove non-digit chr</span>
+    n_doors <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">ajtok_szama</span>, <span class="st">"\\D"</span><span class="op">)</span>, <span class="co"># remove non-digit chr</span>
+    fuel <span class="op">=</span> <span class="va">uzemanyag</span>, <span class="co"># fuel type</span>
+    gear <span class="op">=</span> <span class="fu">str_detect</span><span class="op">(</span><span class="va">sebessegvalto_fajtaja</span>, <span class="st">"Manuális"</span><span class="op">)</span>, <span class="co"># is manual mentioned?</span>
+    mileage <span class="op">=</span> <span class="fu">str_remove_all</span><span class="op">(</span><span class="va">kilometerora_allasa</span>, <span class="st">"\\D"</span><span class="op">)</span> <span class="co"># remove non-digit chr</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="st">"price"</span>, <span class="st">"year"</span>, <span class="st">"weight"</span>, <span class="st">"n_doors"</span>, <span class="st">"mileage"</span><span class="op">)</span>, <span class="va">as.numeric</span><span class="op">)</span>
+
+<span class="va">df</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                       price  year weight n_doors fuel  gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 SSANGYONG KORANDO 1.5 Turbo e~ 19204  2021   2010       5 Benz~ TRUE       13</span>
+<span class="co">#&gt;  2 CITROEN GRAND C4 SPACETOURER ~ 21347  2020   1935       5 Benz~ TRUE       NA</span>
+<span class="co">#&gt;  3 SUZUKI SWIFT 1.2 Dualjet Hybr~ 13283  2020   1365       5 Hibr~ TRUE       NA</span>
+<span class="co">#&gt;  4 PEUGEOT 208 1.2 PureTech Acti~ 15873  2021   1595       5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  5 OPEL COMBO Life 1.2 T Enjoy 2~ 11483  2021   2280       5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  6 OPEL INSIGNIA Grand Sport 1.4~ 18271  2021   2160       5 Benz~ TRUE       NA</span>
+<span class="co">#&gt;  7 OPEL ZAFIRA LIFE 1.5 D Busine~ 22879  2021   2635       4 Dízel TRUE       NA</span>
+<span class="co">#&gt;  8 SUZUKI VITARA 1.4 Hybrid GL+   16271  2021   1770       5 Benz~ TRUE        1</span>
+<span class="co">#&gt;  9 SUZUKI IGNIS 1.2 Hybrid GL+    13307  2021   1330       5 Benz~ TRUE       NA</span>
+<span class="co">#&gt; 10 CITROEN C5 AIRCROSS 1.2 PureT~ 23597  2021   1940       5 Benz~ TRUE        2</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+</div>
+<div id="simple-methods" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Simple methods<a class="anchor" aria-label="anchor" href="#simple-methods"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now the types are right. How much data is missing? Check with the <a href="http://visdat.njtierney.com/">visdat</a> package.</p>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">visdat</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/visdat/reference/vis_miss.html">vis_miss</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="Data-Analysis-Coursebook_files/figure-html/unnamed-chunk-155-1.png" width="70%" style="display: block; margin: auto;"></div>
+<p>I suggest that we arrange the table according to the existence of the deficit at this time.</p>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">mileage</span><span class="op">)</span><span class="op">)</span> <span class="co"># rows w missing mileage 1st</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                      price  year weight n_doors fuel   gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;lgl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 CITROEN GRAND C4 SPACETOURER~ 21347  2020   1935       5 Benzin TRUE       NA</span>
+<span class="co">#&gt;  2 SUZUKI SWIFT 1.2 Dualjet Hyb~ 13283  2020   1365       5 Hibrid TRUE       NA</span>
+<span class="co">#&gt;  3 OPEL INSIGNIA Grand Sport 1.~ 18271  2021   2160       5 Benzin TRUE       NA</span>
+<span class="co">#&gt;  4 OPEL ZAFIRA LIFE 1.5 D Busin~ 22879  2021   2635       4 Dízel  TRUE       NA</span>
+<span class="co">#&gt;  5 SUZUKI IGNIS 1.2 Hybrid GL+   13307  2021   1330       5 Benzin TRUE       NA</span>
+<span class="co">#&gt;  6 OPEL CROSSLAND 1.2 Edition    13234  2021   1690       5 Benzin TRUE       NA</span>
+<span class="co">#&gt;  7 BMW I3 120Ah (Automata) ZÖLD~ 38207  2021   1710       5 Elekt~ FALSE      NA</span>
+<span class="co">#&gt;  8 OPEL MOKKA 1.2 T Edition CÉG~ 14792  2021   1700       5 Benzin TRUE       NA</span>
+<span class="co">#&gt;  9 BMW 520d xDrive (Automata) M~ 62394  2021   2405       4 Dízel  FALSE      NA</span>
+<span class="co">#&gt; 10 OPEL CORSA F 1.2 Edition CÉG~ 10739  2021   1550       5 Benzin TRUE       NA</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>These are very new cars so our best assumption is that here the <code>mileage</code> is 0.</p>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">mileage</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># rows w missing mileage 1st</span>
+  <span class="fu">replace_na</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mileage <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                      price  year weight n_doors fuel   gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                         &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;lgl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 CITROEN GRAND C4 SPACETOURER~ 21347  2020   1935       5 Benzin TRUE        0</span>
+<span class="co">#&gt;  2 SUZUKI SWIFT 1.2 Dualjet Hyb~ 13283  2020   1365       5 Hibrid TRUE        0</span>
+<span class="co">#&gt;  3 OPEL INSIGNIA Grand Sport 1.~ 18271  2021   2160       5 Benzin TRUE        0</span>
+<span class="co">#&gt;  4 OPEL ZAFIRA LIFE 1.5 D Busin~ 22879  2021   2635       4 Dízel  TRUE        0</span>
+<span class="co">#&gt;  5 SUZUKI IGNIS 1.2 Hybrid GL+   13307  2021   1330       5 Benzin TRUE        0</span>
+<span class="co">#&gt;  6 OPEL CROSSLAND 1.2 Edition    13234  2021   1690       5 Benzin TRUE        0</span>
+<span class="co">#&gt;  7 BMW I3 120Ah (Automata) ZÖLD~ 38207  2021   1710       5 Elekt~ FALSE       0</span>
+<span class="co">#&gt;  8 OPEL MOKKA 1.2 T Edition CÉG~ 14792  2021   1700       5 Benzin TRUE        0</span>
+<span class="co">#&gt;  9 BMW 520d xDrive (Automata) M~ 62394  2021   2405       4 Dízel  FALSE       0</span>
+<span class="co">#&gt; 10 OPEL CORSA F 1.2 Edition CÉG~ 10739  2021   1550       5 Benzin TRUE        0</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>In the case of <code>weight</code> it would be more reasonable to replace missing observations with the average.</p>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># rows w missing weight 1st</span>
+  <span class="fu">mutate</span><span class="op">(</span>weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">weight</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="va">weight</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                       price  year weight n_doors fuel  gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MERCEDES-BENZ E 63 AMG 4 M S.~ 90517  2019  2099.       4 Benz~ FALSE   57000</span>
+<span class="co">#&gt;  2 SSANGYONG KORANDO 1.5 Turbo e~ 19204  2021  2010        5 Benz~ TRUE       13</span>
+<span class="co">#&gt;  3 CITROEN GRAND C4 SPACETOURER ~ 21347  2020  1935        5 Benz~ TRUE       NA</span>
+<span class="co">#&gt;  4 SUZUKI SWIFT 1.2 Dualjet Hybr~ 13283  2020  1365        5 Hibr~ TRUE       NA</span>
+<span class="co">#&gt;  5 PEUGEOT 208 1.2 PureTech Acti~ 15873  2021  1595        5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  6 OPEL COMBO Life 1.2 T Enjoy 2~ 11483  2021  2280        5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  7 OPEL INSIGNIA Grand Sport 1.4~ 18271  2021  2160        5 Benz~ TRUE       NA</span>
+<span class="co">#&gt;  8 OPEL ZAFIRA LIFE 1.5 D Busine~ 22879  2021  2635        4 Dízel TRUE       NA</span>
+<span class="co">#&gt;  9 SUZUKI VITARA 1.4 Hybrid GL+   16271  2021  1770        5 Benz~ TRUE        1</span>
+<span class="co">#&gt; 10 SUZUKI IGNIS 1.2 Hybrid GL+    13307  2021  1330        5 Benz~ TRUE       NA</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>The syntax used above works as follows: if <code>NA</code>, its value should be equal to the average value, else, it should be equal to itself. Although we could have switched to the <code>median</code>.</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># rows w missing weight 1st</span>
+  <span class="fu">mutate</span><span class="op">(</span>weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">weight</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="va">weight</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                       price  year weight n_doors fuel  gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MERCEDES-BENZ E 63 AMG 4 M S.~ 90517  2019  2068.       4 Benz~ FALSE   57000</span>
+<span class="co">#&gt;  2 SSANGYONG KORANDO 1.5 Turbo e~ 19204  2021  2010        5 Benz~ TRUE       13</span>
+<span class="co">#&gt;  3 CITROEN GRAND C4 SPACETOURER ~ 21347  2020  1935        5 Benz~ TRUE       NA</span>
+<span class="co">#&gt;  4 SUZUKI SWIFT 1.2 Dualjet Hybr~ 13283  2020  1365        5 Hibr~ TRUE       NA</span>
+<span class="co">#&gt;  5 PEUGEOT 208 1.2 PureTech Acti~ 15873  2021  1595        5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  6 OPEL COMBO Life 1.2 T Enjoy 2~ 11483  2021  2280        5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  7 OPEL INSIGNIA Grand Sport 1.4~ 18271  2021  2160        5 Benz~ TRUE       NA</span>
+<span class="co">#&gt;  8 OPEL ZAFIRA LIFE 1.5 D Busine~ 22879  2021  2635        4 Dízel TRUE       NA</span>
+<span class="co">#&gt;  9 SUZUKI VITARA 1.4 Hybrid GL+   16271  2021  1770        5 Benz~ TRUE        1</span>
+<span class="co">#&gt; 10 SUZUKI IGNIS 1.2 Hybrid GL+    13307  2021  1330        5 Benz~ TRUE       NA</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+</div>
+<div id="advanced-methods" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Advanced methods<a class="anchor" aria-label="anchor" href="#advanced-methods"><i class="fas fa-link"></i></a>
+</h2>
+<p>Is this kind of imputation correct for the other numerical variables as well? Then perform the operation on all numeric columns.</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">arrange</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>  <span class="co"># rows w missing weight 1st</span>
+  <span class="fu">mutate_if</span><span class="op">(</span><span class="va">is.numeric</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">.</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="va">.</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                       price  year weight n_doors fuel  gear  mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 MERCEDES-BENZ E 63 AMG 4 M S.~ 90517  2019  2068.       4 Benz~ FALSE   57000</span>
+<span class="co">#&gt;  2 SSANGYONG KORANDO 1.5 Turbo e~ 19204  2021  2010        5 Benz~ TRUE       13</span>
+<span class="co">#&gt;  3 CITROEN GRAND C4 SPACETOURER ~ 21347  2020  1935        5 Benz~ TRUE    31431</span>
+<span class="co">#&gt;  4 SUZUKI SWIFT 1.2 Dualjet Hybr~ 13283  2020  1365        5 Hibr~ TRUE    31431</span>
+<span class="co">#&gt;  5 PEUGEOT 208 1.2 PureTech Acti~ 15873  2021  1595        5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  6 OPEL COMBO Life 1.2 T Enjoy 2~ 11483  2021  2280        5 Benz~ TRUE        2</span>
+<span class="co">#&gt;  7 OPEL INSIGNIA Grand Sport 1.4~ 18271  2021  2160        5 Benz~ TRUE    31431</span>
+<span class="co">#&gt;  8 OPEL ZAFIRA LIFE 1.5 D Busine~ 22879  2021  2635        4 Dízel TRUE    31431</span>
+<span class="co">#&gt;  9 SUZUKI VITARA 1.4 Hybrid GL+   16271  2021  1770        5 Benz~ TRUE        1</span>
+<span class="co">#&gt; 10 SUZUKI IGNIS 1.2 Hybrid GL+    13307  2021  1330        5 Benz~ TRUE    31431</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>It is a completely different approach to try to estimate the value of the missing variable from the values of the other variables, but this can often be more advantageous.</p>
+<p>The R mice package serves this purpose, the methodology of which is already based on serious academic research. With the help of the package, we can easily use machine-learning-based tools to estimate our missing values. But beware: the proportion of our missing data should not exceed 10% as much as possible, since then we would estimate the unknown from the unknown.</p>
+<p>Of the engines on which the estimate is based, I recommend the random forest, but find out which one is more useful to you in a given case when it comes to an important publication.</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/amices/mice">mice</a></span><span class="op">)</span>
+
+<span class="va">df</span> <span class="op">%&gt;%</span> 
+  <span class="va">mice</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://amices.org/mice/reference/complete.mids.html">complete</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="co"># return the estimated values</span>
+  <span class="fu">tibble</span><span class="op">(</span><span class="op">)</span> <span class="co"># convert it to a nice looking data frame</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  iter imp variable</span>
+<span class="co">#&gt;   1   1  year  weight  gear  mileage</span>
+<span class="co">#&gt;   1   2  year  weight  gear  mileage</span>
+<span class="co">#&gt;   1   3  year  weight  gear  mileage</span>
+<span class="co">#&gt;   1   4  year  weight  gear  mileage</span>
+<span class="co">#&gt;   1   5  year  weight  gear  mileage</span>
+<span class="co">#&gt;   2   1  year  weight  gear  mileage</span>
+<span class="co">#&gt;   2   2  year  weight  gear  mileage</span>
+<span class="co">#&gt;   2   3  year  weight  gear  mileage</span>
+<span class="co">#&gt;   2   4  year  weight  gear  mileage</span>
+<span class="co">#&gt;   2   5  year  weight  gear  mileage</span>
+<span class="co">#&gt;   3   1  year  weight  gear  mileage</span>
+<span class="co">#&gt;   3   2  year  weight  gear  mileage</span>
+<span class="co">#&gt;   3   3  year  weight  gear  mileage</span>
+<span class="co">#&gt;   3   4  year  weight  gear  mileage</span>
+<span class="co">#&gt;   3   5  year  weight  gear  mileage</span>
+<span class="co">#&gt;   4   1  year  weight  gear  mileage</span>
+<span class="co">#&gt;   4   2  year  weight  gear  mileage</span>
+<span class="co">#&gt;   4   3  year  weight  gear  mileage</span>
+<span class="co">#&gt;   4   4  year  weight  gear  mileage</span>
+<span class="co">#&gt;   4   5  year  weight  gear  mileage</span>
+<span class="co">#&gt;   5   1  year  weight  gear  mileage</span>
+<span class="co">#&gt;   5   2  year  weight  gear  mileage</span>
+<span class="co">#&gt;   5   3  year  weight  gear  mileage</span>
+<span class="co">#&gt;   5   4  year  weight  gear  mileage</span>
+<span class="co">#&gt;   5   5  year  weight  gear  mileage</span>
+<span class="co">#&gt; # A tibble: 239 x 8</span>
+<span class="co">#&gt;    ad_title                       price  year weight n_doors fuel   gear mileage</span>
+<span class="co">#&gt;    &lt;chr&gt;                          &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 SSANGYONG KORANDO 1.5 Turbo e~ 19204  2021   2010       5 Benz~     1      13</span>
+<span class="co">#&gt;  2 CITROEN GRAND C4 SPACETOURER ~ 21347  2020   1935       5 Benz~     1      13</span>
+<span class="co">#&gt;  3 SUZUKI SWIFT 1.2 Dualjet Hybr~ 13283  2020   1365       5 Hibr~     1    6050</span>
+<span class="co">#&gt;  4 PEUGEOT 208 1.2 PureTech Acti~ 15873  2021   1595       5 Benz~     1       2</span>
+<span class="co">#&gt;  5 OPEL COMBO Life 1.2 T Enjoy 2~ 11483  2021   2280       5 Benz~     1       2</span>
+<span class="co">#&gt;  6 OPEL INSIGNIA Grand Sport 1.4~ 18271  2021   2160       5 Benz~     1   43380</span>
+<span class="co">#&gt;  7 OPEL ZAFIRA LIFE 1.5 D Busine~ 22879  2021   2635       4 Dízel     1   89576</span>
+<span class="co">#&gt;  8 SUZUKI VITARA 1.4 Hybrid GL+   16271  2021   1770       5 Benz~     1       1</span>
+<span class="co">#&gt;  9 SUZUKI IGNIS 1.2 Hybrid GL+    13307  2021   1330       5 Benz~     1   17000</span>
+<span class="co">#&gt; 10 CITROEN C5 AIRCROSS 1.2 PureT~ 23597  2021   1940       5 Benz~     1       2</span>
+<span class="co">#&gt; # ... with 229 more rows</span></code></pre></div>
+<p>Now we have a clean data frame, without any missing value!</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="seminar5.html"><span class="header-section-number">4</span> Webscraping with R</a></div>
+<div class="next"><a href="seminar7.html"><span class="header-section-number">6</span> Introduction to simulation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#seminar6"><span class="header-section-number">5</span> Data imputation</a></li>
+<li><a class="nav-link" href="#general-data-manipulation"><span class="header-section-number">5.1</span> General data manipulation</a></li>
+<li><a class="nav-link" href="#simple-methods"><span class="header-section-number">5.2</span> Simple methods</a></li>
+<li><a class="nav-link" href="#advanced-methods"><span class="header-section-number">5.3</span> Advanced methods</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/MarcellGranat/Data-Analysis/blob/master/Seminar6.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/MarcellGranat/Data-Analysis/edit/master/Seminar6.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong><strong>Data Analysis</strong> Coursebook</strong>" was written by Marcell Granat. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
